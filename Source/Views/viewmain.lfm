@@ -1,0 +1,421 @@
+object frmViewMain: TfrmViewMain
+  Left = 319
+  Height = 387
+  Top = 119
+  Width = 702
+  Caption = 'frmViewMain'
+  ClientHeight = 387
+  ClientWidth = 702
+  Menu = mmViewMain
+  OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  LCLVersion = '3.0.0.3'
+  object StatusBar1: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 364
+    Width = 702
+    Panels = <    
+      item
+        Width = 300
+      end    
+      item
+        Width = 50
+      end    
+      item
+        Width = 50
+      end>
+    SimplePanel = False
+  end
+  object CoolBar1: TCoolBar
+    Left = 0
+    Height = 28
+    Top = 0
+    Width = 702
+    AutoSize = True
+    Bands = <    
+      item
+        Control = ToolBar1
+        Width = 179
+      end>
+    EdgeInner = esNone
+    EdgeOuter = esNone
+    GrabWidth = 8
+    ParentColor = False
+    ParentShowHint = False
+    ShowHint = True
+    object ToolBar1: TToolBar
+      AnchorSideLeft.Control = CoolBar1
+      AnchorSideTop.Control = CoolBar1
+      Left = 20
+      Height = 22
+      Top = 3
+      Width = 101
+      Align = alNone
+      AutoSize = True
+      BorderSpacing.Left = 20
+      BorderSpacing.Top = 3
+      Caption = 'ToolBar1'
+      EdgeInner = esNone
+      EdgeOuter = esNone
+      Images = ImageList1
+      ParentShowHint = False
+      TabOrder = 0
+      Transparent = True
+      object ToolButton1: TToolButton
+        Left = 1
+        Hint = 'Open a Database file'
+        Top = 0
+        Caption = 'mmiProgramOpenDbFile'
+        ImageIndex = 0
+        MenuItem = mmiProgramOpenDbFile
+        OnClick = mmiProgramOpenDbFileClick
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object ToolButton2: TToolButton
+        Left = 24
+        Hint = 'Close the Database file'
+        Top = 0
+        Caption = 'mmiProgramCloseDbFile'
+        ImageIndex = 2
+        OnClick = mmiProgramCloseDbFileClick
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object ToolButton3: TToolButton
+        Left = 47
+        Hint = 'Create new Database file'
+        Top = 0
+        Caption = 'mmiProgramNewDbFile'
+        ImageIndex = 1
+        MenuItem = mmiProgramNewDbFile
+        OnClick = mmiProgramNewDbFileClick
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object ToolButton4: TToolButton
+        Left = 70
+        Height = 22
+        Top = 0
+        Caption = 'ToolButton4'
+        Style = tbsSeparator
+      end
+      object ToolButton5: TToolButton
+        Left = 78
+        Hint = 'Configure'
+        Top = 0
+        Caption = 'mmiOptionsOptions'
+        ImageIndex = 6
+        MenuItem = mmiOptionsOptions
+        OnClick = mmiOptionsOptionsClick
+        ParentShowHint = False
+        ShowHint = True
+      end
+    end
+  end
+  object pgcMain: TPageControl
+    Left = 0
+    Height = 336
+    Top = 28
+    Width = 702
+    ActivePage = tsItems
+    Align = alClient
+    TabIndex = 0
+    TabOrder = 2
+    object tsItems: TTabSheet
+      Caption = 'tsItems'
+      ClientHeight = 308
+      ClientWidth = 694
+      object pnlMain: TPanel
+        Left = 0
+        Height = 258
+        Top = 50
+        Width = 170
+        Align = alLeft
+        BevelOuter = bvNone
+        Caption = 'pnlMain'
+        ClientHeight = 258
+        ClientWidth = 170
+        TabOrder = 0
+        object sbxLeft: TScrollBox
+          Left = 0
+          Height = 258
+          Top = 0
+          Width = 170
+          HorzScrollBar.Page = 1
+          VertScrollBar.Page = 1
+          Align = alClient
+          BorderStyle = bsNone
+          TabOrder = 0
+        end
+      end
+      object splMain: TSplitter
+        Left = 170
+        Height = 258
+        Top = 50
+        Width = 10
+      end
+      object PanelItemsTop: TPanel
+        Left = 0
+        Height = 50
+        Top = 0
+        Width = 694
+        Align = alTop
+        ClientHeight = 50
+        ClientWidth = 694
+        TabOrder = 2
+        object RadioGroup1: TRadioGroup
+          Left = 1
+          Height = 48
+          Top = 1
+          Width = 321
+          Align = alLeft
+          AutoFill = True
+          ChildSizing.LeftRightSpacing = 6
+          ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+          ChildSizing.EnlargeVertical = crsHomogenousChildResize
+          ChildSizing.ShrinkHorizontal = crsScaleChilds
+          ChildSizing.ShrinkVertical = crsScaleChilds
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 3
+          ClientHeight = 28
+          ClientWidth = 317
+          Columns = 3
+          Items.Strings = (
+            '1'
+            '2'
+            '3'
+          )
+          OnClick = RadioGroup1Click
+          TabOrder = 0
+        end
+        object btnSave: TButton
+          Left = 592
+          Height = 30
+          Top = 17
+          Width = 96
+          Anchors = [akTop, akRight]
+          Caption = 'btnSave'
+          TabOrder = 1
+          OnClick = btnSaveClick
+        end
+        object EditTmp: TEdit
+          Left = 328
+          Height = 23
+          Top = 16
+          Width = 120
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 2
+          Text = 'EditTmp'
+        end
+      end
+      object sbxMain: TScrollBox
+        Left = 180
+        Height = 258
+        Top = 50
+        Width = 514
+        HorzScrollBar.Page = 1
+        VertScrollBar.Page = 1
+        Align = alClient
+        BorderStyle = bsNone
+        TabOrder = 3
+        OnResize = sbxMainResize
+      end
+    end
+  end
+  object mmViewMain: TMainMenu
+    Images = ImageList1
+    Left = 368
+    Top = 168
+    object mmiProgram: TMenuItem
+      Caption = 'mmiProgram'
+      object mmiProgramOpenDbFile: TMenuItem
+        Caption = 'mmiProgramOpenDbFile'
+        Hint = 'Open a Database file'
+        ImageIndex = 0
+        ShortCut = 16463
+        OnClick = mmiProgramOpenDbFileClick
+      end
+      object mmiProgramCloseDbFile: TMenuItem
+        Caption = 'mmiProgramCloseDbFile'
+        Hint = 'Close the Database file'
+        ImageIndex = 2
+        ShortCut = 16471
+        OnClick = mmiProgramCloseDbFileClick
+      end
+      object mmiProgramNewDbFile: TMenuItem
+        Caption = 'mmiProgramNewDbFile'
+        Hint = 'Create new Database file'
+        ImageIndex = 1
+        ShortCut = 16462
+        OnClick = mmiProgramNewDbFileClick
+      end
+      object Separator1: TMenuItem
+        Caption = '-'
+      end
+      object mmiProgramQuit: TMenuItem
+        Caption = 'mmiProgramQuit'
+        ImageIndex = 5
+        OnClick = mmiProgramQuitClick
+      end
+    end
+    object mmiOptions: TMenuItem
+      Caption = 'mmiOptions'
+      object mmiOptionsOptions: TMenuItem
+        Caption = 'mmiOptionsOptions'
+        Hint = 'Configure'
+        ImageIndex = 6
+        OnClick = mmiOptionsOptionsClick
+      end
+      object mmiOptionsLanguage: TMenuItem
+        Caption = 'mmiOptionsLanguage'
+        Visible = False
+        object mmiOptionsLanguageEN: TMenuItem
+          Caption = 'mmiOptionsLanguageEN'
+          OnClick = mmiOptionsLanguageENClick
+        end
+        object mmiOptionsLanguageNL: TMenuItem
+          Caption = 'mmiOptionsLanguageNL'
+          OnClick = mmiOptionsLanguageNLClick
+        end
+      end
+    end
+  end
+  object ImageList1: TImageList
+    Left = 568
+    Top = 168
+    Bitmap = {
+      4C7A0700000010000000100000007B0B00000000000078DAED987954D35716C7
+      A3B5B5E74C5DCE9C333D9D2956ABD573DACEB4D363ED305DB52ED3BACFB438D4
+      D66AEB28B6B55A375016151710B554510414AD542C90B0C822C1B044D9920081
+      104C2048081048E4978590852CE4973BEF46C3B1414065CE9CFED13FEEE1E5BE
+      FB79EFBEFBEEF7971F010006DC6BBDBD0C5AD1F014DD299E629757CF343796CD
+      ECA92F9E42F1729EB251CA5FC6DE63BD4AC918797AC42B5AE691284B72609E9D
+      15C8D39EFD52D4727889A86EE7DF78DC3553F22A76CD8B2A0FF77B8592F0C678
+      F315BBE71F93447E6C35247F07FD59A10039FBDCE6CADE0BFD19BB419FB8019A
+      F62F846BFF7EDA9A367F6C94375FBD77718F3EE95B80DCFDC35AD7497FC85D39
+      49EFCD771426E9A4DFAFA10DC9DBDCFBE3BECEAC60B03303C172F93BD0C47F01
+      32B27FC19AA9B4E452B8D69BBFCDCFE5F53657B974850960C93E088E8C3DD073
+      2100DA8F7F04D2BDF381BFF32D107EFF05A8F8792E796E5C8537CF0F5B6A94C4
+      6D06635D0138558D7697BED3E4EC51991D9A0E735F67A34957CFB5B5649D004E
+      C05F216BF904A337DF92116D14EE5FE6EA88FD02CCAC60BB233FCAD4C30A3377
+      247C659646FCCB54BAE9657BCEF2A780B5E83197F044C0209E12722AF5E2EB80
+      F95B8BE3C05E70DCA54F09A2DB62D7D38DC7FC5DA223FE501BFD25B41727431B
+      E762F9A0FCF72DD7CA2E0481515C64A6B51DAD2E4397BA5FA330D9D4B74CD6AE
+      66B5B155D4DA9A176FE66E7F0FB2564ED678F36DEC733A51E42A77FEA69F7700
+      E91FD09E5D0F2D871603E91FE0AE9D0A987FD68A49AE86C4DDBA41F5AFCCE119
+      1A792E2DFB1458AE84833D7DF71DFEF0121005BE09955BE740D5617FE82ACF72
+      B5649F1E54FFF2A0F96A69DCB7A4FE6CDAA96AEA03835A431B29CAA15751247F
+      8D4ECCED23F5A7B1FEAC4563D583F85DEFC708F72DEEBF53FF10AB837D4C63C8
+      0CA794E7BFA5A4517E1A527F6B2EC99FB980D1CF5AC088F1E60D6DF5636FA51D
+      9CDD9D71E88CE9E7ED0576669080E42F22E747FD08B89F4F639705CE8FAD38E8
+      375B23E58D1D4A87B4593FA6BF5D3491568AA7DA5BAB6799A565B30CF5C55329
+      41FE44AB56356628CE63849DE0528A7DEE68BF9C68BFC8A75B90376124AE8D15
+      3547C33E7DC09CB293ED60055512BD885A23978984DBE75472D74E6357477D76
+      807FD0EF756FCE6EA0C68B62BF096E3ABACAA54FDA02F495B001ED43CE5ED207
+      4144479B40123A170A57FFD155B2C5774F9F4639DEC3EB24E5D32BF62CAC21FB
+      0EAF7DB29E8EF443FA07E36A3A2BB29E1FA897DD3A5D59F2734DE3F14F9DB8BF
+      F3CA1DEDF76706BB7BD09CBC1574E7D68324642E5CFBF45967534A644DBFD53C
+      C09BDA2413BB6EB0AE92DEA375253F425FF60170648690E7D5465046FB91BCE7
+      8160E79B203AF535749665D0CDE9C7F37452DE403DF58DFC19BCD0C5B5B2733B
+      C0509D034EB5CC36A07D6D87D9A2949AF4374B6DB2B42828DAFC06642EFD9D50
+      2DB83A63E0BEFA8C2FB4E69CAEAB0B5F066DA7D6822523CC86DAD73343CDCAC4
+      6FCC370FAD3055872CB24952234051740914E5E95D56A36E9587B7EAD5132851
+      715E8F980BDAA244B095C481E35AB44B777917DD11F71FA73C2B0A2A5565B041
+      1105EF3604C00AF15638AB4C731AFA8DD12E70FD9ED47F1A2F6C49754BF27EE8
+      15E65B68BD52EEEA51A988F6CD76F5AD3E814104CB5BF6C03B843DD5950AF3AA
+      3E87E9C5EFC1A9960B867E97733D6DEF9BDEC1B928AC8FF8986E8B21F9A7EE72
+      DFB9267E1D6879A9EE7D91FDAAF930B45B55B0BFE904CC2EFE005E65BF0B151A
+      7E93BBFEDCD4AB064919ADE5C4431FD1BE23231828F2BC363596BA738E21FB2A
+      AC5D607739A0D3AA864A6D0D3C9D361D723BF21DDAFAEBCF9507CE13C812DDF5
+      773A6F3713EDABB4CE5E8AB2590D663CEFDCAA3510D11C0B6A5B3724DCBA081F
+      16FD13A6A4BE009CCE42959C9D3DFEEA67B30F7BEADF97B9B7CF517054AB4FDF
+      4775E7459B13DA53600639EFEB251F025F27847F14AE84272F4E86E5052B5D94
+      953AEDB9875656D45B9AFCD3D196D4408E3D3D884FC5AF73EB4751FA9324A629
+      BE0FCFFB0792F39494196E56655165D3404FF7D693B3433C9968FF399B9C68BF
+      A97C9659217AC9D16FDB88B5CA55E63B48CE5D945573FA7EEC6FFAFF75EADFD2
+      2973587A28D074B501D521B7D82DA61F09FBEC83E89F9CCBD4CDCF75D4D5D501
+      9FCF771B8E699A4E24FCA491F4DFC13CE86AACAF05814000567D37689BAA9D64
+      0DBAB9B9B987F00B46D0BFD9AE57F596969642637D0DD49EDA0C95E11F996492
+      06535959998BF09F0EA77F79E432E868BD09E76E544176631BDCD058804B2C53
+      DA0689C4A7B33B6B86D33FE93FE0749B615EB50E4E288CC0EAEC85C372136C68
+      34C37B553A28A22CAEE1F4DFDFA3A6AEDEB6C0DF6BCD90A9ED0785C501291A27
+      EC6877C11CE26393B9E1F4DFF9E3D67B78E700BFBD9D1EE047D23FFBB619E6F0
+      751029370253D90B075B8CF099C404B389EF5AB7C53592FEBB6D4E3EA7DB02C5
+      14A91D6576FF2D24C62146D99CBC9174FDFFB6DE4EE6D3BD4AE6E447E56FB218
+      F91226237AD0FB7D85DF9F95957E6F8FC83319404CE8F9ECE8533ED652ECBB80
+      F88CC4D40FCBB716FBBE4F3E37212FCD60043E28DF4FF65510969CA517D95B6C
+      9F3556FDD0EF7DDE3CA9E16BE4EF4D64C91ABB1F84FD5FF2A3CD7FB4F57BE4FB
+      1B65FF8CB67F7FB3A17E5F604EC6DA8E1487778477E5EDC73BC5BB7D80FE5163
+      AF60CF60EFDCE317626F8DC4D7673276DCBCD3F3327991EFC287E5CD3DBCB1D2
+      029F4FEEAE61C235504B0FCA7BD620E70DBADBF392BB5A7E349EF570BC57FE46
+      39D777A1E321F2FF45FD4A1EBE7EA3BDBFD1F6CF68FBF7D762667DF79FDA45A5
+      CBD170FCB03C72B5677719D170FCA09CBCBAF89996EA92A94A71F952E5956356
+      B791B1BCBAE4197955C9B0F56BB8963A2579EBA2FCF39BE68678F3E736BCBD3E
+      E99BF9B9F59C549FFBB1FCB493AFB00FAEAED216C4D229DB971CF1E62F6D59B0
+      459DF3838D1DBE5A509916F3176F3E3368E5657D619CB3A7287E489ECA8FB1E9
+      3971CEF4E09597EF65D9F12133EACF0799A18609928B21B773A2025678F35947
+      372D96248574638CE87CA099131B3AF03F083731FC2B435102E05C46E00AA6A2
+      9A3BD19BBF252899C4DCB93C1D63488EC04DDC1FE0E16F9C3F7094AE4A71F337
+      2E1C3889BE6E79C39CB28B8712D1707C372E06639C821420E381DF600913622D
+      4FBAB37FD8EA78AA4532E877265573C35866B07F02C658CB92709F10CF1C273E
+      78B6ECF27E2BCE0962B734F1993183BE6779CC53EF0862B7CA304696BCCF5A74
+      26F835CF9CBA453CAEE8C8BA067BE525307213E9BCBDABCA39674267E39E689C
+      337B5FCF253E23F71C8D318547D689BB9BC5E3EE5DFF4AE4C605FCD82D0A5775
+      2AA0497F0AB3947E1F40A1492F85595CD569E0AA4AC5FC14D9119BE60FD60BF5
+      44CED1AF57D59EDD69C23D30CF7B0D7D388731183B540F5F4B087D3523D4FF24
+      2F66737DF3E5700D1A8E3342FC4F169D097BF5413484676B15725F6AABBD3117
+      4D21E4BEE87DDEFB9955CB7B5C5DBF6D0979CE25C88B7D37E2F3130DC7E8C339
+      8C19E6D9F902794ECA48EC89BBEF902FA291CFC20626E3079CC39821F36E8D1E
+      47B85AC2BC51CF621C25E3EB6838461FCE618C77CEB8A6C74F620ADB0A7DFD95
+      E26D53C4998CF5D234C697EADA6D3EE8C339CF3EC8DC3DEF52E26FC6B5499E85
+      24BE4C5AE1FB32F9CE7D9CECE9436C1A193F813E9CC318772C61DC2C8B118FE7
+      C5FC6E15FB7E624CF37D89F89F6C2DF13D426278C4AAC83BEC0F5D75DBC6E31C
+      C6B8CF8235222CA96D00D60ACFD82EDAE6837B91F813B23C9F24F23DF4429BC0
+      6FAA2CD72789AC17813961CCDDDA0891C5FB71D798D4A9218DB116F3C53DDB09
+      E7A95127DF6F26F15592B967EB988CB51216E33A329EFBC531FA700ECF8C792B
+      797E33077881DFF3C427207353710FDCCBC3DF27FFC749FE91983F59635A5785
+      DF2C32BE447CD17836EFFCEF573FAC15D60CF7C4BCC938425B73FFFA0D737F4F
+      60BE7866CC69A8FB1BAA7FB067B077B087B09786EA9FD1F6EFFDF4835A41CD0C
+      E807DF5DC87947D2CFA3E8F7BF6808C560
+    }
+  end
+  object pmMain: TPopupMenu
+    Left = 464
+    Top = 168
+    object pmiAutoSizeStringGrid: TMenuItem
+      Caption = 'pmiAutoSizeStringGrid'
+      OnClick = pmiAutoSizeStringGridClick
+    end
+    object pmiAutoSizeStringGridAll: TMenuItem
+      Caption = 'pmiAutoSizeStringGridAll'
+      OnClick = pmiAutoSizeStringGridAllClick
+    end
+    object pmiSeparator1: TMenuItem
+      Caption = '-'
+    end
+    object pmiDeleteItem: TMenuItem
+      Caption = 'pmiDeleteItem'
+      ShortCut = 16452
+      OnClick = pmiDeleteItemClick
+    end
+    object pmiAddItem: TMenuItem
+      Caption = 'pmiAddItem'
+      ShortCut = 16462
+      OnClick = pmiAddItemClick
+    end
+    object pmiSeparator2: TMenuItem
+      Caption = '-'
+      Visible = False
+    end
+    object pmiImport: TMenuItem
+      Caption = 'pmiImport'
+      Visible = False
+      OnClick = pmiImportClick
+    end
+  end
+end

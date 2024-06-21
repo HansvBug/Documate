@@ -1,0 +1,95 @@
+object frmViewCreDbFile: TfrmViewCreDbFile
+  Left = 374
+  Height = 175
+  Top = 401
+  Width = 455
+  BorderStyle = bsToolWindow
+  Caption = 'frmViewCreDbFile'
+  ClientHeight = 175
+  ClientWidth = 455
+  OnCreate = FormCreate
+  OnShow = FormShow
+  Position = poMainFormCenter
+  LCLVersion = '3.0.0.3'
+  object LabelColumnNumber: TLabel
+    Left = 19
+    Height = 15
+    Top = 45
+    Width = 107
+    Caption = 'Number of columns'
+    ParentColor = False
+  end
+  object EditNumberOfColumns: TEdit
+    Left = 134
+    Height = 23
+    Top = 45
+    Width = 38
+    NumbersOnly = True
+    TabOrder = 0
+    OnChange = EditNumberOfColumnsChange
+  end
+  object LabelDescriptionShort: TLabel
+    Left = 19
+    Height = 15
+    Top = 77
+    Width = 90
+    Caption = 'Short description'
+    ParentColor = False
+  end
+  object EditDescriptionShort: TEdit
+    Left = 134
+    Height = 23
+    Top = 77
+    Width = 307
+    TabOrder = 1
+    OnChange = EditDescriptionShortChange
+  end
+  object ButtonCancel: TButton
+    Left = 218
+    Height = 25
+    Top = 115
+    Width = 109
+    Caption = 'Cancel'
+    ModalResult = 2
+    TabOrder = 2
+    OnClick = ButtonCancelClick
+  end
+  object ButtonNewFile: TButton
+    Left = 333
+    Height = 25
+    Top = 115
+    Width = 109
+    Caption = 'Create'
+    Default = True
+    ModalResult = 1
+    TabOrder = 3
+    OnClick = ButtonNewFileClick
+  end
+  object Label1: TLabel
+    Left = 19
+    Height = 15
+    Top = 13
+    Width = 48
+    Caption = 'Filename'
+    ParentColor = False
+  end
+  object EditNewFileName: TEdit
+    Left = 134
+    Height = 23
+    Top = 13
+    Width = 307
+    Enabled = False
+    TabOrder = 4
+  end
+  object StatusBarFrmNewDb: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 152
+    Width = 455
+    Panels = <    
+      item
+        Width = 220
+      end>
+    SimplePanel = False
+  end
+end
