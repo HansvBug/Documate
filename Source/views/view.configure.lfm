@@ -1,0 +1,134 @@
+object frmConfigure: TfrmConfigure
+  Left = -2116
+  Height = 451
+  Top = 716
+  Width = 950
+  Caption = 'frmConfigure'
+  ClientHeight = 451
+  ClientWidth = 950
+  DesignTimePPI = 144
+  OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnShow = FormShow
+  Position = poMainFormCenter
+  LCLVersion = '3.4.0.0'
+  object pgcConfigure: TPageControl
+    Left = 0
+    Height = 389
+    Top = 0
+    Width = 950
+    ActivePage = tbsMiscellaneous
+    Align = alTop
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabIndex = 0
+    TabOrder = 0
+    object tbsMiscellaneous: TTabSheet
+      Caption = 'tbsMiscellaneous'
+      ClientHeight = 351
+      ClientWidth = 942
+      object gbLogging: TGroupBox
+        Left = 12
+        Height = 120
+        Top = 12
+        Width = 218
+        Caption = 'gbLogging'
+        ClientHeight = 90
+        ClientWidth = 214
+        TabOrder = 0
+        object chkActiveLogging: TCheckBox
+          Left = 12
+          Height = 29
+          Top = 12
+          Width = 166
+          Caption = 'chkActiveLogging'
+          TabOrder = 0
+          OnChange = chkActiveLoggingChange
+        end
+        object chkAppendLogging: TCheckBox
+          Left = 12
+          Height = 29
+          Top = 48
+          Width = 182
+          Caption = 'chkAppendLogging'
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 1
+          OnChange = chkAppendLoggingChange
+        end
+      end
+      object gbColumnnames: TGroupBox
+        Left = 272
+        Height = 333
+        Top = 12
+        Width = 654
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Caption = 'gbColumnnames'
+        ClientHeight = 303
+        ClientWidth = 650
+        TabOrder = 1
+        object sgColumnNames: TStringGrid
+          Left = 8
+          Height = 240
+          Top = 0
+          Width = 628
+          Anchors = [akTop, akLeft, akRight]
+          AutoFillColumns = True
+          ColCount = 2
+          Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goEditing, goTabs, goDblClickAutoSize, goSmoothScroll, goHeaderHotTracking, goCellEllipsis]
+          RowCount = 2
+          TabOrder = 0
+          OnSelectCell = sgColumnNamesSelectCell
+          ColWidths = (
+            96
+            528
+          )
+        end
+        object btnColumnSave: TButton
+          Left = 523
+          Height = 38
+          Top = 257
+          Width = 113
+          Anchors = [akRight, akBottom]
+          Caption = 'btnColumnSave'
+          Enabled = False
+          TabOrder = 1
+          OnClick = btnColumnSaveClick
+        end
+      end
+    end
+    object tbsAppDb: TTabSheet
+      Caption = 'tbsAppDb'
+      ClientHeight = 351
+      ClientWidth = 942
+      object btnCompressDb: TButton
+        Left = 12
+        Height = 38
+        Top = 24
+        Width = 210
+        Caption = 'btnCompressDb'
+        TabOrder = 0
+        OnClick = btnCompressDbClick
+      end
+      object btnCopyDb: TButton
+        Left = 12
+        Height = 38
+        Top = 72
+        Width = 210
+        Caption = 'btnCopyDb'
+        TabOrder = 1
+        OnClick = btnCopyDbClick
+      end
+    end
+  end
+  object btnClose: TButton
+    Left = 820
+    Height = 38
+    Top = 400
+    Width = 113
+    Anchors = [akRight, akBottom]
+    Caption = 'btnClose'
+    TabOrder = 1
+    OnClick = btnCloseClick
+  end
+end
