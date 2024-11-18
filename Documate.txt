@@ -1,0 +1,678 @@
+using Documate.Models;
+using Documate.Presenters;
+using Documate.Views;
+using Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
+
+
+namespace Documate.Library
+{
+    public class Startup
+    {
+        /// <summary>
+        /// The method ConfigureServices initializes a new ServiceCollection.
+        /// Singleton   : Only a single instance of the service is created and shared across the entire application lifetime.
+        /// Transient   : A new instance is created each time the service is requested.
+        /// Scoped      : An instance is created once per request(typically used in web applications).
+        /// </summary>
+        /// <returns>ServiceProvider</returns>
+        public static ServiceProvider ConfigureServices() // (D)ependency (I)njection
+        {
+            InitializeLocalization();  // Initializes the language settings.
+
+            return new ServiceCollection()
+            .AddSingleton<IMainView, MainForm>()    // Registers MainForm as the implementation for the IMainView interface. This means that whenever IMainView is requested, the application will provide a single, shared instance of MainForm
+            .AddSingleton<MainPresenter>()          // Registers MainPresenter so that a new instance is created every time it’s requested. No specific interface is associated, so it’s registered by its concrete type.
+            .AddSingleton<DirectoryModel>()
+            .AddSingleton<LoggingModel>()
+            .BuildServiceProvider();
+        }
+
+        public static void Run(ServiceProvider serviceProvider)
+        {
+            // Get the presenter from the service provider
+            var presenter = serviceProvider.GetService<MainPresenter>();
+
+            // Get the MainForm from the service provider and link the presenter with the view.
+            if (serviceProvider.GetService<IMainView>() is MainForm form && presenter != null)
+            {
+                form.SetPresenter(presenter);
+
+                // Start the application
+                presenter?.Run();
+            }
+            else if (presenter == null)
+            {
+                throw new InvalidOperationException("MainPresenter not registered.");
+            }
+        }
+
+        public static void InitializeLocalization()
+        {
+            // Laad de taal uit de instellingen of gebruik een standaardwaarde
+            string language = Properties.Settings.Default.Language ?? "en-EN";
+            CultureInfo culture = new CultureInfo(language);
+
+            // Stel de cultuur in voor de huidige thread
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
+
+            // Optioneel: Log de gekozen cultuur voor debugging
+            Console.WriteLine($"Taal ingesteld op: {culture.Name}");
+
+            LocalizationHelper.SetCulture(language);
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Resources;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Documate.Library
+{
+    public static class LocalizationHelper
+    {
+        public static string GetString(string key, string resourcePath)
+        {
+            ResourceManager resourceManager = new ResourceManager(resourcePath, typeof(LocalizationHelper).Assembly);
+            return resourceManager.GetString(key, CultureInfo.CurrentUICulture) ?? $"{key}";
+        }
+
+        public static void SetCulture(string cultureCode)
+        {
+            CultureInfo newCulture = new CultureInfo(cultureCode);
+            CultureInfo.CurrentCulture = newCulture;
+            CultureInfo.CurrentUICulture = newCulture;
+
+            // Optioneel: Sla de taal op in instellingen.
+            Properties.Settings.Default.Language = cultureCode;
+            Properties.Settings.Default.Save();
+        }
+    }
+
+    public static class LocalizationPaths
+    {
+        public const string MainForm = "Documate.Resources.Views.MainForm";
+        public const string DirectoryModel = "Documate.Resources.Models.DirectoryModel";
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Documate.Library
+{
+    public class Common
+    {
+        public enum LogAction
+        {
+            INFORMATION,
+            WARNING,
+            ERROR,
+            DEBUG,
+            UNKNOWN
+        }
+    }
+}
+
+using System.Globalization;
+
+namespace Documate.Library
+{
+    public static class AppSettings
+    {
+        public static string ApplicationBuildDate { get { return DateTime.Now.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture); } }
+
+        public const string DatabaseFolder = "Database";
+        public const string LoggingFolder = "Logging";
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Documate.Library
+{
+    public class AppMessage
+    {
+        // Different message types. This is used to determine the title of a message box.
+        public enum MessageType
+        {
+            Information,
+            Warning,
+            Error,
+            None
+        }
+
+        public List<AppMessage> Messages { get; private set; }
+        public string MsgText { get; set; } = string.Empty;
+        public MessageType MsgType { get; set; }
+
+        public AppMessage()
+        {
+            Messages = [];  // Messages = new List<AppMessage>();
+        }
+        public void AddMessage(MessageType type, string text)
+        {
+            Messages.Add(new AppMessage
+            {
+                MsgType = type,
+                MsgText = text
+            });
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Documate.Library;
+using Documate.Models;
+
+namespace Documate.Views
+{
+    public interface IMainView
+    {        
+        event EventHandler MenuItemOpenFileClicked;
+        event EventHandler MenuItemCloseFileClicked;
+        event EventHandler MenuItemNewFileClicked;
+        event EventHandler MenuItemExitClicked;
+        event EventHandler MenuItemLanguageNLClicked;
+        event EventHandler MenuItemLanguageENClicked;
+        event EventHandler DoFormShown;
+        event FormClosingEventHandler DoFormClosing;
+
+        string FormMainText { set; }
+        string MenuItemProgramText { set; }
+        string MenuItemProgramOpenFileText { set; }
+        string MenuItemProgramCloseFileText { set; }
+        string MenuItemProgramNewFileText { set; }
+        string MenuItemProgramExitText { set; }
+        string MenuItemOptionsText { set; }
+        string MenuItemOptionsOptionsText { set; }
+        string MenuItemLanguageText { set; }
+        string MenuItemLanguageENText { set; }
+        string MenuItemLanguageNLText { set; }
+
+        bool MenuItemENChecked { get; set; }
+        bool MenuItemNLChecked { get; set; }
+
+        void OpenFile();
+        void CloseFile();
+        void NewFile();
+        void CloseView();
+    }
+}
+
+
+using Documate.Library;
+using Documate.Presenters;
+using Documate.Views;
+using System.Windows.Forms;
+
+namespace Documate
+{
+    public partial class MainForm : Form, IMainView
+    {
+        private MainPresenter? _presenter;
+        public MainForm()
+        {
+            InitializeComponent();
+        }
+
+        public event EventHandler? MenuItemOpenFileClicked;
+        public event EventHandler? MenuItemCloseFileClicked;
+        public event EventHandler? MenuItemNewFileClicked;
+        public event EventHandler? MenuItemExitClicked;
+        public event EventHandler? MenuItemLanguageNLClicked;
+        public event EventHandler? MenuItemLanguageENClicked;
+        public event EventHandler? DoFormShown;
+        public event FormClosingEventHandler? DoFormClosing;
+
+
+        #region Properties Set Texts
+
+        public string FormMainText
+        {
+            set => this.Text = value;
+        }
+        public string MenuItemProgramText
+        {
+            set => MenuItemProgram.Text = value;
+        }
+
+        public string MenuItemProgramOpenFileText
+        {
+            set => MenuItemProgramOpenFile.Text = value;
+        }
+        public string MenuItemProgramCloseFileText
+        {
+            set => MenuItemProgramCloseFile.Text = value;
+        }
+        public string MenuItemProgramNewFileText
+        {
+            set => MenuItemProgramNewFile.Text = value;
+        }
+        public string MenuItemProgramExitText
+        {
+            set => MenuItemProgramExit.Text = value;
+        }
+
+        public string MenuItemOptionsText
+        {
+            set => MenuItemOptions.Text = value;
+        }
+        public string MenuItemOptionsOptionsText
+        {
+            set => MenuItemOptionsOptions.Text = value;
+        }
+        public string MenuItemLanguageText
+        {
+            set => MenuItemLanguage.Text = value;
+        }
+        public string MenuItemLanguageENText
+        {
+            set => MenuItemLanguageEN.Text = value;
+        }
+        public string MenuItemLanguageNLText
+        {
+            set => MenuItemLanguageNL.Text = value;
+        }
+
+        #endregion Properties Set Texts
+
+        #region Properties
+        public bool MenuItemENChecked
+        {
+            get => MenuItemLanguageEN.Checked;
+            set => MenuItemLanguageEN.Checked = value;
+        }
+
+        public bool MenuItemNLChecked
+        {
+            get => MenuItemLanguageNL.Checked;
+            set => MenuItemLanguageNL.Checked = value;
+        }
+
+        #endregion Properties
+
+        // Connect the presenter after the form has been created.
+        public void SetPresenter(MainPresenter presenter)
+        {
+            _presenter = presenter;
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e); // First: calls Form's native OnLoad method.
+            
+
+            // Connect eventhandlers
+            MenuItemProgramOpenFile.Click += (sender, args) => MenuItemOpenFileClicked?.Invoke(this, EventArgs.Empty);  // inline event handler to subscribe to the Click event of MenuItemProgramOpenFile
+            MenuItemProgramCloseFile.Click += (sender, args) => MenuItemCloseFileClicked?.Invoke(this, EventArgs.Empty);
+            MenuItemProgramNewFile.Click += (sender, args) => MenuItemNewFileClicked?.Invoke(this, EventArgs.Empty);
+            MenuItemProgramExit.Click += (sender, args) => MenuItemExitClicked?.Invoke(this, EventArgs.Empty);  // Send the event to the presenter. The presenter takes care of the handling.
+            MenuItemLanguageEN.Click += (sender, args) => MenuItemLanguageENClicked?.Invoke(this, EventArgs.Empty);
+            MenuItemLanguageNL.Click += (sender, args) => MenuItemLanguageNLClicked?.Invoke(this, EventArgs.Empty);
+
+            this.Shown += MainForm_Shown!;  // Bind the Shown event to the internal handler; suppress the warning by using the null-forgiving operator "!"
+            
+            this.FormClosing += MainForm_FormClosing!;
+
+
+            //
+            this.BackColor = SystemColors.Window;
+            _presenter?.StartLogging();
+            _presenter?.CreateDirectory(Models.DirectoryModel.DirectoryOption.ApplicatieDir, AppSettings.DatabaseFolder);            
+        }
+
+
+        #region Menu items
+        public void OpenFile()
+        {
+            MessageBox.Show("Open");
+        }
+        public void CloseFile()
+        {
+            MessageBox.Show("Close");
+        }
+        public void NewFile()
+        {
+            MessageBox.Show("New");
+        }
+        public void CloseView()
+        {
+            this.Close();
+        }
+
+        #endregion Menu Items
+
+        
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            DoFormShown?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DoFormClosing?.Invoke(this, e);
+        }
+
+
+
+        #region Logging
+
+        #endregion Logging
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Documate.Models;
+using static Documate.Library.Common;
+using static Documate.Models.LoggingModel;
+using static Documate.Presenters.MainPresenter;
+
+namespace Documate.Presenters
+{
+    public interface IMainPresenter
+    {
+        /// <summary>
+        /// Start the program.
+        /// </summary>
+        void Run();
+        void OnFormShown();
+        void OnFormClosing();
+
+        void CreateDirectory(DirectoryModel.DirectoryOption directoryOption, string FolderName);
+        void StartLogging();
+        void StopLogging();
+        void WriteToLog(LogAction logAction, string logText);
+    }
+}
+
+using Documate.Library;
+using Documate.Models;
+using Documate.Properties;
+using Documate.Views;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using static Documate.Library.Common;
+using static Documate.Models.LoggingModel;
+using static System.Windows.Forms.LinkLabel;
+
+namespace Documate.Presenters
+{
+    public class MainPresenter : IMainPresenter
+    {
+        private readonly IMainView _view;
+        private readonly DirectoryModel _directoryModel;
+        private readonly LoggingModel _loggingModel;
+
+        public MainPresenter(IMainView view, DirectoryModel directoryModel, LoggingModel loggingModel)
+        {
+            _view = view;
+
+            // Link the view's event handlers to the methods in the presenter.
+            _view.MenuItemOpenFileClicked += this.OnMenuItemOpenFileClicked;
+            _view.MenuItemCloseFileClicked += this.OnMenuItemCloseFileClicked;
+            _view.MenuItemNewFileClicked += this.OnMenuItemNewFileClicked;
+            _view.MenuItemExitClicked += this.OnMenuItemExitClicked;
+            _view.MenuItemLanguageENClicked += this.OnMenuItemLanguageENClicked;
+            _view.MenuItemLanguageNLClicked += this.OnMenuItemLanguageNLClicked;
+
+            _view.DoFormShown += (s, e) => OnFormShown();
+            _view.DoFormClosing += (s, e) => OnFormClosing();            
+
+            _directoryModel = directoryModel;
+            _loggingModel = loggingModel;
+        }
+
+        public void Run()
+        {
+            Application.Run((Form)_view);  // Start/Show the MainForm.            
+        }
+
+        public void OnFormShown()
+        {
+            // Update de UI strings
+            UpdateUIStrings();
+
+          //  _view.MenuItemNLChecked = language == "nl-NL";
+          //  _view.MenuItemENChecked = language == "en-US";
+        }
+        public void OnFormClosing()
+        {
+            StopLogging();
+        }
+
+        #region View Menu Items
+        private void OnMenuItemOpenFileClicked(object? sender, EventArgs e)
+        {
+            _view.OpenFile();
+        }
+        private void OnMenuItemNewFileClicked(object? sender, EventArgs e)
+        {
+            _view.NewFile();
+        }
+        private void OnMenuItemCloseFileClicked(object? sender, EventArgs e)
+        {
+            _view.CloseFile();
+        }
+        private void OnMenuItemExitClicked(object? sender, EventArgs e)
+        {
+            _view.CloseView();
+        }
+        #endregion View Menu Items
+
+        private void OnMenuItemLanguageNLClicked(object? sender, EventArgs e)
+        {
+            LocalizationHelper.SetCulture("nl-NL");
+            UpdateUIStrings();
+
+            _view.MenuItemNLChecked = true;
+            _view.MenuItemENChecked = false;
+        }
+
+        private void OnMenuItemLanguageENClicked(object? sender, EventArgs e)
+        {
+            LocalizationHelper.SetCulture("en-US");
+            UpdateUIStrings();
+
+            _view.MenuItemENChecked = true;
+            _view.MenuItemNLChecked = false;
+        }
+
+
+        public void CreateDirectory(DirectoryModel.DirectoryOption directoryOption, string FolderName)
+        {
+            _directoryModel.CreateDirectory(directoryOption, FolderName);
+
+            if (_directoryModel.Messages.Count > 0)
+            {
+                foreach (var message in _directoryModel.Messages)
+                {
+                    WriteToLog((LogAction)message.MsgType, message.MsgText);
+                }
+            }
+        }
+
+        #region Helper Methods
+        private void UpdateUIStrings()
+        {
+            // Update UI text using resource strings
+            _view.FormMainText = LocalizationHelper.GetString("FormMain", "Documate.Resources.Views.MainForm");
+            _view.MenuItemProgramText = LocalizationHelper.GetString("MenuProgram", "Documate.Resources.Views.MainForm");
+
+
+            _view.MenuItemProgramOpenFileText = LocalizationHelper.GetString("MenuItemProgramOpenFile", "Documate.Resources.Views.MainForm");
+            _view.MenuItemProgramCloseFileText = LocalizationHelper.GetString("MenuItemProgramCloseFile", "Documate.Resources.Views.MainForm");
+            _view.MenuItemProgramNewFileText = LocalizationHelper.GetString("MenuItemProgramNewFile", "Documate.Resources.Views.MainForm");
+            _view.MenuItemProgramExitText = LocalizationHelper.GetString("MenuItemProgramExit", "Documate.Resources.Views.MainForm");
+            _view.MenuItemOptionsText = LocalizationHelper.GetString("MenuItemOptions", "Documate.Resources.Views.MainForm");
+            _view.MenuItemOptionsOptionsText = LocalizationHelper.GetString("MenuItemOptionsOptions", "Documate.Resources.Views.MainForm");
+            _view.MenuItemLanguageText = LocalizationHelper.GetString("MenuItemLanguage", "Documate.Resources.Views.MainForm");
+            _view.MenuItemLanguageENText = LocalizationHelper.GetString("MenuItemLanguageEN", "Documate.Resources.Views.MainForm");
+            _view.MenuItemLanguageNLText = LocalizationHelper.GetString("MenuItemLanguageNL", "Documate.Resources.Views.MainForm");
+
+            // Add updates for other UI components here as needed
+        }
+        #endregion Helper Methods
+
+        #region Logging
+        public void StartLogging()
+        {
+            _loggingModel.StartLogging();
+        }
+
+        public void StopLogging()
+        {
+            _loggingModel.StopLogging();
+        }
+
+        public void WriteToLog(LogAction logAction, string logText)
+        {
+            _loggingModel.WriteToLog(logAction, logText);
+        }
+        #endregion Logging
+    }
+}
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Documate.Library;
+using Documate.Presenters;
+using Documate.Resources.Models;
+
+namespace Documate.Models
+{
+    public class DirectoryModel: AppMessage, IDirectoryModel
+    {
+
+        public enum DirectoryOption
+        {
+            AppData,
+            ApplicatieDir
+        }
+
+
+        public void CreateDirectory(DirectoryOption option, string dirName)
+        {
+            string appName = Properties.Settings.Default.ApplicationName;
+            string basePath;
+
+            switch (option)
+            {
+                case DirectoryOption.AppData:
+                    basePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    break;
+                case DirectoryOption.ApplicatieDir:
+                    basePath = Directory.GetCurrentDirectory();
+                    appName = string.Empty;
+                    break;
+                default:
+                    basePath = Directory.GetCurrentDirectory();
+                    appName = string.Empty;
+                    break;
+            }
+
+            DoCreateDirectory(basePath, appName, dirName);
+        }
+
+        private void DoCreateDirectory(string basePath, string appName, string dirName)
+        {
+            try
+            {
+                // Create the base directory.
+                if (!Directory.Exists(basePath))
+                {
+                    Directory.CreateDirectory(basePath);
+
+                    AddMessage(MessageType.Information,
+                               $"{LocalizationHelper.GetString("DirectoryCreated", LocalizationPaths.DirectoryModel)} {basePath}"
+                              );
+                }
+
+                // Add application directory if appName is provided.
+                if (!string.IsNullOrEmpty(appName))
+                {
+                    basePath = Path.Combine(basePath, appName);
+
+                    if (!Directory.Exists(basePath))
+                    {
+                        Directory.CreateDirectory(basePath);
+
+                        string Msg = LocalizationHelper.GetString("DirectoryCreated", LocalizationPaths.DirectoryModel);
+                        AddMessage(MessageType.Information,
+                               $"{LocalizationHelper.GetString("DirectoryCreated", LocalizationPaths.DirectoryModel)} {basePath}"
+                              );
+                    }
+                }
+
+                // Add sub-directory if dirName is provided.
+                if (!string.IsNullOrEmpty(dirName))
+                {
+                    basePath = Path.Combine(basePath, dirName);
+                    if (!Directory.Exists(basePath))
+                    {
+                        Directory.CreateDirectory(basePath);
+
+                        string Msg = LocalizationHelper.GetString("DirectoryCreated", LocalizationPaths.DirectoryModel);
+                        AddMessage(MessageType.Information,
+                               $"{LocalizationHelper.GetString("DirectoryCreated", LocalizationPaths.DirectoryModel)} {basePath}"
+                              );
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                AddMessage(MessageType.Error, $"Error while creating directory: {basePath}");  // TODO: string in het taalbestand opnemen.
+                AddMessage(MessageType.Error, $"Error details: {ex.Message}");                 // TODO: string in het taalbestand opnemen.
+            }
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static Documate.Models.DirectoryModel;
+
+namespace Documate.Models
+{
+    public interface IDirectoryModel
+    {
+        void CreateDirectory(DirectoryOption option, string dirName);
+    }
+}

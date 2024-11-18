@@ -1,4 +1,5 @@
-﻿using Documate.Models;
+﻿using Documate.Library;
+using Documate.Models;
 using Documate.Properties;
 using Documate.Views;
 using System;
@@ -6,7 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Documate.Models.LocalizationManagerModel;
+using System.Windows.Forms;
+using static Documate.Library.AppMessage;
+using static Documate.Library.Common;
+using static Documate.Models.LoggingModel;
 using static System.Windows.Forms.LinkLabel;
 
 namespace Documate.Presenters
@@ -14,9 +18,10 @@ namespace Documate.Presenters
     public class MainPresenter : IMainPresenter
     {
         private readonly IMainView _view;
-        private readonly LocalizationManagerModel _localizationManagerModel;
+        private readonly DirectoryModel _directoryModel;
+        private readonly LoggingModel _loggingModel;
 
-        public MainPresenter(IMainView view, LocalizationManagerModel localizationManager)
+        public MainPresenter(IMainView view, DirectoryModel directoryModel, LoggingModel loggingModel)
         {
             _view = view;
 
@@ -28,35 +33,48 @@ namespace Documate.Presenters
             _view.MenuItemLanguageENClicked += this.OnMenuItemLanguageENClicked;
             _view.MenuItemLanguageNLClicked += this.OnMenuItemLanguageNLClicked;
 
-            _localizationManagerModel = localizationManager;
-            _localizationManagerModel.OnIniDataLoaded += OnIniDataLoaded;
-            _view.LoadRequested += async (s, e) => await LoadIniFileAsync();
-            _view.FormShown += (s, e) => OnFormShown();
+            _view.DoFormShown += (s, e) => OnFormShown();
+            _view.DoFormClosing += (s, e) => OnFormClosing();            
+
+            _directoryModel = directoryModel;
+            _loggingModel = loggingModel;
         }
 
         public void Run()
         {
-            Application.Run((Form)_view);  // Start/Show the MainForm.
+            Application.Run((Form)_view);  // Start/Show the MainForm.            
         }
 
         public void OnFormShown()
         {
-            if (Properties.Settings.Default.Language == "EN")
-            {
-                _view.MenuItemENChecked = true;
-                _view.MenuItemNLChecked = false;
-            }
-            else if (Properties.Settings.Default.Language == "NL")
-            {
-                _view.MenuItemNLChecked = true;
-                _view.MenuItemENChecked = false;
-            }
-            else
-            {
-                _view.ShowMessage("Onbekende taalinstelling aangetroffen", MessageType.Warning, MessageBoxIcon.Warning);  // TODO: string in het taalbestand opnemen.
-            }
+            // Get the current language setting from Properties.Settings.
+            string language = Properties.Settings.Default.Language ?? "en-EN";
+
+            _view.MenuItemNLChecked = language == "nl-NL";
+            _view.MenuItemENChecked = language == "en-EN";
+
+            // Update the UI strings.
+            UpdateUIStrings();
+
+            SetStatusbarStaticText(ToolstripstatusLabelName.ToolStripStatusLabel1.ToString(), $"{LocalizationHelper.GetString("Welcome", LocalizationPaths.General)}");
+            SetStatusbarStaticText(ToolstripstatusLabelName.ToolStripStatusLabel2.ToString(), $"{LocalizationHelper.GetString("MVPAtWork", LocalizationPaths.General)}");
+        }
+        public void OnFormClosing()
+        {
+            StopLogging();
         }
 
+        public void SetStatusbarStaticText(string toolStripStatusLabelName, string text)
+        {
+            if (toolStripStatusLabelName == ToolstripstatusLabelName.ToolStripStatusLabel1.ToString())
+            {
+                _view.ToolStripStatusLabel1Text = text;
+            }
+            else if (toolStripStatusLabelName == ToolstripstatusLabelName.ToolStripStatusLabel2.ToString())
+            {
+                _view.ToolStripStatusLabel2Text = text;
+            }
+        }
 
         #region View Menu Items
         private void OnMenuItemOpenFileClicked(object? sender, EventArgs e)
@@ -79,69 +97,77 @@ namespace Documate.Presenters
 
         private void OnMenuItemLanguageNLClicked(object? sender, EventArgs e)
         {
-            _view.SetLanguage(LanguageOption.NL.ToString());
+            LocalizationHelper.SetCulture("nl-NL");
+            UpdateUIStrings();
+
+            _view.MenuItemNLChecked = true;
+            _view.MenuItemENChecked = false;
+
+            WriteToLog(LogAction.INFORMATION, $"{LocalizationHelper.GetString("NLIsActivated", LocalizationPaths.MainPresenter)}");
         }
 
         private void OnMenuItemLanguageENClicked(object? sender, EventArgs e)
         {
-            _view.SetLanguage(LanguageOption.EN.ToString());
+            LocalizationHelper.SetCulture("en-EN");
+            UpdateUIStrings();
+
+            _view.MenuItemENChecked = true;
+            _view.MenuItemNLChecked = false;
+
+            WriteToLog(LogAction.INFORMATION, $"{LocalizationHelper.GetString("ENIsActivated", LocalizationPaths.MainPresenter)}");
         }
 
-        #region Languages Files
-        // This method is called when the model has loaded the INI data. It Updates the view.
-        private void OnIniDataLoaded(Dictionary<string, Dictionary<string, string>> iniData)
+
+        public void CreateDirectory(DirectoryModel.DirectoryOption directoryOption, string FolderName)
         {
-            // Zet de menu item teksten.
-            if (iniData.TryGetValue("MenuItems", out Dictionary<string, string>? miValue))
+            _directoryModel.CreateDirectory(directoryOption, FolderName);
+
+            if (_directoryModel.Messages.Count > 0)
             {
-                foreach (var entry in miValue)
+                foreach (var message in _directoryModel.Messages)
                 {
-                    _view.UpdateMenuItem(entry.Key, entry.Value);
+                    WriteToLog((LogAction)message.MsgType, message.MsgText);
                 }
             }
-
-            if (iniData.TryGetValue("MainForm", out Dictionary<string, string>? tcValue))
-            {
-                foreach (var entry in tcValue)
-                {
-                    _view.UpdateTabControlPage(entry.Key, entry.Value);
-                }
-            }
         }
 
-        public async Task LoadIniFileAsync()
+        #region Helper Methods
+        private void UpdateUIStrings()
         {
-            string filePath = Directory.GetCurrentDirectory();  // The ini files with the component texts must be in the application directory.
-            try
-            {
-                switch (Settings.Default.Language)
-                {
-                    case "EN":
-                        await _localizationManagerModel.LoadIniFileAsync(filePath, LocalizationManagerModel.LanguageOption.EN);
-                        break;
-                    case "NL":
-                        await _localizationManagerModel.LoadIniFileAsync(filePath, LocalizationManagerModel.LanguageOption.NL);
-                        break;
-                    default:
-                        await _localizationManagerModel.LoadIniFileAsync(filePath, LocalizationManagerModel.LanguageOption.EN);
-                        break;
-                }
+            // Update UI text using resource strings
+            _view.FormMainText = LocalizationHelper.GetString("FormMain", "Documate.Resources.Views.MainForm");
+            _view.MenuItemProgramText = LocalizationHelper.GetString("MenuProgram", "Documate.Resources.Views.MainForm");
 
-                // Zet de tekst van het form.
-                _view.UpdateFormText(GetStaticText("MainForm", "MainForm"));
-                _view.UpdateStatusbarText("ToolStripStatusLabel1", GetStaticText("StatusStripMain", "ToolStripStatusLabel1"));
-                _view.UpdateStatusbarText("ToolStripStatusLabel2", GetStaticText("StatusStripMain", "ToolStripStatusLabel2"));
-            }
-            catch (Exception ex)
-            {
-                _view.ShowMessage($"Fout bij het laden van het INI-bestand: {ex.Message}", MessageType.Error, MessageBoxIcon.Error);
-            }
+
+            _view.MenuItemProgramOpenFileText = LocalizationHelper.GetString("MenuItemProgramOpenFile", "Documate.Resources.Views.MainForm");
+            _view.MenuItemProgramCloseFileText = LocalizationHelper.GetString("MenuItemProgramCloseFile", "Documate.Resources.Views.MainForm");
+            _view.MenuItemProgramNewFileText = LocalizationHelper.GetString("MenuItemProgramNewFile", "Documate.Resources.Views.MainForm");
+            _view.MenuItemProgramExitText = LocalizationHelper.GetString("MenuItemProgramExit", "Documate.Resources.Views.MainForm");
+            _view.MenuItemOptionsText = LocalizationHelper.GetString("MenuItemOptions", "Documate.Resources.Views.MainForm");
+            _view.MenuItemOptionsOptionsText = LocalizationHelper.GetString("MenuItemOptionsOptions", "Documate.Resources.Views.MainForm");
+            _view.MenuItemLanguageText = LocalizationHelper.GetString("MenuItemLanguage", "Documate.Resources.Views.MainForm");
+            _view.MenuItemLanguageENText = LocalizationHelper.GetString("MenuItemLanguageEN", "Documate.Resources.Views.MainForm");
+            _view.MenuItemLanguageNLText = LocalizationHelper.GetString("MenuItemLanguageNL", "Documate.Resources.Views.MainForm");
+
+            // Add updates for other UI components here as needed
         }
-        #endregion Languages Files
+        #endregion Helper Methods
 
-        public string GetStaticText(string section, string textKey)
+        #region Logging
+        public void StartLogging()
         {
-            return _localizationManagerModel.GetStaticText(section, textKey);
+            _loggingModel.StartLogging();
         }
+
+        public void StopLogging()
+        {
+            _loggingModel.StopLogging();
+        }
+
+        public void WriteToLog(LogAction logAction, string logText)
+        {
+            _loggingModel.WriteToLog(logAction, logText);
+        }
+        #endregion Logging
     }
 }

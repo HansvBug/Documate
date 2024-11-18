@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Documate.Library;
 using Documate.Models;
-using static Documate.Models.LocalizationManagerModel;
 
 namespace Documate.Views
 {
@@ -16,25 +16,30 @@ namespace Documate.Views
         event EventHandler MenuItemExitClicked;
         event EventHandler MenuItemLanguageNLClicked;
         event EventHandler MenuItemLanguageENClicked;
-        event EventHandler LoadRequested;
-        event EventHandler FormShown;
+        event EventHandler DoFormShown;
+        event FormClosingEventHandler DoFormClosing;
+
+        string FormMainText { set; }
+        string MenuItemProgramText { set; }
+        string MenuItemProgramOpenFileText { set; }
+        string MenuItemProgramCloseFileText { set; }
+        string MenuItemProgramNewFileText { set; }
+        string MenuItemProgramExitText { set; }
+        string MenuItemOptionsText { set; }
+        string MenuItemOptionsOptionsText { set; }
+        string MenuItemLanguageText { set; }
+        string MenuItemLanguageENText { set; }
+        string MenuItemLanguageNLText { set; }
 
         bool MenuItemENChecked { get; set; }
         bool MenuItemNLChecked { get; set; }
+
+        string ToolStripStatusLabel1Text { set; }
+        string ToolStripStatusLabel2Text { set; }
 
         void OpenFile();
         void CloseFile();
         void NewFile();
         void CloseView();
-
-        #region Update language
-        void SetLanguage(string language);
-        void ShowMessage(string message, MessageType messageType, MessageBoxIcon mbIcon);
-        void UpdateMenuItem(string menuItemName, string menuItemText);
-        void UpdateTabControlPage(string pageName, string pageText);
-        void UpdateStatusbarText(string statusbarToolstripName, string toolstripNameText);
-        #endregion Update language
-
-        void UpdateFormText(string text);        
     }
 }

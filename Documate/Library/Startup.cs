@@ -2,6 +2,7 @@
 using Documate.Presenters;
 using Documate.Views;
 using Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
 
 
 namespace Documate.Library
@@ -17,10 +18,13 @@ namespace Documate.Library
         /// <returns>ServiceProvider</returns>
         public static ServiceProvider ConfigureServices() // (D)ependency (I)njection
         {
+            InitializeLocalization();  // Initializes the language settings.
+
             return new ServiceCollection()
             .AddSingleton<IMainView, MainForm>()    // Registers MainForm as the implementation for the IMainView interface. This means that whenever IMainView is requested, the application will provide a single, shared instance of MainForm
-            .AddTransient<MainPresenter>()          // Registers MainPresenter so that a new instance is created every time it’s requested. No specific interface is associated, so it’s registered by its concrete type.
-            .AddSingleton<LocalizationManagerModel>()
+            .AddSingleton<MainPresenter>()          // Registers MainPresenter so that a new instance is created every time it’s requested. No specific interface is associated, so it’s registered by its concrete type.
+            .AddSingleton<DirectoryModel>()
+            .AddSingleton<LoggingModel>()
             .BuildServiceProvider();
         }
 
@@ -41,6 +45,22 @@ namespace Documate.Library
             {
                 throw new InvalidOperationException("MainPresenter not registered.");
             }
+        }
+
+        public static void InitializeLocalization()
+        {
+            // Laad de taal uit de instellingen of gebruik een standaardwaarde
+            string language = Properties.Settings.Default.Language ?? "en-EN";
+            CultureInfo culture = new CultureInfo(language);
+
+            // Stel de cultuur in voor de huidige thread
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
+
+            // Optioneel: Log de gekozen cultuur voor debugging
+            Console.WriteLine($"Taal ingesteld op: {culture.Name}");
+
+            LocalizationHelper.SetCulture(language);
         }
     }
 }
