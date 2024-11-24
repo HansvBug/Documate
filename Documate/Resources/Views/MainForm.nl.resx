@@ -150,4 +150,10 @@
   <data name="FormMain" xml:space="preserve">
     <value>Documate</value>
   </data>
+  <data name="TabPageEditItems" xml:space="preserve">
+    <value>Items bewerken</value>
+  </data>
+  <data name="TabPageReadItems" xml:space="preserve">
+    <value>Items</value>
+  </data>
 </root>

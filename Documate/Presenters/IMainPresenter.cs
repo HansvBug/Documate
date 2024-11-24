@@ -24,5 +24,8 @@ namespace Documate.Presenters
         void StopLogging();
         void WriteToLog(LogAction logAction, string logText);
         void SetStatusbarStaticText(string toolStripStatusLabelName, string text);
+
+        void LoadFormPosition(MainForm mainForm);
+        void SaveFormPosition(MainForm mainForm);
     }
 }

@@ -123,4 +123,7 @@
   <data name="MVPAtWork" xml:space="preserve">
     <value>MVP aan het werk</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fout</value>
+  </data>
 </root>

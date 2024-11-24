@@ -23,5 +23,23 @@
     <Setting Name="LogFileLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="MainFrmWindowstate" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MainFrmLocation" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">0, 0</Value>
+    </Setting>
+    <Setting Name="MainFrmSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">400, 800</Value>
+    </Setting>
+    <Setting Name="ConfigureFrmWindowstate" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ConfigureFrmLocation" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">0, 0</Value>
+    </Setting>
+    <Setting Name="ConfigureFrmSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">820, 500</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

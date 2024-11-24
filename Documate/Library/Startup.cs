@@ -21,10 +21,12 @@ namespace Documate.Library
             InitializeLocalization();  // Initializes the language settings.
 
             return new ServiceCollection()
-            .AddSingleton<IMainView, MainForm>()    // Registers MainForm as the implementation for the IMainView interface. This means that whenever IMainView is requested, the application will provide a single, shared instance of MainForm
-            .AddSingleton<MainPresenter>()          // Registers MainPresenter so that a new instance is created every time it’s requested. No specific interface is associated, so it’s registered by its concrete type.
+            .AddSingleton<IMainView, MainForm>()           // Registers MainForm as the implementation for the IMainView interface. This means that whenever IMainView is requested, the application will provide a single, shared instance of MainForm
+            .AddSingleton<MainPresenter>()                 // Registers MainPresenter so that a new instance is created every time it’s requested. No specific interface is associated, so it’s registered by its concrete type.
             .AddSingleton<DirectoryModel>()
             .AddSingleton<LoggingModel>()
+            .AddSingleton<IConfigureView, ConfigureForm>() // Register as Transient                
+            .AddSingleton<ConfigurePresenter>()            // Register as Transient
             .BuildServiceProvider();
         }
 

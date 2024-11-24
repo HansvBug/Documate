@@ -1,4 +1,5 @@
 using Documate.Library;
+using Documate.Models;
 using Documate.Presenters;
 using Documate.Views;
 using System.Windows.Forms;
@@ -19,6 +20,7 @@ namespace Documate
         public event EventHandler? MenuItemExitClicked;
         public event EventHandler? MenuItemLanguageNLClicked;
         public event EventHandler? MenuItemLanguageENClicked;
+        public event EventHandler? MenuItemOptionsOptionsClicked;
         public event EventHandler? DoFormShown;
         public event FormClosingEventHandler? DoFormClosing;
 
@@ -72,6 +74,14 @@ namespace Documate
             set => MenuItemLanguageNL.Text = value;
         }
 
+        public string TabPageReadItemsText
+        {
+            set => TabPageReadItems.Text = value;
+        }
+        public string TabPageEditItemsText
+        {
+            set=> TabPageEditItems.Text = value;
+        }
 
         public string ToolStripStatusLabel1Text
         {
@@ -118,16 +128,18 @@ namespace Documate
             MenuItemProgramExit.Click += (sender, args) => MenuItemExitClicked?.Invoke(this, EventArgs.Empty);  // Send the event to the presenter. The presenter takes care of the handling.
             MenuItemLanguageEN.Click += (sender, args) => MenuItemLanguageENClicked?.Invoke(this, EventArgs.Empty);
             MenuItemLanguageNL.Click += (sender, args) => MenuItemLanguageNLClicked?.Invoke(this, EventArgs.Empty);
+            MenuItemOptionsOptions.Click += (sender, args) =>  MenuItemOptionsOptionsClicked?.Invoke(this, EventArgs.Empty);
 
             this.Shown += MainForm_Shown!;  // Bind the Shown event to the internal handler; suppress the warning by using the null-forgiving operator "!"
             
             this.FormClosing += MainForm_FormClosing!;
 
-
             //
             this.BackColor = SystemColors.Window;
             _presenter?.StartLogging();
-            _presenter?.CreateDirectory(Models.DirectoryModel.DirectoryOption.ApplicatieDir, AppSettings.DatabaseFolder);            
+            _presenter?.CreateDirectory(Models.DirectoryModel.DirectoryOption.ApplicatieDir, AppSettings.DatabaseFolder);
+
+            LoadFormPosition();
         }
 
 
@@ -149,6 +161,11 @@ namespace Documate
             this.Close();
         }
 
+        public void ShowConfigureForm()
+        {
+            MessageBox.Show("Boe.....");  // Not used
+
+        }
         #endregion Menu Items
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -158,12 +175,14 @@ namespace Documate
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            _presenter?.SaveFormPosition(this);
             DoFormClosing?.Invoke(this, e);
         }
 
 
-        #region Logging
-
-        #endregion Logging
+        private void LoadFormPosition()
+        {
+            _presenter?.LoadFormPosition(this);
+        }
     }
 }

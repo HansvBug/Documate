@@ -1,9 +1,12 @@
 ﻿using Documate.Library;
 using Documate.Models;
 using Documate.Properties;
+using Documate.Resources.Views;
 using Documate.Views;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,8 +23,14 @@ namespace Documate.Presenters
         private readonly IMainView _view;
         private readonly DirectoryModel _directoryModel;
         private readonly LoggingModel _loggingModel;
+        private readonly FormPosition _formPosition;
+        private readonly IServiceProvider _serviceProvider;
 
-        public MainPresenter(IMainView view, DirectoryModel directoryModel, LoggingModel loggingModel)
+        public MainPresenter(
+            IMainView view, 
+            DirectoryModel directoryModel, 
+            LoggingModel loggingModel, 
+            IServiceProvider serviceProvider)
         {
             _view = view;
 
@@ -32,12 +41,20 @@ namespace Documate.Presenters
             _view.MenuItemExitClicked += this.OnMenuItemExitClicked;
             _view.MenuItemLanguageENClicked += this.OnMenuItemLanguageENClicked;
             _view.MenuItemLanguageNLClicked += this.OnMenuItemLanguageNLClicked;
+            _view.MenuItemOptionsOptionsClicked += this.OnMenuItemOptionsOptionsClicked;
 
             _view.DoFormShown += (s, e) => OnFormShown();
             _view.DoFormClosing += (s, e) => OnFormClosing();            
 
             _directoryModel = directoryModel;
             _loggingModel = loggingModel;
+
+            _serviceProvider = serviceProvider; // Added for the configure form/view
+        }
+
+        public MainPresenter(FormPosition formposition)
+        {
+            _formPosition = formposition;         
         }
 
         public void Run()
@@ -60,7 +77,7 @@ namespace Documate.Presenters
             SetStatusbarStaticText(ToolstripstatusLabelName.ToolStripStatusLabel2.ToString(), $"{LocalizationHelper.GetString("MVPAtWork", LocalizationPaths.General)}");
         }
         public void OnFormClosing()
-        {
+        {            
             StopLogging();
         }
 
@@ -93,6 +110,10 @@ namespace Documate.Presenters
         {
             _view.CloseView();
         }
+        private void OnMenuItemOptionsOptionsClicked(object? sender, EventArgs e)
+        {
+            this.OpenConfigureForm();
+        }
         #endregion View Menu Items
 
         private void OnMenuItemLanguageNLClicked(object? sender, EventArgs e)
@@ -117,7 +138,6 @@ namespace Documate.Presenters
             WriteToLog(LogAction.INFORMATION, $"{LocalizationHelper.GetString("ENIsActivated", LocalizationPaths.MainPresenter)}");
         }
 
-
         public void CreateDirectory(DirectoryModel.DirectoryOption directoryOption, string FolderName)
         {
             _directoryModel.CreateDirectory(directoryOption, FolderName);
@@ -135,19 +155,19 @@ namespace Documate.Presenters
         private void UpdateUIStrings()
         {
             // Update UI text using resource strings
-            _view.FormMainText = LocalizationHelper.GetString("FormMain", "Documate.Resources.Views.MainForm");
-            _view.MenuItemProgramText = LocalizationHelper.GetString("MenuProgram", "Documate.Resources.Views.MainForm");
-
-
-            _view.MenuItemProgramOpenFileText = LocalizationHelper.GetString("MenuItemProgramOpenFile", "Documate.Resources.Views.MainForm");
-            _view.MenuItemProgramCloseFileText = LocalizationHelper.GetString("MenuItemProgramCloseFile", "Documate.Resources.Views.MainForm");
-            _view.MenuItemProgramNewFileText = LocalizationHelper.GetString("MenuItemProgramNewFile", "Documate.Resources.Views.MainForm");
-            _view.MenuItemProgramExitText = LocalizationHelper.GetString("MenuItemProgramExit", "Documate.Resources.Views.MainForm");
-            _view.MenuItemOptionsText = LocalizationHelper.GetString("MenuItemOptions", "Documate.Resources.Views.MainForm");
-            _view.MenuItemOptionsOptionsText = LocalizationHelper.GetString("MenuItemOptionsOptions", "Documate.Resources.Views.MainForm");
-            _view.MenuItemLanguageText = LocalizationHelper.GetString("MenuItemLanguage", "Documate.Resources.Views.MainForm");
-            _view.MenuItemLanguageENText = LocalizationHelper.GetString("MenuItemLanguageEN", "Documate.Resources.Views.MainForm");
-            _view.MenuItemLanguageNLText = LocalizationHelper.GetString("MenuItemLanguageNL", "Documate.Resources.Views.MainForm");
+            _view.FormMainText = LocalizationHelper.GetString("FormMain", LocalizationPaths.MainForm);
+            _view.MenuItemProgramText = LocalizationHelper.GetString("MenuProgram", LocalizationPaths.MainForm);
+            _view.MenuItemProgramOpenFileText = LocalizationHelper.GetString("MenuItemProgramOpenFile", LocalizationPaths.MainForm);
+            _view.MenuItemProgramCloseFileText = LocalizationHelper.GetString("MenuItemProgramCloseFile", LocalizationPaths.MainForm);
+            _view.MenuItemProgramNewFileText = LocalizationHelper.GetString("MenuItemProgramNewFile", LocalizationPaths.MainForm);
+            _view.MenuItemProgramExitText = LocalizationHelper.GetString("MenuItemProgramExit", LocalizationPaths.MainForm);
+            _view.MenuItemOptionsText = LocalizationHelper.GetString("MenuItemOptions", LocalizationPaths.MainForm);
+            _view.MenuItemOptionsOptionsText = LocalizationHelper.GetString("MenuItemOptionsOptions", LocalizationPaths.MainForm);
+            _view.MenuItemLanguageText = LocalizationHelper.GetString("MenuItemLanguage", LocalizationPaths.MainForm);
+            _view.MenuItemLanguageENText = LocalizationHelper.GetString("MenuItemLanguageEN", LocalizationPaths.MainForm);
+            _view.MenuItemLanguageNLText = LocalizationHelper.GetString("MenuItemLanguageNL", LocalizationPaths.MainForm);
+            _view.TabPageReadItemsText = LocalizationHelper.GetString("TabPageReadItems", LocalizationPaths.MainForm);
+            _view.TabPageEditItemsText = LocalizationHelper.GetString("TabPageEditItems", LocalizationPaths.MainForm);
 
             // Add updates for other UI components here as needed
         }
@@ -169,5 +189,30 @@ namespace Documate.Presenters
             _loggingModel.WriteToLog(logAction, logText);
         }
         #endregion Logging
+
+        public void LoadFormPosition(MainForm mainForm)
+        {            
+            using FormPosition frmPos = new(mainForm);
+            Microsoft.Win32.SystemEvents.DisplaySettingsChanged += frmPos.SystemEvents_MainFrm_DisplaySettingsChanged!;
+            frmPos.RestoreMainFrmWindowPosition();
+        }
+
+        public void SaveFormPosition(MainForm mainForm)
+        {
+            using FormPosition frmPos = new(mainForm);
+            frmPos.StoreMainFrmWindowPosition();
+        }
+
+        public void OpenConfigureForm()
+        {
+            var configureView = _serviceProvider.GetService<IConfigureView>() as ConfigureForm;
+            var configurePresenter = _serviceProvider.GetService<ConfigurePresenter>();
+
+            if (configureView != null && configurePresenter != null)
+            {
+                configureView.SetPresenter(configurePresenter);
+                configureView.ShowDialog(); // Open ConfigureForm as dialog form.
+            }
+        }
     }
 }

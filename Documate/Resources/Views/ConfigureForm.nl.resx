@@ -117,25 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CheckFolderRights" xml:space="preserve">
-    <value>Check whether you have permission to create a folder at the location.</value>
+  <data name="BtnClose" xml:space="preserve">
+    <value>Sluiten</value>
   </data>
-  <data name="ErrGetDirectory" xml:space="preserve">
-    <value>Error occurred while determining the 'logging directory'.</value>
+  <data name="ChkActivateLogging" xml:space="preserve">
+    <value>Activeer logging</value>
   </data>
-  <data name="Error" xml:space="preserve">
-    <value>Error: </value>
+  <data name="ChkAppendLogFile" xml:space="preserve">
+    <value>Logging aanvullen</value>
   </data>
-  <data name="ErrPathToLong" xml:space="preserve">
-    <value>The specified path is too long</value>
+  <data name="FormConfigure" xml:space="preserve">
+    <value>Instellingen</value>
   </data>
-  <data name="ErrUnknown" xml:space="preserve">
-    <value>Unknown error</value>
+  <data name="TabPageDatabase" xml:space="preserve">
+    <value>Database</value>
   </data>
-  <data name="Location" xml:space="preserve">
-    <value>Location: </value>
-  </data>
-  <data name="LogFolderCreated" xml:space="preserve">
-    <value>Log directory is created: </value>
+  <data name="TabPageVarious" xml:space="preserve">
+    <value>Diversen</value>
   </data>
 </root>

@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CheckFolderRights" xml:space="preserve">
+    <value>Check whether you have permission to create a folder at the location.</value>
+  </data>
+  <data name="ErrGetDirectory" xml:space="preserve">
+    <value>Error occurred while determining the 'logging directory'.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error: </value>
+  </data>
+  <data name="ErrPathToLong" xml:space="preserve">
+    <value>The specified path is too long</value>
+  </data>
+  <data name="ErrUnknown" xml:space="preserve">
+    <value>Unknown error</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location: </value>
+  </data>
   <data name="LogFolderCreated" xml:space="preserve">
     <value>Log folder is created: </value>
   </data>

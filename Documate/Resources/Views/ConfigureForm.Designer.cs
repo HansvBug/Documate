@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Documate.Resources.Logging {
+namespace Documate.Resources.Views {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Documate.Resources.Logging {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Logging {
+    internal class ConfigureForm {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Logging() {
+        internal ConfigureForm() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Documate.Resources.Logging {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Documate.Resources.Logging.Logging", typeof(Logging).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Documate.Resources.Views.ConfigureForm", typeof(ConfigureForm).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,65 +61,56 @@ namespace Documate.Resources.Logging {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check whether you have permission to create a folder at the location..
+        ///   Looks up a localized string similar to Close.
         /// </summary>
-        internal static string CheckFolderRights {
+        internal static string BtnClose {
             get {
-                return ResourceManager.GetString("CheckFolderRights", resourceCulture);
+                return ResourceManager.GetString("BtnClose", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error occurred while determining the &apos;logging directory&apos;..
+        ///   Looks up a localized string similar to Activate logging.
         /// </summary>
-        internal static string ErrGetDirectory {
+        internal static string ChkActivateLogging {
             get {
-                return ResourceManager.GetString("ErrGetDirectory", resourceCulture);
+                return ResourceManager.GetString("ChkActivateLogging", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error: .
+        ///   Looks up a localized string similar to Append log file.
         /// </summary>
-        internal static string Error {
+        internal static string ChkAppendLogFile {
             get {
-                return ResourceManager.GetString("Error", resourceCulture);
+                return ResourceManager.GetString("ChkAppendLogFile", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The specified path is too long.
+        ///   Looks up a localized string similar to Configure.
         /// </summary>
-        internal static string ErrPathToLong {
+        internal static string FormConfigure {
             get {
-                return ResourceManager.GetString("ErrPathToLong", resourceCulture);
+                return ResourceManager.GetString("FormConfigure", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unknown error.
+        ///   Looks up a localized string similar to Database.
         /// </summary>
-        internal static string ErrUnknown {
+        internal static string TabPageDatabase {
             get {
-                return ResourceManager.GetString("ErrUnknown", resourceCulture);
+                return ResourceManager.GetString("TabPageDatabase", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Location: .
+        ///   Looks up a localized string similar to Miscellaneous.
         /// </summary>
-        internal static string Location {
+        internal static string TabPageVarious {
             get {
-                return ResourceManager.GetString("Location", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log folder is created: .
-        /// </summary>
-        internal static string LogFolderCreated {
-            get {
-                return ResourceManager.GetString("LogFolderCreated", resourceCulture);
+                return ResourceManager.GetString("TabPageVarious", resourceCulture);
             }
         }
     }

@@ -38,7 +38,7 @@ namespace Documate.Models
 
                 case LogAction.UNKNOWN:
                 default:
-                    logging.WriteToLogUnknown(logText);  // Schrijf een logregel voor onbekende acties, als dat nodig is
+                    logging.WriteToLogUnknown(logText);  // Write a log line for unknown actions, if necessary.
                     break;
             }
         }
@@ -97,10 +97,10 @@ namespace Documate.Models
             #region Properties
 
             public string NameLogFile { get; set; } = string.Empty;
-            public bool AppendLogFile { get; set; } = true;      //append the logfile true is the default
+            public bool AppendLogFile { get; set; } = true;      // Append the logfile true is the default.
             public string LogFolder { get; set; } = string.Empty;
-            public bool ActivateLogging { get; set; } = true;    //activate logging
-            public bool WriteToFile { get; set; }                //If logging fails then this can be set to false and de application will work without logging
+            public bool ActivateLogging { get; set; } = true;    // Activate logging.
+            public bool WriteToFile { get; set; }                // If logging fails then this can be set to false and de application will work without logging.
             public string Customer { get; set; } = string.Empty;
             public string ApplicationName { get; set; } = string.Empty;
             public string ApplicationVersion { get; set; } = string.Empty;
@@ -150,7 +150,7 @@ namespace Documate.Models
 
             private void SetDefaultLogFileFolder()
             {
-                //When there is no path for the log file, the file will be placed in the application folder
+                // When there is no path for the log file, the file will be placed in the application folder.
                 if (string.IsNullOrWhiteSpace(LogFolder))
                 {
                     using AppEnvironment Folder = new();
@@ -173,7 +173,7 @@ namespace Documate.Models
                     if (!Directory.Exists(LogFolder))
                     {
                         Directory.CreateDirectory(LogFolder); // Create the settings folder.
-                        _message.Add($"{LocalizationHelper.GetString("LogFolderCreated", LocalizationPaths.Logging)} { LogFolder}");  // TODO; doorvoeren in de hele klasse.
+                        _message.Add($"{LocalizationHelper.GetString("LogFolderCreated", LocalizationPaths.Logging)} { LogFolder}");
 
                         return true; // Folder was created.
                     }
@@ -182,23 +182,30 @@ namespace Documate.Models
                 }
                 catch (UnauthorizedAccessException ue)
                 {
-                    ShowErrorMessage("Fout opgetreden bij het bepalen van de 'logging directory'." + Environment.NewLine +
-                                     $"Fout: {ue.Message}\n\nLocatie: {LogFolder}" + Environment.NewLine + Environment.NewLine +
-                                     "Controleer of u rechten heeft om een map aan te maken op de locatie", "Fout.");
+                    ShowErrorMessage(LocalizationHelper.GetString("ErrGetDirectory", LocalizationPaths.Logging) + Environment.NewLine +
+                                     LocalizationHelper.GetString("Error", LocalizationPaths.Logging) + ue.Message 
+                                     + Environment.NewLine
+                                     + LocalizationHelper.GetString("Location", LocalizationPaths.Logging) + LogFolder + Environment.NewLine + Environment.NewLine +
+
+                                     LocalizationHelper.GetString("CheckFolderRights", LocalizationPaths.Logging), LocalizationHelper.GetString("Error", LocalizationPaths.General));
                     return false;
                 }
                 catch (PathTooLongException pe)
                 {
-                    ShowErrorMessage("Fout opgetreden bij het bepalen van de 'logging directory'." + Environment.NewLine +
-                                     $"Fout: {pe.Message}\n\nPad: {LogFolder}" + Environment.NewLine + Environment.NewLine +
-                                     "Het opgegeven pad bevat meer tekens dan is toegestaan", "Fout");
+                    ShowErrorMessage(LocalizationHelper.GetString("ErrGetDirectory", LocalizationPaths.Logging) + Environment.NewLine +
+                                     LocalizationHelper.GetString("Error", LocalizationPaths.Logging) + pe.Message
+                                     + Environment.NewLine
+                                     + LocalizationHelper.GetString("Location", LocalizationPaths.Logging) + LogFolder + Environment.NewLine + Environment.NewLine +
+                                     LocalizationHelper.GetString("ErrPathToLong", LocalizationPaths.Logging), LocalizationHelper.GetString("Error", LocalizationPaths.General));
                     return false;
                 }
                 catch (Exception ex)
                 {
-                    ShowErrorMessage("Fout opgetreden bij het bepalen van de 'logging directory'." + Environment.NewLine +
-                                     $"Fout: {ex.Message}\n\nPad: {LogFolder}" + Environment.NewLine + Environment.NewLine +
-                                     "Onbekende fout", "Fout");
+                    ShowErrorMessage(LocalizationHelper.GetString("ErrGetDirectory", LocalizationPaths.Logging) + Environment.NewLine +
+                                     LocalizationHelper.GetString("Error", LocalizationPaths.Logging) + ex.Message
+                                     + Environment.NewLine
+                                     + LocalizationHelper.GetString("Location", LocalizationPaths.Logging) + LogFolder + Environment.NewLine + Environment.NewLine +
+                                     LocalizationHelper.GetString("ErrUnknown", LocalizationPaths.Logging), LocalizationHelper.GetString("Error", LocalizationPaths.General));
                     return false;
                     throw; // Rethrow exception to allow further handling.
                 }
@@ -234,8 +241,8 @@ namespace Documate.Models
                 catch (IOException e)
                 {
                     ShowErrorMessage("Fout bij het controleren of het logbestand al bestaat." + Environment.NewLine +
-                                     $"Fout: {e.Message}",
-                                     "Fout.");
+                                     LocalizationHelper.GetString("Error", LocalizationPaths.Logging) + e.Message,
+                                     LocalizationHelper.GetString("Error", LocalizationPaths.General));
                     return false;
                 }
             }
@@ -259,8 +266,8 @@ namespace Documate.Models
                     catch (Exception e)
                     {
                         ShowErrorMessage("Fout bij het verwijderen van het logbestand." + Environment.NewLine +
-                                         $"Fout: {e.Message}",
-                                         "Fout.");
+                                         LocalizationHelper.GetString("Error", LocalizationPaths.Logging) + e.Message,
+                                         LocalizationHelper.GetString("Error", LocalizationPaths.General));
                         throw; // Rethrow the exception for further handling.
                     }
                 }
@@ -498,11 +505,11 @@ namespace Documate.Models
                 }
                 catch (IOException ioex)
                 {
-                    ShowErrorMessage("Fout bij het starten van de logging" + Environment.NewLine + $"Fout: {ioex.Message}", "Fout.");
+                    ShowErrorMessage("Fout bij het starten van de logging" + Environment.NewLine + $"Fout: {ioex.Message}", LocalizationHelper.GetString("Error", LocalizationPaths.General));
                 }
                 catch (Exception ex)
                 {
-                    ShowErrorMessage("Onverwachte fout bij het starten van de logging" + Environment.NewLine + $"Fout: {ex.Message}", "Fout.");
+                    ShowErrorMessage("Onverwachte fout bij het starten van de logging" + Environment.NewLine + $"Fout: {ex.Message}", LocalizationHelper.GetString("Error", LocalizationPaths.General));
                 }
             }
 
@@ -538,13 +545,13 @@ namespace Documate.Models
                 {
                     LoggingEfforts += 1;
                     StoppenLogging();
-                    ShowErrorMessage("ArgumentException bij LogRegulier" + Environment.NewLine + $"Fout: {aex.Message}", "Fout.");
+                    ShowErrorMessage("ArgumentException bij LogRegulier" + Environment.NewLine + $"Fout: {aex.Message}", LocalizationHelper.GetString("Error", LocalizationPaths.General));
                 }
                 catch (Exception ex)
                 {
                     LoggingEfforts += 1;
                     StoppenLogging();
-                    ShowErrorMessage("Onverwachte fout bij LogRegulier" + Environment.NewLine + $"Fout: {ex.Message}", "Fout.");
+                    ShowErrorMessage("Onverwachte fout bij LogRegulier" + Environment.NewLine + $"Fout: {ex.Message}", LocalizationHelper.GetString("Error", LocalizationPaths.General));
                     throw;
                 }
             }
@@ -577,12 +584,12 @@ namespace Documate.Models
                 catch (IOException ioex)
                 {
                     AbortLogging = true;
-                    ShowErrorMessage("Fout bij het stoppen van de logging" + Environment.NewLine + $"Fout: {ioex.Message}", "Fout.");
+                    ShowErrorMessage("Fout bij het stoppen van de logging" + Environment.NewLine + $"Fout: {ioex.Message}", LocalizationHelper.GetString("Error", LocalizationPaths.General));
                 }
                 catch (Exception ex)
                 {
                     AbortLogging = true;
-                    ShowErrorMessage("Onverwachte fout bij het stoppen van de logging" + Environment.NewLine + $"Fout: {ex.Message}", "Fout.");
+                    ShowErrorMessage("Onverwachte fout bij het stoppen van de logging" + Environment.NewLine + $"Fout: {ex.Message}", LocalizationHelper.GetString("Error", LocalizationPaths.General));
                 }
             }
 

@@ -158,5 +158,23 @@ namespace Documate.Resources.Views {
                 return ResourceManager.GetString("MenuProgram", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit items.
+        /// </summary>
+        internal static string TabPageEditItems {
+            get {
+                return ResourceManager.GetString("TabPageEditItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Items.
+        /// </summary>
+        internal static string TabPageReadItems {
+            get {
+                return ResourceManager.GetString("TabPageReadItems", resourceCulture);
+            }
+        }
     }
 }

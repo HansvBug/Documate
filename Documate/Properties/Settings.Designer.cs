@@ -12,7 +12,7 @@ namespace Documate.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.11.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.12.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -95,6 +95,78 @@ namespace Documate.Properties {
             }
             set {
                 this["LogFileLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int MainFrmWindowstate {
+            get {
+                return ((int)(this["MainFrmWindowstate"]));
+            }
+            set {
+                this["MainFrmWindowstate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point MainFrmLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["MainFrmLocation"]));
+            }
+            set {
+                this["MainFrmLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("400, 800")]
+        public global::System.Drawing.Size MainFrmSize {
+            get {
+                return ((global::System.Drawing.Size)(this["MainFrmSize"]));
+            }
+            set {
+                this["MainFrmSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ConfigureFrmWindowstate {
+            get {
+                return ((int)(this["ConfigureFrmWindowstate"]));
+            }
+            set {
+                this["ConfigureFrmWindowstate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point ConfigureFrmLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["ConfigureFrmLocation"]));
+            }
+            set {
+                this["ConfigureFrmLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("820, 500")]
+        public global::System.Drawing.Size ConfigureFrmSize {
+            get {
+                return ((global::System.Drawing.Size)(this["ConfigureFrmSize"]));
+            }
+            set {
+                this["ConfigureFrmSize"] = value;
             }
         }
     }

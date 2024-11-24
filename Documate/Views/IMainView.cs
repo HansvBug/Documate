@@ -16,6 +16,7 @@ namespace Documate.Views
         event EventHandler MenuItemExitClicked;
         event EventHandler MenuItemLanguageNLClicked;
         event EventHandler MenuItemLanguageENClicked;
+        event EventHandler MenuItemOptionsOptionsClicked;
         event EventHandler DoFormShown;
         event FormClosingEventHandler DoFormClosing;
 
@@ -34,6 +35,9 @@ namespace Documate.Views
         bool MenuItemENChecked { get; set; }
         bool MenuItemNLChecked { get; set; }
 
+        string TabPageReadItemsText {  set; }
+        string TabPageEditItemsText { set; }
+
         string ToolStripStatusLabel1Text { set; }
         string ToolStripStatusLabel2Text { set; }
 
@@ -41,5 +45,6 @@ namespace Documate.Views
         void CloseFile();
         void NewFile();
         void CloseView();
+        void ShowConfigureForm();
     }
 }

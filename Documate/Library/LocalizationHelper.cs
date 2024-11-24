@@ -38,6 +38,7 @@ namespace Documate.Library
         public const string MainPresenter = "Documate.Resources.Presenters.MainPresenter";
         public const string DirectoryModel = "Documate.Resources.Models.DirectoryModel";
         public const string Logging = "Documate.Resources.Logging.Logging";
+        public const string ConfigureForm = "Documate.Resources.Views.ConfigureForm";
 
 
     }

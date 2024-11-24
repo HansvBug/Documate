@@ -117,6 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CheckFolderRights" xml:space="preserve">
+    <value>Controleer of u rechten heeft om een map aan te maken op de locatie.</value>
+  </data>
+  <data name="ErrGetDirectory" xml:space="preserve">
+    <value>
+Error occurred while determining the 'logging directory'.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fout: </value>
+  </data>
+  <data name="ErrPathToLong" xml:space="preserve">
+    <value>Het opgegeven pad is te lang</value>
+  </data>
+  <data name="ErrUnknown" xml:space="preserve">
+    <value>Onbekende fout</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Locatie: </value>
+  </data>
   <data name="LogFolderCreated" xml:space="preserve">
     <value>Log directoy is aangemaakt: </value>
   </data>
