@@ -23,10 +23,12 @@ namespace Documate.Library
             return new ServiceCollection()
             .AddSingleton<IMainView, MainForm>()           // Registers MainForm as the implementation for the IMainView interface. This means that whenever IMainView is requested, the application will provide a single, shared instance of MainForm
             .AddSingleton<MainPresenter>()                 // Registers MainPresenter so that a new instance is created every time it’s requested. No specific interface is associated, so it’s registered by its concrete type.
+            .AddSingleton<IAppSettings, AppSettings>()
             .AddSingleton<DirectoryModel>()
             .AddSingleton<LoggingModel>()
-            .AddSingleton<IConfigureView, ConfigureForm>() // Register as Transient                
-            .AddSingleton<ConfigurePresenter>()            // Register as Transient
+            .AddSingleton<IConfigureView, ConfigureForm>() // Register as Singleton                
+            .AddSingleton<ConfigurePresenter>()  
+            .AddTransient<FormPosition>()                  // Register as Transient (Singletons would be ok too)
             .BuildServiceProvider();
         }
 
@@ -53,7 +55,7 @@ namespace Documate.Library
         {
             // Laad de taal uit de instellingen of gebruik een standaardwaarde
             string language = Properties.Settings.Default.Language ?? "en-EN";
-            CultureInfo culture = new CultureInfo(language);
+            CultureInfo culture = new(language);
 
             // Stel de cultuur in voor de huidige thread
             Thread.CurrentThread.CurrentCulture = culture;

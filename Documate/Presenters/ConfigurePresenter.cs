@@ -17,58 +17,99 @@ namespace Documate.Presenters
     {
         private readonly IConfigureView _view;
         private readonly LoggingModel _loggingModel;
+        private readonly FormPosition _formPosition;
+        private readonly IAppSettings _appSettings;
 
-        public ConfigurePresenter(IConfigureView view, LoggingModel loggingModel)
+        public ConfigurePresenter(
+            IConfigureView view,
+            LoggingModel loggingModel,
+            FormPosition formPosition,
+            IAppSettings appSettings
+            )
         {
             _view = view;
             _loggingModel = loggingModel;
+            _formPosition = formPosition;
+            _appSettings = appSettings;
 
-            // set eventhandlers
-
+            // Set eventhandlers.
             _view.DoFormShown += (s, e) => OnFormShown();
             _view.BtnClosedClicked += this.OnBtnClosedClicked;
+            _view.ChkActivateLogging_CheckedChanged += OnChkActivateLoggingCheckedChanged;
+            _view.ChkAppendLogFile_CheckedChanged += OnChkAppendLogFileCheckedChanged;
         }
 
         public void OnFormShown()
         {
             // Get the current language setting from Properties.Settings.
-            string language = Properties.Settings.Default.Language ?? "en-EN";
-
-            //_view.MenuItemNLChecked = language == "nl-NL";
-            //_view.MenuItemENChecked = language == "en-EN";
 
 
             // Update the UI strings.
-            UpdateUIStrings();
+            UpdateUIStrings();            
+        }
+
+        public void LoadSettings()
+        {
+            _view.ActivateLoggingChecked = _appSettings.ActivateLogging;
+            _view.AppendLogFileChecked = _appSettings.AppendLogFile;
+        }
+
+        public void SaveSettings()  // NEW
+        {
+
+        }
+
+        public void LoadFormPosition()
+        {
+            _formPosition.SystemEvents_DisplaySettingsChanged((ConfigureForm)_view, "ConfigureFrm");
+        }
+        public void SaveFormPosition()
+        {
+            _formPosition.StoreWindowPosition((ConfigureForm)_view, "ConfigureFrm");
         }
 
         private void UpdateUIStrings()
         {
             // Update UI text using resource strings
             _view.FormConfigureText = LocalizationHelper.GetString("FormConfigure", LocalizationPaths.ConfigureForm);
+            _view.GroupBoxLoggingText = LocalizationHelper.GetString("GroupBoxLogging", LocalizationPaths.ConfigureForm);
             _view.ChkActivateLoggingText = LocalizationHelper.GetString("ChkActivateLogging", LocalizationPaths.ConfigureForm);
             _view.ChkAppendLogFileText = LocalizationHelper.GetString("ChkAppendLogFile", LocalizationPaths.ConfigureForm);
             _view.TabPageVariousText = LocalizationHelper.GetString("TabPageVarious", LocalizationPaths.ConfigureForm);
             _view.TabPageDatabaseText = LocalizationHelper.GetString("TabPageDatabase", LocalizationPaths.ConfigureForm);
             _view.BtnCloseText = LocalizationHelper.GetString("BtnClose", LocalizationPaths.ConfigureForm);
         }
-
         private void OnBtnClosedClicked(object? sender, EventArgs e)
         {
             _view.CloseView();
         }
 
-        public void LoadFormPosition(ConfigureForm configureForm)
+        private void OnChkActivateLoggingCheckedChanged(object? sender, EventArgs e)
         {
-            using FormPosition frmPos = new(configureForm);
-            Microsoft.Win32.SystemEvents.DisplaySettingsChanged += frmPos.SystemEvents_ConfigureFrm_DisplaySettingsChanged!;
-            frmPos.RestoreConfigureFrmWindowPosition();
+            if (_view.ActivateLoggingChecked)
+            {
+                _view.AppendLogFileEnabled = true;
+                _appSettings.ActivateLogging = true;
+            }
+            else
+            {
+                _view.AppendLogFileChecked = false;
+                _view.AppendLogFileEnabled = false;
+                _appSettings.ActivateLogging = false;
+                _appSettings.AppendLogFile = false;
+            }
         }
 
-        public void SaveFormPosition(ConfigureForm configureForm)
+        private void OnChkAppendLogFileCheckedChanged(object? sender, EventArgs e)
         {
-            using FormPosition frmPos = new(configureForm);
-            frmPos.StoreConfigureFrmWindowPosition();
+            if (_view.AppendLogFileChecked)
+            {
+                _appSettings.AppendLogFile = true;
+            }
+            else
+            {
+                _appSettings.AppendLogFile = false;
+            }
         }
     }
 }

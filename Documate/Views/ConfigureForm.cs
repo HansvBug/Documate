@@ -22,6 +22,11 @@ namespace Documate
         {
             set => this.Text = value;
         }
+
+        public string GroupBoxLoggingText
+        {
+            set => GroupBoxLogging.Text = value;
+        }
         public string ChkActivateLoggingText
         {
             set => ChkActivateLogging.Text = value;
@@ -42,11 +47,34 @@ namespace Documate
         {
             set => BtnClose.Text = value;
         }
+
+        public bool ActivateLoggingChecked
+        {
+            get => ChkActivateLogging.Checked;
+            set => ChkActivateLogging.Checked = value;
+        }
+        public bool AppendLogFileChecked
+        {
+            get => ChkAppendLogFile.Checked;
+            set => ChkAppendLogFile.Checked = value;
+        }
+
+        public bool AppendLogFileEnabled
+        {
+            get => ChkAppendLogFile.Enabled;
+            set => ChkAppendLogFile.Enabled = value;
+        }
         #endregion Properties
 
+        #region Eventhandlers
         public event EventHandler? DoFormShown;
         public event EventHandler? BtnClosedClicked;
         public event FormClosingEventHandler? DoFormClosing;
+        public event EventHandler? ChkActivateLogging_CheckedChanged;
+        public event EventHandler? ChkAppendLogFile_CheckedChanged;
+        public event EventHandler? ChkAppendLogging_EnabledChanged;
+
+        #endregion Eventhandlers
 
         public ConfigureForm()
         {
@@ -62,9 +90,13 @@ namespace Documate
 
             BtnClose.Click += (sender, args) => BtnClosedClicked?.Invoke(this, EventArgs.Empty);
             this.FormClosing += ConfigureForm_FormClosing!;
+            ChkActivateLogging.CheckedChanged += ChkActivateLogging_CheckedChanged!;
+            ChkAppendLogFile.CheckedChanged += ChkAppendLogFile_CheckedChanged!;
+            ChkAppendLogFile.EnabledChanged += ChkAppendLogging_EnabledChanged!;
 
             this.BackColor = SystemColors.Window;
             LoadFormPosition();
+            _presenter?.LoadSettings();
         }
         private void ConfigureForm_Shown(object sender, EventArgs e)
         {
@@ -83,12 +115,12 @@ namespace Documate
 
         private void LoadFormPosition()
         {
-            _presenter?.LoadFormPosition(this);
+            _presenter?.LoadFormPosition();
         }
 
         private void ConfigureForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _presenter?.SaveFormPosition(this);
+            _presenter?.SaveFormPosition();
             DoFormClosing?.Invoke(this, e);
         }
     }

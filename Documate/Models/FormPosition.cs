@@ -1,165 +1,96 @@
-﻿using Microsoft.Win32.SafeHandles;
+﻿using Documate.Library;
+using Documate.Views;
+using Microsoft.Win32.SafeHandles;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace Documate.Models
 {
-    public class FormPosition : IDisposable
+    public class FormPosition(IAppSettings appSettings) : IFormPosition, IDisposable
     {
-        private readonly MainForm _mainForm;
-        private readonly ConfigureForm _configureForm;
-        public FormPosition(MainForm mainForm)
-        {
-            _mainForm = mainForm ?? throw new ArgumentNullException(nameof(mainForm));
-        }
-
-        public FormPosition(ConfigureForm configureForm)
-        {
-            _configureForm = configureForm ?? throw new ArgumentNullException( nameof(configureForm));
-        }
+        private readonly IAppSettings _appSettings = appSettings;
 
         /// <summary>
-        /// Restore the main form position parameters.
+        /// Restore the form position parameters.
         /// </summary>
-        public void RestoreMainFrmWindowPosition()
+        //public void RestoreWindowPosition(Form form, string settingsKeyPrefix) //, Action setDefaultPosition)
+        public void RestoreWindowPosition(Form form, string settingsKeyPrefix)  //, Action setDefaultPosition
         {
+            Point location = _appSettings.GetLocation(settingsKeyPrefix);
+            Size size = _appSettings.GetSize(settingsKeyPrefix);
+           // FormWindowState windowState = _appSettings.GetWindowState(settingsKeyPrefix);
+
             // Check if there are valid saved settings.
-            if (Properties.Settings.Default.MainFrmLocation != Point.Empty &&
-                Properties.Settings.Default.MainFrmSize != Size.Empty)
+            if (location != Point.Empty && size != Size.Empty)
             {
-                var savedBounds = new Rectangle(
-                    Properties.Settings.Default.MainFrmLocation,
-                    Properties.Settings.Default.MainFrmSize
-                );
+                var savedBounds = new Rectangle(location, size);
 
                 // Check if the saved position is on an existing monitor.
                 if (Screen.AllScreens.Any(s => s.WorkingArea.IntersectsWith(savedBounds)))
                 {
-                    _mainForm.Location = Properties.Settings.Default.MainFrmLocation;
-                    _mainForm.Size = Properties.Settings.Default.MainFrmSize;
+                    form.Location = location;
+                    form.Size = size;
 
-                    // Restore window status (Maximized (2), Minimized (1), Normal (0))
-                    if (Properties.Settings.Default.MainFrmWindowstate == 2)
+                    // Restore window state (maximized (2), minimized (1), normal (0)).
+                    if (_appSettings.GetWindowState(settingsKeyPrefix) == FormWindowState.Maximized)
                     {
-                        _mainForm.WindowState = FormWindowState.Maximized;
+                        form.WindowState = FormWindowState.Maximized;
                     }
                     else
                     {
-                        _mainForm.WindowState = FormWindowState.Normal;
+                        form.WindowState = FormWindowState.Normal;
                     }
+
+                    return; // Recovery completed.
                 }
                 else
                 {
-                    // Default position if saved position is invalid
-                    SetMainFrmDefaultPosition();
+                    SetDefaultPosition(form);
                 }
             }
             else
             {
-                // Default position if no settings exist
-                SetMainFrmDefaultPosition();
+                SetDefaultPosition(form);
             }
+
+            // Use default position if settings are invalid.
+            //    setDefaultPosition?.Invoke();
         }
 
         /// <summary>
-        /// Store the main form position parameters.
+        /// Store the form position parameters.
         /// </summary>
-        public void StoreMainFrmWindowPosition()
+        public void StoreWindowPosition(Form form, string settingsKeyPrefix)
         {
             // Save the window status and size only when the window is not maximized.
-            if (_mainForm.WindowState == FormWindowState.Normal)
+            if (form.WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.MainFrmLocation = _mainForm.Location;
-                Properties.Settings.Default.MainFrmSize = _mainForm.Size;
+                _appSettings.SetLocation(settingsKeyPrefix, form.Location);
+                _appSettings.SetSize(settingsKeyPrefix, form.Size);
             }
 
-            // Save window state (e.g. maximized).
-            Properties.Settings.Default.MainFrmWindowstate = (int)_mainForm.WindowState;
-            Properties.Settings.Default.Save();
+            // Save the window state (for example, maximized).
+            _appSettings.SetWindowState(settingsKeyPrefix, (FormWindowState)form.WindowState);
         }
 
         /// <summary>
         /// Set the form to a default position.
         /// </summary>
-        private void SetMainFrmDefaultPosition()
+        private static void SetDefaultPosition(Form form)
         {
-            _mainForm.StartPosition = FormStartPosition.CenterScreen;
+            form.StartPosition = FormStartPosition.CenterScreen;
         }
 
         /// <summary>
         /// Handle monitor configuration changes.
         /// </summary>
-        public void SystemEvents_MainFrm_DisplaySettingsChanged(object sender, EventArgs e)
+        public void SystemEvents_DisplaySettingsChanged(Form form, string settingsKeyPrefix) // , Action setDefaultPosition
         {
-            // Recheck the window position when the monitor configuration changes.
-            RestoreMainFrmWindowPosition();
+            // Recheck the window position when making changes to the monitor configuration.
+            RestoreWindowPosition(form, settingsKeyPrefix);  //, setDefaultPosition
         }
 
-        public void SystemEvents_ConfigureFrm_DisplaySettingsChanged(object sender, EventArgs e)
-        {
-            // Recheck the window position when the monitor configuration changes.
-            RestoreConfigureFrmWindowPosition();
-        }
-
-        #region ConfigureForm
-        public void RestoreConfigureFrmWindowPosition()
-        {
-            // Check if there are valid saved settings.
-            if (Properties.Settings.Default.ConfigureFrmLocation != Point.Empty &&
-                Properties.Settings.Default.ConfigureFrmSize != Size.Empty)
-            {
-                var savedBounds = new Rectangle(
-                    Properties.Settings.Default.ConfigureFrmLocation,
-                    Properties.Settings.Default.ConfigureFrmSize
-                );
-
-                // Check if the saved position is on an existing monitor.
-                if (Screen.AllScreens.Any(s => s.WorkingArea.IntersectsWith(savedBounds)))
-                {
-                    _configureForm.Location = Properties.Settings.Default.ConfigureFrmLocation;
-                    _configureForm.Size = Properties.Settings.Default.ConfigureFrmSize;
-
-                    // Restore window status (Maximized (2), Minimized (1), Normal (0))
-                    if (Properties.Settings.Default.ConfigureFrmWindowstate == 2)
-                    {
-                        _configureForm.WindowState = FormWindowState.Maximized;
-                    }
-                    else
-                    {
-                        _configureForm.WindowState = FormWindowState.Normal;
-                    }
-                }
-                else
-                {
-                    // Default position if saved position is invalid
-                    SetConfigureFrmDefaultPosition();
-                }
-            }
-            else
-            {
-                // Default position if no settings exist
-                SetConfigureFrmDefaultPosition();
-            }
-        }
-
-        public void StoreConfigureFrmWindowPosition()
-        {
-            // Save the window status and size only when the window is not maximized.
-            if (_configureForm.WindowState == FormWindowState.Normal)
-            {
-                Properties.Settings.Default.ConfigureFrmLocation = _configureForm.Location;
-                Properties.Settings.Default.ConfigureFrmSize = _configureForm.Size;
-            }
-
-            // Save window state (e.g. maximized).
-            Properties.Settings.Default.ConfigureFrmWindowstate = (int)_configureForm.WindowState;
-            Properties.Settings.Default.Save();
-        }
-
-        private void SetConfigureFrmDefaultPosition()
-        {
-            _configureForm.StartPosition = FormStartPosition.CenterScreen;
-        }
-        #endregion ConfigureFrom
 
         #region Dispose
 
@@ -167,7 +98,7 @@ namespace Documate.Models
         private bool _disposed;
 
         // Instantiate a SafeHandle instance.
-        private SafeHandle _safeHandle = new SafeFileHandle(IntPtr.Zero, true);
+        private readonly SafeHandle _safeHandle = new SafeFileHandle(IntPtr.Zero, true);
 
         /// <summary>
         /// Public implementation of Dispose pattern.

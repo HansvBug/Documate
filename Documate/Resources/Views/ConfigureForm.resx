@@ -129,6 +129,9 @@
   <data name="FormConfigure" xml:space="preserve">
     <value>Configure</value>
   </data>
+  <data name="GroupBoxLogging" xml:space="preserve">
+    <value>Logging</value>
+  </data>
   <data name="TabPageDatabase" xml:space="preserve">
     <value>Database</value>
   </data>

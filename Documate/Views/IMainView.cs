@@ -45,6 +45,5 @@ namespace Documate.Views
         void CloseFile();
         void NewFile();
         void CloseView();
-        void ShowConfigureForm();
     }
 }

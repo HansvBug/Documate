@@ -10,10 +10,12 @@ namespace Documate.Models
     public class LoggingModel
     {
         private readonly Logging logging;
+        private readonly IAppSettings _appSettings;
 
-        public LoggingModel()
+        public LoggingModel(IAppSettings appSettings)
         {
             logging = new Logging();
+            _appSettings = appSettings;
         }
 
         public void WriteToLog(LogAction logAction, string logText)
@@ -55,24 +57,24 @@ namespace Documate.Models
         private void PrepareLogging()
         {
             // Application settings
-            logging.NameLogFile = Properties.Settings.Default.LogFileName;
-            logging.ApplicationName = Properties.Settings.Default.ApplicationName;
-            logging.ApplicationVersion = Properties.Settings.Default.ApplicationVersion;
-            logging.ApplicationBuildDate = AppSettings.ApplicationBuildDate;
+            logging.NameLogFile = _appSettings.LogFileName;
+            logging.ApplicationName = _appSettings.ApplicationName;
+            logging.ApplicationVersion = _appSettings.ApplicationVersion;
+            logging.ApplicationBuildDate = _appSettings.ApplicationBuildDate;
 
             // User settings
             logging.DebugMode = false;  // TODO Debug mode
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.LogFileLocation))
+            if (!string.IsNullOrEmpty(_appSettings.LogFileLocation))
             {
-                logging.LogFolder = Properties.Settings.Default.LogFileLocation;
+                logging.LogFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), _appSettings.ApplicationName, _appSettings.LogFileLocation) + "\\";
             }
             else
             {
-                logging.LogFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Properties.Settings.Default.ApplicationName, AppSettings.LoggingFolder) + "\\";
+                logging.LogFolder = Path.Combine(Application.StartupPath, _appSettings.ApplicationName) + "\\";
             }
 
-            logging.ActivateLogging = Properties.Settings.Default.ActivateLogging;
-            logging.AppendLogFile = Properties.Settings.Default.AppendLogFile;
+            logging.ActivateLogging = _appSettings.ActivateLogging;
+            logging.AppendLogFile = _appSettings.AppendLogFile;
 
             if (!logging.StartLogging())
             {

@@ -97,6 +97,15 @@ namespace Documate.Resources.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Logging.
+        /// </summary>
+        internal static string GroupBoxLogging {
+            get {
+                return ResourceManager.GetString("GroupBoxLogging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Database.
         /// </summary>
         internal static string TabPageDatabase {

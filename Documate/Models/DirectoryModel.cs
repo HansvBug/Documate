@@ -2,9 +2,9 @@
 
 namespace Documate.Models
 {
-    public class DirectoryModel: AppMessage, IDirectoryModel
+    public class DirectoryModel(IAppSettings appSettings) : AppMessage, IDirectoryModel
     {
-
+        private readonly IAppSettings _appSettings = appSettings;
         public enum DirectoryOption
         {
             AppData,
@@ -13,7 +13,7 @@ namespace Documate.Models
 
         public void CreateDirectory(DirectoryOption option, string dirName)
         {
-            string appName = Properties.Settings.Default.ApplicationName;
+            string appName = _appSettings.ApplicationName;
             string basePath;
 
             switch (option)

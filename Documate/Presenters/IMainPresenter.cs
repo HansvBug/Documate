@@ -18,14 +18,15 @@ namespace Documate.Presenters
         void Run();
         void OnFormShown();
         void OnFormClosing();
-
+        void SetStatusbarStaticText(string toolStripStatusLabelName, string text);
         void CreateDirectory(DirectoryModel.DirectoryOption directoryOption, string FolderName);
         void StartLogging();
         void StopLogging();
         void WriteToLog(LogAction logAction, string logText);
-        void SetStatusbarStaticText(string toolStripStatusLabelName, string text);
+        
+        void LoadFormPosition();
+        void SaveFormPosition();
 
-        void LoadFormPosition(MainForm mainForm);
-        void SaveFormPosition(MainForm mainForm);
+        void OpenConfigureForm();
     }
 }

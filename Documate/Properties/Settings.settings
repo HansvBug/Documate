@@ -21,10 +21,10 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="LogFileLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">Logging</Value>
     </Setting>
-    <Setting Name="MainFrmWindowstate" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="MainFrmWindowstate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Normal</Value>
     </Setting>
     <Setting Name="MainFrmLocation" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">0, 0</Value>
@@ -32,14 +32,17 @@
     <Setting Name="MainFrmSize" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">400, 800</Value>
     </Setting>
-    <Setting Name="ConfigureFrmWindowstate" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="ConfigureFrmWindowstate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Normal</Value>
     </Setting>
     <Setting Name="ConfigureFrmLocation" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">0, 0</Value>
     </Setting>
     <Setting Name="ConfigureFrmSize" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">820, 500</Value>
+    </Setting>
+    <Setting Name="DatabaseFolder" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Database</Value>
     </Setting>
   </Settings>
 </SettingsFile>

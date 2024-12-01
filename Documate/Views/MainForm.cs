@@ -9,9 +9,11 @@ namespace Documate
     public partial class MainForm : Form, IMainView
     {
         private MainPresenter? _presenter;
-        public MainForm()
+        private readonly IAppSettings _appSettings;
+        public MainForm(IAppSettings appSettings)
         {
             InitializeComponent();
+            _appSettings = appSettings;
         }
 
         public event EventHandler? MenuItemOpenFileClicked;
@@ -137,7 +139,7 @@ namespace Documate
             //
             this.BackColor = SystemColors.Window;
             _presenter?.StartLogging();
-            _presenter?.CreateDirectory(Models.DirectoryModel.DirectoryOption.ApplicatieDir, AppSettings.DatabaseFolder);
+            _presenter?.CreateDirectory(Models.DirectoryModel.DirectoryOption.ApplicatieDir, _appSettings.DatabaseFolder);
 
             LoadFormPosition();
         }
@@ -161,11 +163,6 @@ namespace Documate
             this.Close();
         }
 
-        public void ShowConfigureForm()
-        {
-            MessageBox.Show("Boe.....");  // Not used
-
-        }
         #endregion Menu Items
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -175,14 +172,13 @@ namespace Documate
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _presenter?.SaveFormPosition(this);
+            _presenter?.SaveFormPosition();
             DoFormClosing?.Invoke(this, e);
         }
 
-
         private void LoadFormPosition()
         {
-            _presenter?.LoadFormPosition(this);
+            _presenter?.LoadFormPosition();
         }
     }
 }

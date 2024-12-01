@@ -30,15 +30,14 @@
         {
             tabControl1 = new TabControl();
             TabPageVarious = new TabPage();
-            groupBox1 = new GroupBox();
+            GroupBoxLogging = new GroupBox();
             ChkActivateLogging = new CheckBox();
             ChkAppendLogFile = new CheckBox();
             TabPageDatabase = new TabPage();
             BtnClose = new Button();
-            button1 = new Button();
             tabControl1.SuspendLayout();
             TabPageVarious.SuspendLayout();
-            groupBox1.SuspendLayout();
+            GroupBoxLogging.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -53,7 +52,7 @@
             // 
             // TabPageVarious
             // 
-            TabPageVarious.Controls.Add(groupBox1);
+            TabPageVarious.Controls.Add(GroupBoxLogging);
             TabPageVarious.Location = new Point(4, 34);
             TabPageVarious.Name = "TabPageVarious";
             TabPageVarious.Padding = new Padding(3);
@@ -62,16 +61,16 @@
             TabPageVarious.Text = "TabPageVarious";
             TabPageVarious.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // GroupBoxLogging
             // 
-            groupBox1.Controls.Add(ChkActivateLogging);
-            groupBox1.Controls.Add(ChkAppendLogFile);
-            groupBox1.Location = new Point(6, 6);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(348, 185);
-            groupBox1.TabIndex = 2;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "groupBox1";
+            GroupBoxLogging.Controls.Add(ChkActivateLogging);
+            GroupBoxLogging.Controls.Add(ChkAppendLogFile);
+            GroupBoxLogging.Location = new Point(6, 6);
+            GroupBoxLogging.Name = "GroupBoxLogging";
+            GroupBoxLogging.Size = new Size(348, 185);
+            GroupBoxLogging.TabIndex = 2;
+            GroupBoxLogging.TabStop = false;
+            GroupBoxLogging.Text = "groupBox1";
             // 
             // ChkActivateLogging
             // 
@@ -113,29 +112,19 @@
             BtnClose.Text = "BtnClose";
             BtnClose.UseVisualStyleBackColor = true;
             // 
-            // button1
-            // 
-            button1.Location = new Point(437, 394);
-            button1.Name = "button1";
-            button1.Size = new Size(112, 34);
-            button1.TabIndex = 2;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            // 
             // ConfigureForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button1);
             Controls.Add(BtnClose);
             Controls.Add(tabControl1);
             Name = "ConfigureForm";
             Text = "ConfigureForm";
             tabControl1.ResumeLayout(false);
             TabPageVarious.ResumeLayout(false);
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            GroupBoxLogging.ResumeLayout(false);
+            GroupBoxLogging.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -143,11 +132,10 @@
 
         private TabControl tabControl1;
         private TabPage TabPageVarious;
-        private GroupBox groupBox1;
+        private GroupBox GroupBoxLogging;
         private CheckBox ChkActivateLogging;
         private CheckBox ChkAppendLogFile;
         private TabPage TabPageDatabase;
         private Button BtnClose;
-        private Button button1;
     }
 }

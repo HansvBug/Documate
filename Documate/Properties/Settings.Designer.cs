@@ -88,7 +88,7 @@ namespace Documate.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Logging")]
         public string LogFileLocation {
             get {
                 return ((string)(this["LogFileLocation"]));
@@ -100,10 +100,10 @@ namespace Documate.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int MainFrmWindowstate {
+        [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
+        public string MainFrmWindowstate {
             get {
-                return ((int)(this["MainFrmWindowstate"]));
+                return ((string)(this["MainFrmWindowstate"]));
             }
             set {
                 this["MainFrmWindowstate"] = value;
@@ -136,10 +136,10 @@ namespace Documate.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int ConfigureFrmWindowstate {
+        [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
+        public string ConfigureFrmWindowstate {
             get {
-                return ((int)(this["ConfigureFrmWindowstate"]));
+                return ((string)(this["ConfigureFrmWindowstate"]));
             }
             set {
                 this["ConfigureFrmWindowstate"] = value;
@@ -167,6 +167,15 @@ namespace Documate.Properties {
             }
             set {
                 this["ConfigureFrmSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Database")]
+        public string DatabaseFolder {
+            get {
+                return ((string)(this["DatabaseFolder"]));
             }
         }
     }

@@ -11,15 +11,25 @@ namespace Documate.Views
         event EventHandler DoFormShown;
         event EventHandler BtnClosedClicked;
         event FormClosingEventHandler DoFormClosing;
+        event EventHandler ChkActivateLogging_CheckedChanged;
+        event EventHandler ChkAppendLogFile_CheckedChanged;
+        event EventHandler ChkAppendLogging_EnabledChanged;
 
         string FormConfigureText { set; }
+        string GroupBoxLoggingText { set; }
         string ChkActivateLoggingText { set; }
         string ChkAppendLogFileText { set; }
         string TabPageVariousText { set; }
         string TabPageDatabaseText { set; }
         string BtnCloseText { set; }
 
+        bool ActivateLoggingChecked { get; set; }
+        bool AppendLogFileChecked { get; set; }
+        bool AppendLogFileEnabled { get; set; }
+
         void CloseView();
+
+
 
     }
 }

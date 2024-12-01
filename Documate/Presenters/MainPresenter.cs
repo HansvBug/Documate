@@ -25,12 +25,16 @@ namespace Documate.Presenters
         private readonly LoggingModel _loggingModel;
         private readonly FormPosition _formPosition;
         private readonly IServiceProvider _serviceProvider;
+        private readonly IAppSettings _appSettings;
 
         public MainPresenter(
-            IMainView view, 
+            IMainView view,
+            IAppSettings appSettings,
             DirectoryModel directoryModel, 
             LoggingModel loggingModel, 
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider,
+            FormPosition formPosition
+            )
         {
             _view = view;
 
@@ -44,18 +48,19 @@ namespace Documate.Presenters
             _view.MenuItemOptionsOptionsClicked += this.OnMenuItemOptionsOptionsClicked;
 
             _view.DoFormShown += (s, e) => OnFormShown();
-            _view.DoFormClosing += (s, e) => OnFormClosing();            
+            _view.DoFormClosing += (s, e) => OnFormClosing();
 
+            _appSettings = appSettings;
             _directoryModel = directoryModel;
             _loggingModel = loggingModel;
-
             _serviceProvider = serviceProvider; // Added for the configure form/view
+            _formPosition = formPosition;
         }
 
-        public MainPresenter(FormPosition formposition)
+       /* public MainPresenter(FormPosition formposition)
         {
             _formPosition = formposition;         
-        }
+        }*/
 
         public void Run()
         {
@@ -65,7 +70,7 @@ namespace Documate.Presenters
         public void OnFormShown()
         {
             // Get the current language setting from Properties.Settings.
-            string language = Properties.Settings.Default.Language ?? "en-EN";
+            string language = _appSettings.Language ?? "en-EN";
 
             _view.MenuItemNLChecked = language == "nl-NL";
             _view.MenuItemENChecked = language == "en-EN";
@@ -90,6 +95,57 @@ namespace Documate.Presenters
             else if (toolStripStatusLabelName == ToolstripstatusLabelName.ToolStripStatusLabel2.ToString())
             {
                 _view.ToolStripStatusLabel2Text = text;
+            }
+        }
+
+        public void CreateDirectory(DirectoryModel.DirectoryOption directoryOption, string FolderName)
+        {
+            _directoryModel.CreateDirectory(directoryOption, FolderName);
+
+            if (_directoryModel.Messages.Count > 0)
+            {
+                foreach (var message in _directoryModel.Messages)
+                {
+                    WriteToLog((LogAction)message.MsgType, message.MsgText);
+                }
+            }
+        }
+
+        #region Logging
+        public void StartLogging()
+        {
+            _loggingModel.StartLogging();
+        }
+
+        public void StopLogging()
+        {
+            _loggingModel.StopLogging();
+        }
+
+        public void WriteToLog(LogAction logAction, string logText)
+        {
+            _loggingModel.WriteToLog(logAction, logText);
+        }
+        #endregion Logging
+
+        public void LoadFormPosition()
+        {
+             _formPosition.SystemEvents_DisplaySettingsChanged((MainForm)_view, "MainFrm");
+        }
+
+        public void SaveFormPosition()
+        {
+            _formPosition.StoreWindowPosition((MainForm)_view, "MainFrm");
+        }
+
+        public void OpenConfigureForm()
+        {
+            var configurePresenter = _serviceProvider.GetService<ConfigurePresenter>();
+
+            if (_serviceProvider.GetService<IConfigureView>() is ConfigureForm configureView && configurePresenter != null)
+            {
+                configureView.SetPresenter(configurePresenter);
+                configureView.ShowDialog(); // Open ConfigureForm as dialog form.
             }
         }
 
@@ -137,20 +193,6 @@ namespace Documate.Presenters
 
             WriteToLog(LogAction.INFORMATION, $"{LocalizationHelper.GetString("ENIsActivated", LocalizationPaths.MainPresenter)}");
         }
-
-        public void CreateDirectory(DirectoryModel.DirectoryOption directoryOption, string FolderName)
-        {
-            _directoryModel.CreateDirectory(directoryOption, FolderName);
-
-            if (_directoryModel.Messages.Count > 0)
-            {
-                foreach (var message in _directoryModel.Messages)
-                {
-                    WriteToLog((LogAction)message.MsgType, message.MsgText);
-                }
-            }
-        }
-
         #region Helper Methods
         private void UpdateUIStrings()
         {
@@ -172,47 +214,5 @@ namespace Documate.Presenters
             // Add updates for other UI components here as needed
         }
         #endregion Helper Methods
-
-        #region Logging
-        public void StartLogging()
-        {
-            _loggingModel.StartLogging();
-        }
-
-        public void StopLogging()
-        {
-            _loggingModel.StopLogging();
-        }
-
-        public void WriteToLog(LogAction logAction, string logText)
-        {
-            _loggingModel.WriteToLog(logAction, logText);
-        }
-        #endregion Logging
-
-        public void LoadFormPosition(MainForm mainForm)
-        {            
-            using FormPosition frmPos = new(mainForm);
-            Microsoft.Win32.SystemEvents.DisplaySettingsChanged += frmPos.SystemEvents_MainFrm_DisplaySettingsChanged!;
-            frmPos.RestoreMainFrmWindowPosition();
-        }
-
-        public void SaveFormPosition(MainForm mainForm)
-        {
-            using FormPosition frmPos = new(mainForm);
-            frmPos.StoreMainFrmWindowPosition();
-        }
-
-        public void OpenConfigureForm()
-        {
-            var configureView = _serviceProvider.GetService<IConfigureView>() as ConfigureForm;
-            var configurePresenter = _serviceProvider.GetService<ConfigurePresenter>();
-
-            if (configureView != null && configurePresenter != null)
-            {
-                configureView.SetPresenter(configurePresenter);
-                configureView.ShowDialog(); // Open ConfigureForm as dialog form.
-            }
-        }
     }
 }

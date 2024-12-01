@@ -9,7 +9,7 @@ namespace Documate.Library
         {
             try
             {
-                ResourceManager resourceManager = new ResourceManager(resourcePath, typeof(LocalizationHelper).Assembly);
+                ResourceManager resourceManager = new(resourcePath, typeof(LocalizationHelper).Assembly);
                 return resourceManager.GetString(key, CultureInfo.CurrentUICulture) ?? $"{key}"; // Fallback with debug-placeholder.
             }
             catch (Exception ex)
@@ -21,7 +21,7 @@ namespace Documate.Library
 
         public static void SetCulture(string cultureCode)
         {
-            CultureInfo newCulture = new CultureInfo(cultureCode);
+            CultureInfo newCulture = new(cultureCode);
             CultureInfo.CurrentCulture = newCulture;
             CultureInfo.CurrentUICulture = newCulture;
 
@@ -39,7 +39,5 @@ namespace Documate.Library
         public const string DirectoryModel = "Documate.Resources.Models.DirectoryModel";
         public const string Logging = "Documate.Resources.Logging.Logging";
         public const string ConfigureForm = "Documate.Resources.Views.ConfigureForm";
-
-
     }
 }
