@@ -47,6 +47,10 @@ namespace Documate
         {
             set => BtnClose.Text = value;
         }
+        public string BtnCompressDbText
+        {
+            set => BtnCompressDb.Text = value;
+        }
 
         public bool ActivateLoggingChecked
         {
@@ -73,6 +77,7 @@ namespace Documate
         public event EventHandler? ChkActivateLogging_CheckedChanged;
         public event EventHandler? ChkAppendLogFile_CheckedChanged;
         public event EventHandler? ChkAppendLogging_EnabledChanged;
+        public event EventHandler? BtnCompressClicked;
 
         #endregion Eventhandlers
 
@@ -93,6 +98,7 @@ namespace Documate
             ChkActivateLogging.CheckedChanged += ChkActivateLogging_CheckedChanged!;
             ChkAppendLogFile.CheckedChanged += ChkAppendLogFile_CheckedChanged!;
             ChkAppendLogFile.EnabledChanged += ChkAppendLogging_EnabledChanged!;
+            BtnCompressDb.Click += (sender, args) => BtnCompressClicked?.Invoke(this, EventArgs.Empty);
 
             this.BackColor = SystemColors.Window;
             LoadFormPosition();
@@ -122,6 +128,11 @@ namespace Documate
         {
             _presenter?.SaveFormPosition();
             DoFormClosing?.Invoke(this, e);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

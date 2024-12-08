@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Documate.Models
 {
-    public class FormPosition(IAppSettings appSettings) : IFormPosition, IDisposable
+    public class FormPositionModel(IAppSettings appSettings) : IFormPositionModel, IDisposable
     {
         private readonly IAppSettings _appSettings = appSettings;
 

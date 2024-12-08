@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Documate.Models
 {
-    public interface IFormPosition
+    public interface IFormPositionModel
     {
         void RestoreWindowPosition(Form form, string settingsKeyPrefix);  //, Action setDefaultPosition
         void StoreWindowPosition(Form form, string settingsKeyPrefix);

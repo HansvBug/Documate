@@ -28,103 +28,96 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigureForm));
             tabControl1 = new TabControl();
             TabPageVarious = new TabPage();
             GroupBoxLogging = new GroupBox();
             ChkActivateLogging = new CheckBox();
             ChkAppendLogFile = new CheckBox();
             TabPageDatabase = new TabPage();
+            BtnCompressDb = new Button();
             BtnClose = new Button();
+            button1 = new Button();
             tabControl1.SuspendLayout();
             TabPageVarious.SuspendLayout();
             GroupBoxLogging.SuspendLayout();
+            TabPageDatabase.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
             // 
             tabControl1.Controls.Add(TabPageVarious);
             tabControl1.Controls.Add(TabPageDatabase);
-            tabControl1.Location = new Point(90, 34);
+            resources.ApplyResources(tabControl1, "tabControl1");
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(602, 344);
-            tabControl1.TabIndex = 0;
             // 
             // TabPageVarious
             // 
             TabPageVarious.Controls.Add(GroupBoxLogging);
-            TabPageVarious.Location = new Point(4, 34);
+            resources.ApplyResources(TabPageVarious, "TabPageVarious");
             TabPageVarious.Name = "TabPageVarious";
-            TabPageVarious.Padding = new Padding(3);
-            TabPageVarious.Size = new Size(594, 306);
-            TabPageVarious.TabIndex = 0;
-            TabPageVarious.Text = "TabPageVarious";
             TabPageVarious.UseVisualStyleBackColor = true;
             // 
             // GroupBoxLogging
             // 
             GroupBoxLogging.Controls.Add(ChkActivateLogging);
             GroupBoxLogging.Controls.Add(ChkAppendLogFile);
-            GroupBoxLogging.Location = new Point(6, 6);
+            resources.ApplyResources(GroupBoxLogging, "GroupBoxLogging");
             GroupBoxLogging.Name = "GroupBoxLogging";
-            GroupBoxLogging.Size = new Size(348, 185);
-            GroupBoxLogging.TabIndex = 2;
             GroupBoxLogging.TabStop = false;
-            GroupBoxLogging.Text = "groupBox1";
             // 
             // ChkActivateLogging
             // 
-            ChkActivateLogging.AutoSize = true;
-            ChkActivateLogging.Location = new Point(6, 30);
+            resources.ApplyResources(ChkActivateLogging, "ChkActivateLogging");
             ChkActivateLogging.Name = "ChkActivateLogging";
-            ChkActivateLogging.Size = new Size(197, 29);
-            ChkActivateLogging.TabIndex = 0;
-            ChkActivateLogging.Text = "ChkActivateLogging";
             ChkActivateLogging.UseVisualStyleBackColor = true;
             // 
             // ChkAppendLogFile
             // 
-            ChkAppendLogFile.AutoSize = true;
-            ChkAppendLogFile.Location = new Point(6, 65);
+            resources.ApplyResources(ChkAppendLogFile, "ChkAppendLogFile");
             ChkAppendLogFile.Name = "ChkAppendLogFile";
-            ChkAppendLogFile.Size = new Size(188, 29);
-            ChkAppendLogFile.TabIndex = 1;
-            ChkAppendLogFile.Text = "ChkAppendLogFile";
             ChkAppendLogFile.UseVisualStyleBackColor = true;
             // 
             // TabPageDatabase
             // 
-            TabPageDatabase.Location = new Point(4, 34);
+            TabPageDatabase.Controls.Add(BtnCompressDb);
+            resources.ApplyResources(TabPageDatabase, "TabPageDatabase");
             TabPageDatabase.Name = "TabPageDatabase";
-            TabPageDatabase.Padding = new Padding(3);
-            TabPageDatabase.Size = new Size(594, 306);
-            TabPageDatabase.TabIndex = 1;
-            TabPageDatabase.Text = "TabPageDatabase";
             TabPageDatabase.UseVisualStyleBackColor = true;
+            // 
+            // BtnCompressDb
+            // 
+            resources.ApplyResources(BtnCompressDb, "BtnCompressDb");
+            BtnCompressDb.Name = "BtnCompressDb";
+            BtnCompressDb.UseVisualStyleBackColor = true;
             // 
             // BtnClose
             // 
-            BtnClose.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            BtnClose.Location = new Point(676, 404);
+            resources.ApplyResources(BtnClose, "BtnClose");
             BtnClose.Name = "BtnClose";
-            BtnClose.Size = new Size(112, 34);
-            BtnClose.TabIndex = 1;
-            BtnClose.Text = "BtnClose";
             BtnClose.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            resources.ApplyResources(button1, "button1");
+            button1.Name = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // ConfigureForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            Controls.Add(button1);
             Controls.Add(BtnClose);
             Controls.Add(tabControl1);
             Name = "ConfigureForm";
-            Text = "ConfigureForm";
             tabControl1.ResumeLayout(false);
             TabPageVarious.ResumeLayout(false);
             GroupBoxLogging.ResumeLayout(false);
             GroupBoxLogging.PerformLayout();
+            TabPageDatabase.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -137,5 +130,7 @@
         private CheckBox ChkAppendLogFile;
         private TabPage TabPageDatabase;
         private Button BtnClose;
+        private Button button1;
+        private Button BtnCompressDb;
     }
 }

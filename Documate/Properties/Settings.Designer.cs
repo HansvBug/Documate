@@ -173,9 +173,18 @@ namespace Documate.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Database")]
-        public string DatabaseFolder {
+        public string DatabaseDirectory {
             get {
-                return ((string)(this["DatabaseFolder"]));
+                return ((string)(this["DatabaseDirectory"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int DataBaseVersion {
+            get {
+                return ((int)(this["DataBaseVersion"]));
             }
         }
     }

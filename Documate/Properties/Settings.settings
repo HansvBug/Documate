@@ -41,8 +41,11 @@
     <Setting Name="ConfigureFrmSize" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">820, 500</Value>
     </Setting>
-    <Setting Name="DatabaseFolder" Type="System.String" Scope="Application">
+    <Setting Name="DatabaseDirectory" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Database</Value>
+    </Setting>
+    <Setting Name="DataBaseVersion" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">1</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -4,7 +4,6 @@ using Documate.Views;
 using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
 
-
 namespace Documate.Library
 {
     public class Startup
@@ -28,7 +27,11 @@ namespace Documate.Library
             .AddSingleton<LoggingModel>()
             .AddSingleton<IConfigureView, ConfigureForm>() // Register as Singleton                
             .AddSingleton<ConfigurePresenter>()  
-            .AddTransient<FormPosition>()                  // Register as Transient (Singletons would be ok too)
+            .AddTransient<FormPositionModel>()                  // Register as Transient (Singletons would be ok too)
+            .AddSingleton<INewDbView, NewDbForm>()
+            .AddSingleton<NewDbPresenter>()
+            .AddSingleton<IAppDbCreateModel, AppDbCreateModel>()  // Registreer de interface.
+            .AddSingleton<AppDbCreateModel>()                // Registratie voor concrete klasse
             .BuildServiceProvider();
         }
 

@@ -19,6 +19,7 @@ namespace Documate
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+
             // Configure dependency injection
             _ = new Startup();
             var serviceProvider = Startup.ConfigureServices();

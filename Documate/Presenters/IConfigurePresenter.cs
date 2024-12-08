@@ -10,7 +10,6 @@ namespace Documate.Presenters
     {
         void OnFormShown();
         void LoadSettings();
-        void SaveSettings();
         void LoadFormPosition();
         void SaveFormPosition();
 

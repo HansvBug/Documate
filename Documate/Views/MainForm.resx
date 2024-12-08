@@ -120,7 +120,317 @@
   <metadata name="MenuStripMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="MenuItemProgramOpenFile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+O</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="MenuItemProgramOpenFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>401, 34</value>
+  </data>
+  <data name="MenuItemProgramOpenFile.Text" xml:space="preserve">
+    <value>MenuItemProgramOpenFile</value>
+  </data>
+  <data name="MenuItemProgramCloseFile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+W</value>
+  </data>
+  <data name="MenuItemProgramCloseFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>401, 34</value>
+  </data>
+  <data name="MenuItemProgramCloseFile.Text" xml:space="preserve">
+    <value>MenuItemProgramCloseFile</value>
+  </data>
+  <data name="MenuItemProgramNewFile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+N</value>
+  </data>
+  <data name="MenuItemProgramNewFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>401, 34</value>
+  </data>
+  <data name="MenuItemProgramNewFile.Text" xml:space="preserve">
+    <value>MenuItemProgramNewFile</value>
+  </data>
+  <data name="MenuItemProgramSep1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>398, 6</value>
+  </data>
+  <data name="MenuItemProgramExit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Alt+F4</value>
+  </data>
+  <data name="MenuItemProgramExit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>401, 34</value>
+  </data>
+  <data name="MenuItemProgramExit.Text" xml:space="preserve">
+    <value>MenuItemProgramExit</value>
+  </data>
+  <data name="MenuItemProgram.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 29</value>
+  </data>
+  <data name="MenuItemProgram.Text" xml:space="preserve">
+    <value>MenuItemProgram</value>
+  </data>
+  <data name="MenuItemOptionsOptions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>323, 34</value>
+  </data>
+  <data name="MenuItemOptionsOptions.Text" xml:space="preserve">
+    <value>MenuItemOptionsOptions</value>
+  </data>
+  <data name="MenuItemLanguageEN.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 34</value>
+  </data>
+  <data name="MenuItemLanguageEN.Text" xml:space="preserve">
+    <value>MenuItemLanguageEN</value>
+  </data>
+  <data name="MenuItemLanguageNL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 34</value>
+  </data>
+  <data name="MenuItemLanguageNL.Text" xml:space="preserve">
+    <value>MenuItemLanguageNL</value>
+  </data>
+  <data name="MenuItemLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>323, 34</value>
+  </data>
+  <data name="MenuItemLanguage.Text" xml:space="preserve">
+    <value>MenuItemLanguage</value>
+  </data>
+  <data name="MenuItemOptions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 29</value>
+  </data>
+  <data name="MenuItemOptions.Text" xml:space="preserve">
+    <value>MenuItemOptions</value>
+  </data>
+  <data name="MenuStripMain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="MenuStripMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1010, 33</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="MenuStripMain.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="MenuStripMain.Text" xml:space="preserve">
+    <value>menuStrip1</value>
+  </data>
+  <data name="&gt;&gt;MenuStripMain.Name" xml:space="preserve">
+    <value>MenuStripMain</value>
+  </data>
+  <data name="&gt;&gt;MenuStripMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MenuStripMain.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;MenuStripMain.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>204, 17</value>
   </metadata>
+  <data name="ToolStripStatusLabel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 25</value>
+  </data>
+  <data name="ToolStripStatusLabel1.Text" xml:space="preserve">
+    <value>ToolStripStatusLabel1</value>
+  </data>
+  <data name="ToolStripStatusLabel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 25</value>
+  </data>
+  <data name="ToolStripStatusLabel2.Text" xml:space="preserve">
+    <value>ToolStripStatusLabel2</value>
+  </data>
+  <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 537</value>
+  </data>
+  <data name="statusStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1010, 32</value>
+  </data>
+  <data name="statusStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="statusStrip1.Text" xml:space="preserve">
+    <value>statusStrip1</value>
+  </data>
+  <data name="&gt;&gt;statusStrip1.Name" xml:space="preserve">
+    <value>statusStrip1</value>
+  </data>
+  <data name="&gt;&gt;statusStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;statusStrip1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="TabPageReadItems.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 34</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="TabPageReadItems.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPageReadItems.Size" type="System.Drawing.Size, System.Drawing">
+    <value>721, 289</value>
+  </data>
+  <data name="TabPageReadItems.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="TabPageReadItems.Text" xml:space="preserve">
+    <value>TabPageReadItems</value>
+  </data>
+  <data name="&gt;&gt;TabPageReadItems.Name" xml:space="preserve">
+    <value>TabPageReadItems</value>
+  </data>
+  <data name="&gt;&gt;TabPageReadItems.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPageReadItems.Parent" xml:space="preserve">
+    <value>TabControlMain</value>
+  </data>
+  <data name="&gt;&gt;TabPageReadItems.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="TabPageEditItems.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 34</value>
+  </data>
+  <data name="TabPageEditItems.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPageEditItems.Size" type="System.Drawing.Size, System.Drawing">
+    <value>721, 289</value>
+  </data>
+  <data name="TabPageEditItems.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="TabPageEditItems.Text" xml:space="preserve">
+    <value>TabPageEditItems</value>
+  </data>
+  <data name="&gt;&gt;TabPageEditItems.Name" xml:space="preserve">
+    <value>TabPageEditItems</value>
+  </data>
+  <data name="&gt;&gt;TabPageEditItems.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPageEditItems.Parent" xml:space="preserve">
+    <value>TabControlMain</value>
+  </data>
+  <data name="&gt;&gt;TabPageEditItems.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="TabControlMain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>121, 95</value>
+  </data>
+  <data name="TabControlMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>729, 327</value>
+  </data>
+  <data name="TabControlMain.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;TabControlMain.Name" xml:space="preserve">
+    <value>TabControlMain</value>
+  </data>
+  <data name="&gt;&gt;TabControlMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabControlMain.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;TabControlMain.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>10, 25</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1010, 569</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>MainForm</value>
+  </data>
+  <data name="&gt;&gt;MenuItemProgram.Name" xml:space="preserve">
+    <value>MenuItemProgram</value>
+  </data>
+  <data name="&gt;&gt;MenuItemProgram.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MenuItemProgramOpenFile.Name" xml:space="preserve">
+    <value>MenuItemProgramOpenFile</value>
+  </data>
+  <data name="&gt;&gt;MenuItemProgramOpenFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MenuItemProgramCloseFile.Name" xml:space="preserve">
+    <value>MenuItemProgramCloseFile</value>
+  </data>
+  <data name="&gt;&gt;MenuItemProgramCloseFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MenuItemProgramNewFile.Name" xml:space="preserve">
+    <value>MenuItemProgramNewFile</value>
+  </data>
+  <data name="&gt;&gt;MenuItemProgramNewFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MenuItemProgramSep1.Name" xml:space="preserve">
+    <value>MenuItemProgramSep1</value>
+  </data>
+  <data name="&gt;&gt;MenuItemProgramSep1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MenuItemProgramExit.Name" xml:space="preserve">
+    <value>MenuItemProgramExit</value>
+  </data>
+  <data name="&gt;&gt;MenuItemProgramExit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MenuItemOptions.Name" xml:space="preserve">
+    <value>MenuItemOptions</value>
+  </data>
+  <data name="&gt;&gt;MenuItemOptions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MenuItemOptionsOptions.Name" xml:space="preserve">
+    <value>MenuItemOptionsOptions</value>
+  </data>
+  <data name="&gt;&gt;MenuItemOptionsOptions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MenuItemLanguage.Name" xml:space="preserve">
+    <value>MenuItemLanguage</value>
+  </data>
+  <data name="&gt;&gt;MenuItemLanguage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MenuItemLanguageEN.Name" xml:space="preserve">
+    <value>MenuItemLanguageEN</value>
+  </data>
+  <data name="&gt;&gt;MenuItemLanguageEN.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MenuItemLanguageNL.Name" xml:space="preserve">
+    <value>MenuItemLanguageNL</value>
+  </data>
+  <data name="&gt;&gt;MenuItemLanguageNL.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ToolStripStatusLabel1.Name" xml:space="preserve">
+    <value>ToolStripStatusLabel1</value>
+  </data>
+  <data name="&gt;&gt;ToolStripStatusLabel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ToolStripStatusLabel2.Name" xml:space="preserve">
+    <value>ToolStripStatusLabel2</value>
+  </data>
+  <data name="&gt;&gt;ToolStripStatusLabel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MainForm</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

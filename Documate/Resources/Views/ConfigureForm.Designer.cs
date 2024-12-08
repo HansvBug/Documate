@@ -70,6 +70,15 @@ namespace Documate.Resources.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compress.
+        /// </summary>
+        internal static string BtnCompressDb {
+            get {
+                return ResourceManager.GetString("BtnCompressDb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Activate logging.
         /// </summary>
         internal static string ChkActivateLogging {

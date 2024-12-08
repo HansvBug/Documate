@@ -59,5 +59,59 @@ namespace Documate.Resources.Presenters {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create new database file....
+        /// </summary>
+        internal static string CreateNewDbFile {
+            get {
+                return ResourceManager.GetString("CreateNewDbFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English activated.
+        /// </summary>
+        internal static string ENIsActivated {
+            get {
+                return ResourceManager.GetString("ENIsActivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File has been created..
+        /// </summary>
+        internal static string FileIsCreated {
+            get {
+                return ResourceManager.GetString("FileIsCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dutch activated.
+        /// </summary>
+        internal static string NLIsActivated {
+            get {
+                return ResourceManager.GetString("NLIsActivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a location....
+        /// </summary>
+        internal static string SelectFileLocation {
+            get {
+                return ResourceManager.GetString("SelectFileLocation", resourceCulture);
+            }
+        }
     }
 }

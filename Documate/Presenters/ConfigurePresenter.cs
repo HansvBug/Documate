@@ -17,13 +17,13 @@ namespace Documate.Presenters
     {
         private readonly IConfigureView _view;
         private readonly LoggingModel _loggingModel;
-        private readonly FormPosition _formPosition;
+        private readonly FormPositionModel _formPosition;
         private readonly IAppSettings _appSettings;
 
         public ConfigurePresenter(
             IConfigureView view,
             LoggingModel loggingModel,
-            FormPosition formPosition,
+            FormPositionModel formPosition,
             IAppSettings appSettings
             )
         {
@@ -37,13 +37,11 @@ namespace Documate.Presenters
             _view.BtnClosedClicked += this.OnBtnClosedClicked;
             _view.ChkActivateLogging_CheckedChanged += OnChkActivateLoggingCheckedChanged;
             _view.ChkAppendLogFile_CheckedChanged += OnChkAppendLogFileCheckedChanged;
+            _view.BtnCompressClicked += this.OnBtnCompressClicked;
         }
 
         public void OnFormShown()
         {
-            // Get the current language setting from Properties.Settings.
-
-
             // Update the UI strings.
             UpdateUIStrings();            
         }
@@ -52,11 +50,6 @@ namespace Documate.Presenters
         {
             _view.ActivateLoggingChecked = _appSettings.ActivateLogging;
             _view.AppendLogFileChecked = _appSettings.AppendLogFile;
-        }
-
-        public void SaveSettings()  // NEW
-        {
-
         }
 
         public void LoadFormPosition()
@@ -78,10 +71,15 @@ namespace Documate.Presenters
             _view.TabPageVariousText = LocalizationHelper.GetString("TabPageVarious", LocalizationPaths.ConfigureForm);
             _view.TabPageDatabaseText = LocalizationHelper.GetString("TabPageDatabase", LocalizationPaths.ConfigureForm);
             _view.BtnCloseText = LocalizationHelper.GetString("BtnClose", LocalizationPaths.ConfigureForm);
+            _view.BtnCompressDbText = LocalizationHelper.GetString("BtnCompressDb", LocalizationPaths.ConfigureForm);
         }
         private void OnBtnClosedClicked(object? sender, EventArgs e)
         {
             _view.CloseView();
+        }
+        private void OnBtnCompressClicked(object? sender, EventArgs e)
+        {
+
         }
 
         private void OnChkActivateLoggingCheckedChanged(object? sender, EventArgs e)
@@ -102,14 +100,7 @@ namespace Documate.Presenters
 
         private void OnChkAppendLogFileCheckedChanged(object? sender, EventArgs e)
         {
-            if (_view.AppendLogFileChecked)
-            {
-                _appSettings.AppendLogFile = true;
-            }
-            else
-            {
-                _appSettings.AppendLogFile = false;
-            }
+            _appSettings.AppendLogFile = _view.AppendLogFileChecked;
         }
     }
 }

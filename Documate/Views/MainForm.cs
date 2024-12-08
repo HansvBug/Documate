@@ -139,7 +139,7 @@ namespace Documate
             //
             this.BackColor = SystemColors.Window;
             _presenter?.StartLogging();
-            _presenter?.CreateDirectory(Models.DirectoryModel.DirectoryOption.ApplicatieDir, _appSettings.DatabaseFolder);
+            _presenter?.CreateDirectory(Models.DirectoryModel.DirectoryOption.ApplicatieDir, _appSettings.DatabaseDirectory);
 
             LoadFormPosition();
         }

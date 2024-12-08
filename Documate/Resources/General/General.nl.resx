@@ -126,4 +126,10 @@
   <data name="Error" xml:space="preserve">
     <value>Fout</value>
   </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Waarschuwing</value>
+  </data>
+  <data name="Notification" xml:space="preserve">
+    <value>Melding: </value>
+  </data>
 </root>

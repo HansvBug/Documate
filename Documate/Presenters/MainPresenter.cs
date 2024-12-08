@@ -23,7 +23,7 @@ namespace Documate.Presenters
         private readonly IMainView _view;
         private readonly DirectoryModel _directoryModel;
         private readonly LoggingModel _loggingModel;
-        private readonly FormPosition _formPosition;
+        private readonly FormPositionModel _formPosition;
         private readonly IServiceProvider _serviceProvider;
         private readonly IAppSettings _appSettings;
 
@@ -33,7 +33,7 @@ namespace Documate.Presenters
             DirectoryModel directoryModel, 
             LoggingModel loggingModel, 
             IServiceProvider serviceProvider,
-            FormPosition formPosition
+            FormPositionModel formPosition
             )
         {
             _view = view;
@@ -56,11 +56,6 @@ namespace Documate.Presenters
             _serviceProvider = serviceProvider; // Added for the configure form/view
             _formPosition = formPosition;
         }
-
-       /* public MainPresenter(FormPosition formposition)
-        {
-            _formPosition = formposition;         
-        }*/
 
         public void Run()
         {
@@ -147,6 +142,15 @@ namespace Documate.Presenters
                 configureView.SetPresenter(configurePresenter);
                 configureView.ShowDialog(); // Open ConfigureForm as dialog form.
             }
+
+            if (_appSettings.ActivateLogging)
+            {
+                StartLogging();
+            }
+            else
+            {
+                StopLogging();
+            }
         }
 
         #region View Menu Items
@@ -156,7 +160,8 @@ namespace Documate.Presenters
         }
         private void OnMenuItemNewFileClicked(object? sender, EventArgs e)
         {
-            _view.NewFile();
+            //_view.NewFile();
+            OpenNewDbForm();
         }
         private void OnMenuItemCloseFileClicked(object? sender, EventArgs e)
         {
@@ -171,6 +176,53 @@ namespace Documate.Presenters
             this.OpenConfigureForm();
         }
         #endregion View Menu Items
+
+        private void OpenNewDbForm()
+        {
+            SetStatusbarStaticText("ToolStripStatusLabel1", LocalizationHelper.GetString("SelectFileLocation", LocalizationPaths.MainPresenter));
+
+            // Open file dialog.
+            SaveFileDialog saveFileDialog = new()
+            {
+                Title = LocalizationHelper.GetString("Save", LocalizationPaths.MainPresenter),
+                DefaultExt = "db",
+                Filter = "Documate files (*.db)|*.db",
+                InitialDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _appSettings.DatabaseDirectory),
+                CheckPathExists = true,
+                OverwritePrompt = true,
+                CreatePrompt = false,
+            };
+
+            string NewFileName = string.Empty;
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                NewFileName = saveFileDialog.FileName;
+            }
+
+            // new form...
+            if (!string.IsNullOrEmpty(NewFileName))
+            {
+                SetStatusbarStaticText("ToolStripStatusLabel1", LocalizationHelper.GetString("CreateNewDbFile", LocalizationPaths.MainPresenter));
+
+                var newDbPresenter = _serviceProvider.GetService<NewDbPresenter>();
+
+                if (_serviceProvider.GetService<INewDbView>() is NewDbForm newDbView && newDbPresenter != null)
+                {
+                    newDbView.NewFileName = NewFileName;
+                    newDbView.SetPresenter(newDbPresenter);                    
+                    newDbView.ShowDialog(); // Open ConfigureForm as dialog form.
+
+                    if (newDbPresenter.FileIsCreated)
+                    {
+                        SetStatusbarStaticText("ToolStripStatusLabel1", LocalizationHelper.GetString("FileIsCreated", LocalizationPaths.MainPresenter));
+                    }
+                    else
+                    {
+                        SetStatusbarStaticText("ToolStripStatusLabel1", string.Empty);
+                    }
+                }
+            }
+        }
 
         private void OnMenuItemLanguageNLClicked(object? sender, EventArgs e)
         {

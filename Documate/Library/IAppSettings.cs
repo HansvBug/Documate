@@ -11,7 +11,6 @@ namespace Documate.Library
     public interface IAppSettings
     {
         string Language { get; set; }
-        string DatabaseFolder { get; }
 
         #region Logging
         string LogFileName { get; }
@@ -35,5 +34,10 @@ namespace Documate.Library
         void SetWindowState(string keyPrefix, FormWindowState state);
 
         #endregion FormPosition
+
+        #region Database file
+        string DatabaseDirectory { get; }
+        int DatabaseVersion { get; }
+        #endregion Database file
     }
 }

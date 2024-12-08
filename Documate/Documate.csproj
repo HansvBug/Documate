@@ -8,11 +8,33 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Platforms>AnyCPU;x64</Platforms>
     <Copyright>HvB</Copyright>
-    <AssemblyVersion>0.0.1.0</AssemblyVersion>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <ApplicationIcon>Documate.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Resources\Models\AppDbCreate.en.resx" />
+    <EmbeddedResource Remove="Resources\Views\NewDatabaseForm.en.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Documate.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Resources\Models\AppDbCreate.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppDbCreate.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\Views\NewDatabaseForm.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>NewDbForm.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.119" />
     <PackageReference Include="System.Management" Version="9.0.0" />
   </ItemGroup>
 
@@ -27,10 +49,25 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>General.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Images\ImagesMainView.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ImagesMainView.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Logging\Logging.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Logging.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Models\AppDb.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppDb.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Models\AppDbCreate.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppDbCreate.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Models\DirectoryModel.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -42,6 +79,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>MainPresenter.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Presenters\NewDbPresenter.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>NewDbPresenter.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Views\ConfigureForm.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -52,6 +94,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>MainForm.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Views\NewDatabaseForm.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>NewDatabaseForm.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -59,9 +106,21 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>General.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Images\ImagesMainView.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ImagesMainView.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Logging\Logging.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Logging.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\AppDb.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppDb.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\AppDbCreate.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppDbCreate.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Models\DirectoryModel.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -71,6 +130,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MainPresenter.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Presenters\NewDbPresenter.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>NewDbPresenter.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\ConfigureForm.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ConfigureForm.Designer.cs</LastGenOutput>
@@ -78,6 +141,10 @@
     <EmbeddedResource Update="Resources\Views\MainForm.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MainForm.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\NewDatabaseForm.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>NewDatabaseForm.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

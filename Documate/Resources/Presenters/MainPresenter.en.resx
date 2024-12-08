@@ -123,4 +123,16 @@
   <data name="ENIsActivated" xml:space="preserve">
     <value>English activated</value>
   </data>
+  <data name="SelectFileLocation" xml:space="preserve">
+    <value>Select a location...</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="CreateNewDbFile" xml:space="preserve">
+    <value>Create new database file...</value>
+  </data>
+  <data name="FileIsCreated" xml:space="preserve">
+    <value>File has been created.</value>
+  </data>
 </root>

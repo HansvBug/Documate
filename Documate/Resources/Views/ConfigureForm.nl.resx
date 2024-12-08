@@ -120,6 +120,9 @@
   <data name="BtnClose" xml:space="preserve">
     <value>Sluiten</value>
   </data>
+  <data name="BtnCompressDb" xml:space="preserve">
+    <value>Comprimeer</value>
+  </data>
   <data name="ChkActivateLogging" xml:space="preserve">
     <value>Activeer logging</value>
   </data>

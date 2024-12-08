@@ -18,10 +18,6 @@ namespace Documate.Library
                 Properties.Settings.Default.Save();
             }
         }
-        public string DatabaseFolder
-        {
-            get => Properties.Settings.Default.DatabaseFolder;  // TODO; configure Database folder.
-        }
 
         #region Logging
         public string LogFileName
@@ -139,5 +135,17 @@ namespace Documate.Library
             Properties.Settings.Default.Save();
         }
         #endregion FormPosition
+
+        #region Database file
+        public string DatabaseDirectory
+        {
+            get => Properties.Settings.Default.DatabaseDirectory;  // TODO; configure Database folder.
+        }
+
+        public int DatabaseVersion
+        {
+            get => Properties.Settings.Default.DataBaseVersion;
+        }
+        #endregion Database file
     }
 }

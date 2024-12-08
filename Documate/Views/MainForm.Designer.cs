@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             MenuStripMain = new MenuStrip();
             MenuItemProgram = new ToolStripMenuItem();
             MenuItemProgramOpenFile = new ToolStripMenuItem();
@@ -55,147 +56,117 @@
             // 
             MenuStripMain.ImageScalingSize = new Size(24, 24);
             MenuStripMain.Items.AddRange(new ToolStripItem[] { MenuItemProgram, MenuItemOptions });
-            MenuStripMain.Location = new Point(0, 0);
+            resources.ApplyResources(MenuStripMain, "MenuStripMain");
             MenuStripMain.Name = "MenuStripMain";
-            MenuStripMain.Size = new Size(1010, 33);
-            MenuStripMain.TabIndex = 0;
-            MenuStripMain.Text = "menuStrip1";
             // 
             // MenuItemProgram
             // 
             MenuItemProgram.DropDownItems.AddRange(new ToolStripItem[] { MenuItemProgramOpenFile, MenuItemProgramCloseFile, MenuItemProgramNewFile, MenuItemProgramSep1, MenuItemProgramExit });
             MenuItemProgram.Name = "MenuItemProgram";
-            MenuItemProgram.Size = new Size(178, 29);
-            MenuItemProgram.Text = "MenuItemProgram";
+            resources.ApplyResources(MenuItemProgram, "MenuItemProgram");
             // 
             // MenuItemProgramOpenFile
             // 
+            MenuItemProgramOpenFile.Image = Resources.Images.ImagesMainView.Database_open_24;
             MenuItemProgramOpenFile.Name = "MenuItemProgramOpenFile";
-            MenuItemProgramOpenFile.ShortcutKeys = Keys.Control | Keys.O;
-            MenuItemProgramOpenFile.Size = new Size(401, 34);
-            MenuItemProgramOpenFile.Text = "MenuItemProgramOpenFile";
+            resources.ApplyResources(MenuItemProgramOpenFile, "MenuItemProgramOpenFile");
             // 
             // MenuItemProgramCloseFile
             // 
+            MenuItemProgramCloseFile.Image = Resources.Images.ImagesMainView.Database_close_24;
             MenuItemProgramCloseFile.Name = "MenuItemProgramCloseFile";
-            MenuItemProgramCloseFile.ShortcutKeys = Keys.Control | Keys.W;
-            MenuItemProgramCloseFile.Size = new Size(401, 34);
-            MenuItemProgramCloseFile.Text = "MenuItemProgramCloseFile";
+            resources.ApplyResources(MenuItemProgramCloseFile, "MenuItemProgramCloseFile");
             // 
             // MenuItemProgramNewFile
             // 
+            MenuItemProgramNewFile.Image = Resources.Images.ImagesMainView.Database_new_24;
             MenuItemProgramNewFile.Name = "MenuItemProgramNewFile";
-            MenuItemProgramNewFile.ShortcutKeys = Keys.Control | Keys.N;
-            MenuItemProgramNewFile.Size = new Size(401, 34);
-            MenuItemProgramNewFile.Text = "MenuItemProgramNewFile";
+            resources.ApplyResources(MenuItemProgramNewFile, "MenuItemProgramNewFile");
             // 
             // MenuItemProgramSep1
             // 
             MenuItemProgramSep1.Name = "MenuItemProgramSep1";
-            MenuItemProgramSep1.Size = new Size(398, 6);
+            resources.ApplyResources(MenuItemProgramSep1, "MenuItemProgramSep1");
             // 
             // MenuItemProgramExit
             // 
+            MenuItemProgramExit.Image = Resources.Images.ImagesMainView.Exit_24;
             MenuItemProgramExit.Name = "MenuItemProgramExit";
-            MenuItemProgramExit.ShortcutKeys = Keys.Alt | Keys.F4;
-            MenuItemProgramExit.Size = new Size(401, 34);
-            MenuItemProgramExit.Text = "MenuItemProgramExit";
+            resources.ApplyResources(MenuItemProgramExit, "MenuItemProgramExit");
             // 
             // MenuItemOptions
             // 
             MenuItemOptions.DropDownItems.AddRange(new ToolStripItem[] { MenuItemOptionsOptions, MenuItemLanguage });
             MenuItemOptions.Name = "MenuItemOptions";
-            MenuItemOptions.Size = new Size(173, 29);
-            MenuItemOptions.Text = "MenuItemOptions";
+            resources.ApplyResources(MenuItemOptions, "MenuItemOptions");
             // 
             // MenuItemOptionsOptions
             // 
             MenuItemOptionsOptions.Name = "MenuItemOptionsOptions";
-            MenuItemOptionsOptions.Size = new Size(323, 34);
-            MenuItemOptionsOptions.Text = "MenuItemOptionsOptions";
+            resources.ApplyResources(MenuItemOptionsOptions, "MenuItemOptionsOptions");
             // 
             // MenuItemLanguage
             // 
             MenuItemLanguage.DropDownItems.AddRange(new ToolStripItem[] { MenuItemLanguageEN, MenuItemLanguageNL });
             MenuItemLanguage.Name = "MenuItemLanguage";
-            MenuItemLanguage.Size = new Size(323, 34);
-            MenuItemLanguage.Text = "MenuItemLanguage";
+            resources.ApplyResources(MenuItemLanguage, "MenuItemLanguage");
             // 
             // MenuItemLanguageEN
             // 
             MenuItemLanguageEN.Name = "MenuItemLanguageEN";
-            MenuItemLanguageEN.Size = new Size(294, 34);
-            MenuItemLanguageEN.Text = "MenuItemLanguageEN";
+            resources.ApplyResources(MenuItemLanguageEN, "MenuItemLanguageEN");
             // 
             // MenuItemLanguageNL
             // 
             MenuItemLanguageNL.Name = "MenuItemLanguageNL";
-            MenuItemLanguageNL.Size = new Size(294, 34);
-            MenuItemLanguageNL.Text = "MenuItemLanguageNL";
+            resources.ApplyResources(MenuItemLanguageNL, "MenuItemLanguageNL");
             // 
             // statusStrip1
             // 
             statusStrip1.ImageScalingSize = new Size(24, 24);
             statusStrip1.Items.AddRange(new ToolStripItem[] { ToolStripStatusLabel1, ToolStripStatusLabel2 });
-            statusStrip1.Location = new Point(0, 537);
+            resources.ApplyResources(statusStrip1, "statusStrip1");
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(1010, 32);
-            statusStrip1.TabIndex = 1;
-            statusStrip1.Text = "statusStrip1";
             // 
             // ToolStripStatusLabel1
             // 
             ToolStripStatusLabel1.Name = "ToolStripStatusLabel1";
-            ToolStripStatusLabel1.Size = new Size(180, 25);
-            ToolStripStatusLabel1.Text = "ToolStripStatusLabel1";
+            resources.ApplyResources(ToolStripStatusLabel1, "ToolStripStatusLabel1");
             // 
             // ToolStripStatusLabel2
             // 
             ToolStripStatusLabel2.Name = "ToolStripStatusLabel2";
-            ToolStripStatusLabel2.Size = new Size(180, 25);
-            ToolStripStatusLabel2.Text = "ToolStripStatusLabel2";
+            resources.ApplyResources(ToolStripStatusLabel2, "ToolStripStatusLabel2");
             // 
             // TabControlMain
             // 
             TabControlMain.Controls.Add(TabPageReadItems);
             TabControlMain.Controls.Add(TabPageEditItems);
-            TabControlMain.Location = new Point(121, 95);
+            resources.ApplyResources(TabControlMain, "TabControlMain");
             TabControlMain.Name = "TabControlMain";
             TabControlMain.SelectedIndex = 0;
-            TabControlMain.Size = new Size(729, 327);
-            TabControlMain.TabIndex = 2;
             // 
             // TabPageReadItems
             // 
-            TabPageReadItems.Location = new Point(4, 34);
+            resources.ApplyResources(TabPageReadItems, "TabPageReadItems");
             TabPageReadItems.Name = "TabPageReadItems";
-            TabPageReadItems.Padding = new Padding(3);
-            TabPageReadItems.Size = new Size(721, 289);
-            TabPageReadItems.TabIndex = 0;
-            TabPageReadItems.Text = "TabPageReadItems";
             TabPageReadItems.UseVisualStyleBackColor = true;
             // 
             // TabPageEditItems
             // 
-            TabPageEditItems.Location = new Point(4, 34);
+            resources.ApplyResources(TabPageEditItems, "TabPageEditItems");
             TabPageEditItems.Name = "TabPageEditItems";
-            TabPageEditItems.Padding = new Padding(3);
-            TabPageEditItems.Size = new Size(721, 289);
-            TabPageEditItems.TabIndex = 1;
-            TabPageEditItems.Text = "TabPageEditItems";
             TabPageEditItems.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1010, 569);
             Controls.Add(TabControlMain);
             Controls.Add(statusStrip1);
             Controls.Add(MenuStripMain);
             MainMenuStrip = MenuStripMain;
             Name = "MainForm";
-            Text = "MainForm";
             MenuStripMain.ResumeLayout(false);
             MenuStripMain.PerformLayout();
             statusStrip1.ResumeLayout(false);

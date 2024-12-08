@@ -39,5 +39,10 @@ namespace Documate.Library
         public const string DirectoryModel = "Documate.Resources.Models.DirectoryModel";
         public const string Logging = "Documate.Resources.Logging.Logging";
         public const string ConfigureForm = "Documate.Resources.Views.ConfigureForm";
+        public const string NewDbForm = "Documate.Resources.Views.NewDatabaseForm";
+        public const string NewDbPresenter = "Documate.Resources.Presenters.NewDbPresenter";
+        public const string AppDb = "Documate.Resources.Models.AppDb";
+        public const string AppDbCreate = "Documate.Resources.Models.AppDbCreate";
+        
     }
 }
