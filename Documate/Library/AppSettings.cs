@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
+using System.Configuration;
 
 namespace Documate.Library
 {
@@ -142,6 +143,10 @@ namespace Documate.Library
             get => Properties.Settings.Default.DatabaseDirectory;  // TODO; configure Database folder.
         }
 
+        public string BackUpFolder
+        {
+            get => Properties.Settings.Default.BackUpFolder;  // TODO; configure Database folder.
+        }
         public int DatabaseVersion
         {
             get => Properties.Settings.Default.DataBaseVersion;

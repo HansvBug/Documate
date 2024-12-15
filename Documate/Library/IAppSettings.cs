@@ -37,6 +37,7 @@ namespace Documate.Library
 
         #region Database file
         string DatabaseDirectory { get; }
+        string BackUpFolder { get; }
         int DatabaseVersion { get; }
         #endregion Database file
     }

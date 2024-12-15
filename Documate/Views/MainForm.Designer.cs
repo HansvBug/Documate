@@ -47,9 +47,12 @@
             TabControlMain = new TabControl();
             TabPageReadItems = new TabPage();
             TabPageEditItems = new TabPage();
+            dataGridView1 = new DataGridView();
             MenuStripMain.SuspendLayout();
             statusStrip1.SuspendLayout();
             TabControlMain.SuspendLayout();
+            TabPageReadItems.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // MenuStripMain
@@ -148,6 +151,7 @@
             // 
             // TabPageReadItems
             // 
+            TabPageReadItems.Controls.Add(dataGridView1);
             resources.ApplyResources(TabPageReadItems, "TabPageReadItems");
             TabPageReadItems.Name = "TabPageReadItems";
             TabPageReadItems.UseVisualStyleBackColor = true;
@@ -157,6 +161,12 @@
             resources.ApplyResources(TabPageEditItems, "TabPageEditItems");
             TabPageEditItems.Name = "TabPageEditItems";
             TabPageEditItems.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            resources.ApplyResources(dataGridView1, "dataGridView1");
+            dataGridView1.Name = "dataGridView1";
             // 
             // MainForm
             // 
@@ -172,6 +182,8 @@
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             TabControlMain.ResumeLayout(false);
+            TabPageReadItems.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -196,5 +208,6 @@
         private TabControl TabControlMain;
         private TabPage TabPageReadItems;
         private TabPage TabPageEditItems;
+        private DataGridView dataGridView1;
     }
 }

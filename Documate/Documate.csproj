@@ -8,8 +8,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Platforms>AnyCPU;x64</Platforms>
     <Copyright>HvB</Copyright>
-    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <AssemblyVersion>0.2.0.0</AssemblyVersion>
     <ApplicationIcon>Documate.ico</ApplicationIcon>
+    <PackageIcon></PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -69,10 +70,30 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppDbCreate.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Models\DirectoryModel.Designer.cs">
+    <Compile Update="Resources\Models\AppDbMaintain.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>DirectoryModel.resx</DependentUpon>
+      <DependentUpon>AppDbMaintain.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Models\CreateControls.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CreateControls.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Models\Directory.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Directory.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Library\StatusStripHelper.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>StatusStripHelper.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Presenters\ConfigurePresenter.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ConfigurePresenter.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Presenters\MainPresenter.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -122,9 +143,25 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AppDbCreate.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Models\DirectoryModel.resx">
+    <EmbeddedResource Update="Resources\Models\AppDbMaintain.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>DirectoryModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>AppDbMaintain.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\CreateControls.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CreateControls.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\Directory.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Directory.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Library\StatusStripHelper.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>StatusStripHelper.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Presenters\ConfigurePresenter.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ConfigurePresenter.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Presenters\MainPresenter.resx">
       <Generator>ResXFileCodeGenerator</Generator>

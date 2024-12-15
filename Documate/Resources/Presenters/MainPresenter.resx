@@ -135,4 +135,13 @@
   <data name="FileIsCreated" xml:space="preserve">
     <value>File has been created.</value>
   </data>
+  <data name="OpenDocumateFile" xml:space="preserve">
+    <value>Open a Documentation database file...</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Open file</value>
+  </data>
+  <data name="FileIsClosed" xml:space="preserve">
+    <value>File has been closed.</value>
+  </data>
 </root>

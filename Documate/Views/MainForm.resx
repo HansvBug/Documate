@@ -261,6 +261,30 @@
   <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="dataGridView1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>112, 60</value>
+  </data>
+  <data name="dataGridView1.RowHeadersWidth" type="System.Int32, mscorlib">
+    <value>62</value>
+  </data>
+  <data name="dataGridView1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>360, 225</value>
+  </data>
+  <data name="dataGridView1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;dataGridView1.Name" xml:space="preserve">
+    <value>dataGridView1</value>
+  </data>
+  <data name="&gt;&gt;dataGridView1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridView1.Parent" xml:space="preserve">
+    <value>TabPageReadItems</value>
+  </data>
+  <data name="&gt;&gt;dataGridView1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="TabPageReadItems.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 34</value>
   </data>
@@ -269,7 +293,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="TabPageReadItems.Size" type="System.Drawing.Size, System.Drawing">
-    <value>721, 289</value>
+    <value>1002, 466</value>
   </data>
   <data name="TabPageReadItems.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -296,7 +320,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="TabPageEditItems.Size" type="System.Drawing.Size, System.Drawing">
-    <value>721, 289</value>
+    <value>1002, 466</value>
   </data>
   <data name="TabPageEditItems.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -316,11 +340,14 @@
   <data name="&gt;&gt;TabPageEditItems.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="TabControlMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
   <data name="TabControlMain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>121, 95</value>
+    <value>0, 33</value>
   </data>
   <data name="TabControlMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>729, 327</value>
+    <value>1010, 504</value>
   </data>
   <data name="TabControlMain.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>

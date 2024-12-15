@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Documate.Resources.General {
+namespace Documate.Resources.Models {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Documate.Resources.General {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class General {
+    internal class Directory {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal General() {
+        internal Directory() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Documate.Resources.General {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Documate.Resources.General.General", typeof(General).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Documate.Resources.Models.Directory", typeof(Directory).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,29 @@ namespace Documate.Resources.General {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error.
+        ///   Looks up a localized string similar to Directory created: .
         /// </summary>
-        internal static string Error {
+        internal static string DirectoryCreated {
             get {
-                return ResourceManager.GetString("Error", resourceCulture);
+                return ResourceManager.GetString("DirectoryCreated", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Information.
+        ///   Looks up a localized string similar to Error while creating directory: .
         /// </summary>
-        internal static string Information {
+        internal static string DirectoryCreateError {
             get {
-                return ResourceManager.GetString("Information", resourceCulture);
+                return ResourceManager.GetString("DirectoryCreateError", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MVP at work.
+        ///   Looks up a localized string similar to Error details: .
         /// </summary>
-        internal static string MVPAtWork {
+        internal static string ErrorDetails {
             get {
-                return ResourceManager.GetString("MVPAtWork", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Notification: .
-        /// </summary>
-        internal static string Notification {
-            get {
-                return ResourceManager.GetString("Notification", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Warning.
-        /// </summary>
-        internal static string Warning {
-            get {
-                return ResourceManager.GetString("Warning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Welcome.
-        /// </summary>
-        internal static string Welcome {
-            get {
-                return ResourceManager.GetString("Welcome", resourceCulture);
+                return ResourceManager.GetString("ErrorDetails", resourceCulture);
             }
         }
     }

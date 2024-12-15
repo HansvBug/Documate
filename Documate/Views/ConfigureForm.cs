@@ -1,4 +1,5 @@
-﻿using Documate.Presenters;
+﻿using Documate.Library;
+using Documate.Presenters;
 using Documate.Views;
 using System;
 using System.Collections.Generic;
@@ -101,6 +102,18 @@ namespace Documate
             BtnCompressDb.Click += (sender, args) => BtnCompressClicked?.Invoke(this, EventArgs.Empty);
 
             this.BackColor = SystemColors.Window;
+
+            if (!string.IsNullOrEmpty(DocumateUtils.FileLocationAndName))
+            {
+                BtnCompressDb.Enabled = true;
+            }
+            else
+            {
+                BtnCompressDb.Enabled = false;
+            }
+
+
+            
             LoadFormPosition();
             _presenter?.LoadSettings();
         }

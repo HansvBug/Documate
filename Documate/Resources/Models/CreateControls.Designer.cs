@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Documate.Resources.General {
+namespace Documate.Resources.Models {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Documate.Resources.General {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class General {
+    internal class CreateControls {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal General() {
+        internal CreateControls() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Documate.Resources.General {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Documate.Resources.General.General", typeof(General).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Documate.Resources.Models.CreateControls", typeof(CreateControls).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,38 @@ namespace Documate.Resources.General {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error.
+        ///   Looks up a localized string similar to Unexpected error while building the necessary components..
         /// </summary>
-        internal static string Error {
+        internal static string BuildingComponentsFailed {
             get {
-                return ResourceManager.GetString("Error", resourceCulture);
+                return ResourceManager.GetString("BuildingComponentsFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Information.
+        ///   Looks up a localized string similar to Unexpected error when placing the subcomponents on the base panel..
         /// </summary>
-        internal static string Information {
+        internal static string ErrorPlacingSubpanels {
             get {
-                return ResourceManager.GetString("Information", resourceCulture);
+                return ResourceManager.GetString("ErrorPlacingSubpanels", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MVP at work.
+        ///   Looks up a localized string similar to Getting ready....
         /// </summary>
-        internal static string MVPAtWork {
+        internal static string GettingReady {
             get {
-                return ResourceManager.GetString("MVPAtWork", resourceCulture);
+                return ResourceManager.GetString("GettingReady", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Notification: .
+        ///   Looks up a localized string similar to Tab page missing..
         /// </summary>
-        internal static string Notification {
+        internal static string TabPageIsMissing {
             get {
-                return ResourceManager.GetString("Notification", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Warning.
-        /// </summary>
-        internal static string Warning {
-            get {
-                return ResourceManager.GetString("Warning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Welcome.
-        /// </summary>
-        internal static string Welcome {
-            get {
-                return ResourceManager.GetString("Welcome", resourceCulture);
+                return ResourceManager.GetString("TabPageIsMissing", resourceCulture);
             }
         }
     }

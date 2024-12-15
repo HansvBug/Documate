@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using static Documate.Models.AppDbMaintainModel;
 
 namespace Documate.Models
 {
     public interface IAppDbMaintainModel
     {
+        bool CopyDatabaseFile(string databaseName, CopyType type);
+        void CompressDatabase();
+        void ResetAllAutoIncrementFields();
+        int GetColCount();
     }
 }

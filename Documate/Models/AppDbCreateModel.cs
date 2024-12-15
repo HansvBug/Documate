@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SQLite;
 using System.Globalization;
+using System.Windows.Forms;
 
 namespace Documate.Models
 {
@@ -52,13 +53,15 @@ namespace Documate.Models
         public AppDbCreateModel(IAppSettings appSettings, LoggingModel loggingModel, string databaseName = "DefaultDatabaseName") : base(appSettings, loggingModel)  // Call the base class constructor
         {
             _dbVersion = _appSettings.DatabaseVersion;
-            base.DatabaseName = databaseName;
+            base.DatabaseName = databaseName;  // TODO not used. Remove.
         }
 
         public bool CreateAppDbFile(string databaseLocationName)
         {
             if (!string.IsNullOrEmpty(databaseLocationName))
             {
+                DeleteExistingFile(databaseLocationName);
+
                 base.DbConnection = new SQLiteConnection("Data Source=" + databaseLocationName);  // TODO; This should be in a different location that is more generic
 
                 this.DbLocation = Path.GetDirectoryName(databaseLocationName);
@@ -194,6 +197,14 @@ namespace Documate.Models
 
                 MessageBox.Show(LocalizationHelper.GetString("UnexpectedErrorCreDbFile", LocalizationPaths.AppDbCreate), LocalizationHelper.GetString("Error", LocalizationPaths.General), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
+            }
+        }
+
+        private static void DeleteExistingFile(string fileName)
+        {
+            if (File.Exists(fileName))
+            {
+                File.Delete(fileName);
             }
         }
 

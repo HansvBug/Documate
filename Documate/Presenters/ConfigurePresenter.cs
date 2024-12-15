@@ -1,15 +1,11 @@
 ﻿using Documate.Library;
 using Documate.Models;
-using Documate.Resources.Views;
 using Documate.Views;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static Documate.Library.Common;
+using static Documate.Models.AppDbMaintainModel;
+using static Documate.Library.StatusStripHelper;
+using Documate.Resources.Models;
+using Documate.Resources.Logging;
+using Microsoft.VisualBasic;
 
 namespace Documate.Presenters
 {
@@ -19,18 +15,21 @@ namespace Documate.Presenters
         private readonly LoggingModel _loggingModel;
         private readonly FormPositionModel _formPosition;
         private readonly IAppSettings _appSettings;
+        private readonly IAppDbMaintainModel _appDbMaintainModel;
 
         public ConfigurePresenter(
             IConfigureView view,
             LoggingModel loggingModel,
             FormPositionModel formPosition,
-            IAppSettings appSettings
+            IAppSettings appSettings,
+            IAppDbMaintainModel appDbMaintainModel
             )
         {
             _view = view;
             _loggingModel = loggingModel;
             _formPosition = formPosition;
             _appSettings = appSettings;
+            _appDbMaintainModel = appDbMaintainModel;
 
             // Set eventhandlers.
             _view.DoFormShown += (s, e) => OnFormShown();
@@ -79,7 +78,32 @@ namespace Documate.Presenters
         }
         private void OnBtnCompressClicked(object? sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
 
+            SetStatusbarStaticText(TsStatusLblName.tsOne, $"{LocalizationHelper.GetString("FileBeingCompressed", LocalizationPaths.ConfigurePresenter)}, {DocumateUtils.FileName}");
+
+            // Copy the database file before compress takes place.
+            if (_appDbMaintainModel.CopyDatabaseFile(DocumateUtils.FileLocationAndName, CopyType.OTHER))
+            {
+                _appDbMaintainModel.CompressDatabase();
+                _appDbMaintainModel.ResetAllAutoIncrementFields();
+
+                _loggingModel.WriteToLog(Common.LogAction.INFORMATION, $"{ LocalizationHelper.GetString("FileSuccessfullyCompressed", LocalizationPaths.ConfigurePresenter)}, {DocumateUtils.FileName}");
+
+                MessageBox.Show(
+                    LocalizationHelper.GetString("AppDatabaseCompressed", LocalizationPaths.ConfigurePresenter),
+                    LocalizationHelper.GetString("Information", LocalizationPaths.General), 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information); 
+            }
+            else  // Do not overwrite
+            {
+                MessageBox.Show(
+                    LocalizationHelper.GetString("CompressAppDbIsAborted", LocalizationPaths.ConfigurePresenter),
+                    LocalizationHelper.GetString("Information", LocalizationPaths.General),
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void OnChkActivateLoggingCheckedChanged(object? sender, EventArgs e)

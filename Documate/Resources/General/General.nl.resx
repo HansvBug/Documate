@@ -132,4 +132,7 @@
   <data name="Notification" xml:space="preserve">
     <value>Melding: </value>
   </data>
+  <data name="Information" xml:space="preserve">
+    <value>Informatie</value>
+  </data>
 </root>

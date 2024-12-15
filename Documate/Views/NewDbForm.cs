@@ -10,6 +10,7 @@ namespace Documate.Views
         private int _colCount;
         private string _shortDescription = string.Empty;
         private bool _CanContinue;
+        private TabPage _tabPage;
 
         #region Properties Set Texts
 
@@ -63,6 +64,11 @@ namespace Documate.Views
                 _CanContinue = value;
                 BtSave.Enabled = value;
             }
+        }
+        public TabPage ATabPage
+        {
+            get => _tabPage;
+            set => _tabPage = value;
         }
         #endregion Properties
 

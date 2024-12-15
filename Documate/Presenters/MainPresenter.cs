@@ -1,20 +1,12 @@
 ﻿using Documate.Library;
 using Documate.Models;
-using Documate.Properties;
-using Documate.Resources.Views;
+using Documate.Resources.Models;
 using Documate.Views;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.Entity.Hierarchy;
 using System.Windows.Forms;
-using static Documate.Library.AppMessage;
 using static Documate.Library.Common;
-using static Documate.Models.LoggingModel;
-using static System.Windows.Forms.LinkLabel;
+using static Documate.Library.StatusStripHelper;  // Allows you to call SetStatusbarStaticText directly.
 
 namespace Documate.Presenters
 {
@@ -26,6 +18,7 @@ namespace Documate.Presenters
         private readonly FormPositionModel _formPosition;
         private readonly IServiceProvider _serviceProvider;
         private readonly IAppSettings _appSettings;
+        private readonly ICreateControls _createControls;
 
         public MainPresenter(
             IMainView view,
@@ -33,7 +26,8 @@ namespace Documate.Presenters
             DirectoryModel directoryModel, 
             LoggingModel loggingModel, 
             IServiceProvider serviceProvider,
-            FormPositionModel formPosition
+            FormPositionModel formPosition,
+            ICreateControls createControls
             )
         {
             _view = view;
@@ -55,6 +49,7 @@ namespace Documate.Presenters
             _loggingModel = loggingModel;
             _serviceProvider = serviceProvider; // Added for the configure form/view
             _formPosition = formPosition;
+            _createControls = createControls;
         }
 
         public void Run()
@@ -73,24 +68,12 @@ namespace Documate.Presenters
             // Update the UI strings.
             UpdateUIStrings();
 
-            SetStatusbarStaticText(ToolstripstatusLabelName.ToolStripStatusLabel1.ToString(), $"{LocalizationHelper.GetString("Welcome", LocalizationPaths.General)}");
-            SetStatusbarStaticText(ToolstripstatusLabelName.ToolStripStatusLabel2.ToString(), $"{LocalizationHelper.GetString("MVPAtWork", LocalizationPaths.General)}");
+            SetStatusbarStaticText(TsStatusLblName.tsOne, LocalizationHelper.GetString("Welcome", LocalizationPaths.General));
+            SetStatusbarStaticText(TsStatusLblName.tsTwo, LocalizationHelper.GetString("MVPAtWork", LocalizationPaths.General));
         }
         public void OnFormClosing()
         {            
             StopLogging();
-        }
-
-        public void SetStatusbarStaticText(string toolStripStatusLabelName, string text)
-        {
-            if (toolStripStatusLabelName == ToolstripstatusLabelName.ToolStripStatusLabel1.ToString())
-            {
-                _view.ToolStripStatusLabel1Text = text;
-            }
-            else if (toolStripStatusLabelName == ToolstripstatusLabelName.ToolStripStatusLabel2.ToString())
-            {
-                _view.ToolStripStatusLabel2Text = text;
-            }
         }
 
         public void CreateDirectory(DirectoryModel.DirectoryOption directoryOption, string FolderName)
@@ -101,7 +84,7 @@ namespace Documate.Presenters
             {
                 foreach (var message in _directoryModel.Messages)
                 {
-                    WriteToLog((LogAction)message.MsgType, message.MsgText);
+                    _loggingModel.WriteToLog((LogAction)message.MsgType, message.MsgText);
                 }
             }
         }
@@ -109,17 +92,17 @@ namespace Documate.Presenters
         #region Logging
         public void StartLogging()
         {
-            _loggingModel.StartLogging();
+            if (!DocumateUtils.LoggingIsStarded)
+            {
+                _loggingModel.StartLogging();
+                DocumateUtils.LoggingIsStarded = true;
+            }
         }
 
         public void StopLogging()
         {
             _loggingModel.StopLogging();
-        }
-
-        public void WriteToLog(LogAction logAction, string logText)
-        {
-            _loggingModel.WriteToLog(logAction, logText);
+            DocumateUtils.LoggingIsStarded = false;
         }
         #endregion Logging
 
@@ -145,7 +128,7 @@ namespace Documate.Presenters
 
             if (_appSettings.ActivateLogging)
             {
-                StartLogging();
+                StartLogging(); 
             }
             else
             {
@@ -156,7 +139,28 @@ namespace Documate.Presenters
         #region View Menu Items
         private void OnMenuItemOpenFileClicked(object? sender, EventArgs e)
         {
-            _view.OpenFile();
+            SetStatusbarStaticText(TsStatusLblName.tsOne, LocalizationHelper.GetString("OpenDocumateFile", LocalizationPaths.MainPresenter));
+            OpenFileDialog openFileDialog = new()
+            {
+                InitialDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _appSettings.DatabaseDirectory),
+                RestoreDirectory = true,
+                Title = LocalizationHelper.GetString("OpenFile", LocalizationPaths.MainPresenter),
+                DefaultExt = "db",
+                Filter = "Documate files (*.db)|*.db",
+                CheckPathExists = true,
+                CheckFileExists = true,
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                //_view.OpenFile();  // TODO; remove method, does nothing.
+                OpenDocumateFile(openFileDialog.FileName);
+            }
+            else
+            {
+                SetStatusbarStaticText(TsStatusLblName.tsOne, string.Empty);
+            }
+            //_view.OpenFile();
         }
         private void OnMenuItemNewFileClicked(object? sender, EventArgs e)
         {
@@ -165,7 +169,12 @@ namespace Documate.Presenters
         }
         private void OnMenuItemCloseFileClicked(object? sender, EventArgs e)
         {
-            _view.CloseFile();
+            _createControls.RemoveComponents(_view.ATabPage);
+            DocumateUtils.FileLocationAndName = string.Empty;
+            DocumateUtils.ColCount = -1;
+
+            SetStatusbarStaticText(TsStatusLblName.tsOne, LocalizationHelper.GetString("FileIsClosed", LocalizationPaths.MainPresenter));
+            //_view.CloseFile();
         }
         private void OnMenuItemExitClicked(object? sender, EventArgs e)
         {
@@ -177,9 +186,15 @@ namespace Documate.Presenters
         }
         #endregion View Menu Items
 
+        private void OpenDocumateFile(string FileName)
+        {
+            DocumateUtils.FileLocationAndName = FileName;
+            _createControls.CreateComponents(FileName, _view.ATabPage);
+            //laden van de data. Moet een nieuwe klasse worden ==> AppDbMaintainItemsModel
+        }
         private void OpenNewDbForm()
         {
-            SetStatusbarStaticText("ToolStripStatusLabel1", LocalizationHelper.GetString("SelectFileLocation", LocalizationPaths.MainPresenter));
+            SetStatusbarStaticText(TsStatusLblName.tsOne, LocalizationHelper.GetString("SelectFileLocation", LocalizationPaths.MainPresenter));
 
             // Open file dialog.
             SaveFileDialog saveFileDialog = new()
@@ -202,23 +217,25 @@ namespace Documate.Presenters
             // new form...
             if (!string.IsNullOrEmpty(NewFileName))
             {
-                SetStatusbarStaticText("ToolStripStatusLabel1", LocalizationHelper.GetString("CreateNewDbFile", LocalizationPaths.MainPresenter));
+                SetStatusbarStaticText(TsStatusLblName.tsOne, LocalizationHelper.GetString("CreateNewDbFile", LocalizationPaths.MainPresenter));
 
                 var newDbPresenter = _serviceProvider.GetService<NewDbPresenter>();
 
                 if (_serviceProvider.GetService<INewDbView>() is NewDbForm newDbView && newDbPresenter != null)
                 {
                     newDbView.NewFileName = NewFileName;
-                    newDbView.SetPresenter(newDbPresenter);                    
+                    newDbView.SetPresenter(newDbPresenter);
+                    newDbView.ATabPage = _view.ATabPage;
                     newDbView.ShowDialog(); // Open ConfigureForm as dialog form.
 
                     if (newDbPresenter.FileIsCreated)
                     {
-                        SetStatusbarStaticText("ToolStripStatusLabel1", LocalizationHelper.GetString("FileIsCreated", LocalizationPaths.MainPresenter));
+                        OpenDocumateFile(NewFileName);
+                        SetStatusbarStaticText(TsStatusLblName.tsOne, LocalizationHelper.GetString("FileIsCreated", LocalizationPaths.MainPresenter));
                     }
                     else
                     {
-                        SetStatusbarStaticText("ToolStripStatusLabel1", string.Empty);
+                        SetStatusbarStaticText(TsStatusLblName.tsOne, string.Empty);
                     }
                 }
             }
@@ -232,7 +249,7 @@ namespace Documate.Presenters
             _view.MenuItemNLChecked = true;
             _view.MenuItemENChecked = false;
 
-            WriteToLog(LogAction.INFORMATION, $"{LocalizationHelper.GetString("NLIsActivated", LocalizationPaths.MainPresenter)}");
+            _loggingModel.WriteToLog(LogAction.INFORMATION, $"{LocalizationHelper.GetString("NLIsActivated", LocalizationPaths.MainPresenter)}");
         }
 
         private void OnMenuItemLanguageENClicked(object? sender, EventArgs e)
@@ -243,7 +260,7 @@ namespace Documate.Presenters
             _view.MenuItemENChecked = true;
             _view.MenuItemNLChecked = false;
 
-            WriteToLog(LogAction.INFORMATION, $"{LocalizationHelper.GetString("ENIsActivated", LocalizationPaths.MainPresenter)}");
+            _loggingModel.WriteToLog(LogAction.INFORMATION, $"{LocalizationHelper.GetString("ENIsActivated", LocalizationPaths.MainPresenter)}");
         }
         #region Helper Methods
         private void UpdateUIStrings()

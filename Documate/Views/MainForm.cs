@@ -10,6 +10,8 @@ namespace Documate
     {
         private MainPresenter? _presenter;
         private readonly IAppSettings _appSettings;
+        private TabPage _tabPage;
+
         public MainForm(IAppSettings appSettings)
         {
             InitializeComponent();
@@ -87,12 +89,20 @@ namespace Documate
 
         public string ToolStripStatusLabel1Text
         {
-            set => this.ToolStripStatusLabel1.Text = value;
+            set
+            {
+                ToolStripStatusLabel1.Text = value;
+                statusStrip1.Refresh();
+            }
         }
 
         public string ToolStripStatusLabel2Text
         {
-            set => this.ToolStripStatusLabel2.Text = value;
+            set
+            {
+                ToolStripStatusLabel2.Text = value;
+                statusStrip1.Refresh();
+            }
         }
 
         #endregion Properties Set Texts
@@ -108,6 +118,12 @@ namespace Documate
         {
             get => MenuItemLanguageNL.Checked;
             set => MenuItemLanguageNL.Checked = value;
+        }
+
+        public TabPage ATabPage
+        {
+            get => _tabPage;
+            set => _tabPage = value;
         }
 
         #endregion Properties
@@ -140,19 +156,21 @@ namespace Documate
             this.BackColor = SystemColors.Window;
             _presenter?.StartLogging();
             _presenter?.CreateDirectory(Models.DirectoryModel.DirectoryOption.ApplicatieDir, _appSettings.DatabaseDirectory);
+            _presenter?.CreateDirectory(Models.DirectoryModel.DirectoryOption.ApplicatieDir, _appSettings.DatabaseDirectory + "\\" + _appSettings.BackUpFolder);
 
             LoadFormPosition();
+            ATabPage = this.TabPageEditItems;  // Used in CreateControls
         }
 
 
         #region Menu items
         public void OpenFile()
         {
-            MessageBox.Show("Open");
+            MessageBox.Show("Open");  // TODO; functie kan volledig weg (denk aan de eventhandlers
         }
         public void CloseFile()
         {
-            MessageBox.Show("Close");
+            //MessageBox.Show("Close");// TODO; functie kan volledig weg (denk aan de eventhandlers
         }
         public void NewFile()
         {

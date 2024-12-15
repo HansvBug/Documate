@@ -117,22 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Welcome" xml:space="preserve">
-    <value>Welcome</value>
+  <data name="BuildingComponentsFailed" xml:space="preserve">
+    <value>Unexpected error while building the necessary components.</value>
   </data>
-  <data name="MVPAtWork" xml:space="preserve">
-    <value>MVP at work</value>
+  <data name="ErrorPlacingSubpanels" xml:space="preserve">
+    <value>Unexpected error when placing the subcomponents on the base panel.</value>
   </data>
-  <data name="Error" xml:space="preserve">
-    <value>Error</value>
+  <data name="GettingReady" xml:space="preserve">
+    <value>Getting ready...</value>
   </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Warning</value>
-  </data>
-  <data name="Notification" xml:space="preserve">
-    <value>Notification: </value>
-  </data>
-  <data name="Information" xml:space="preserve">
-    <value>Information</value>
+  <data name="TabPageIsMissing" xml:space="preserve">
+    <value>Tab page missing.</value>
   </data>
 </root>

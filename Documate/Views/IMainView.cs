@@ -41,6 +41,8 @@ namespace Documate.Views
         string ToolStripStatusLabel1Text { set; }
         string ToolStripStatusLabel2Text { set; }
 
+        TabPage ATabPage { get; set; }
+
         void OpenFile();
         void CloseFile();
         void NewFile();

@@ -117,22 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Welcome" xml:space="preserve">
-    <value>Welcome</value>
+  <data name="CompressAppDb" xml:space="preserve">
+    <value>De applicatie database is gecomprimeerd</value>
   </data>
-  <data name="MVPAtWork" xml:space="preserve">
-    <value>MVP at work</value>
+  <data name="CompressAppDbFailed" xml:space="preserve">
+    <value>Het comprimeren van de applicatiedatabase is mislukt.</value>
   </data>
-  <data name="Error" xml:space="preserve">
-    <value>Error</value>
+  <data name="CopyFile" xml:space="preserve">
+    <value>Bestand kopiëren</value>
   </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Warning</value>
+  <data name="CopyFileAborted" xml:space="preserve">
+    <value>Het kopiëren van het bestand '{0}' is afgebroken.</value>
   </data>
-  <data name="Notification" xml:space="preserve">
-    <value>Notification: </value>
+  <data name="CopyFileReady" xml:space="preserve">
+    <value>Het kopiëren van het bestand {0} is gereed.</value>
   </data>
-  <data name="Information" xml:space="preserve">
-    <value>Information</value>
+  <data name="FileExistOverwrite" xml:space="preserve">
+    <value>Het bestand bestaat al. Wilt u het overschrijven?</value>
+  </data>
+  <data name="FileNotPresent" xml:space="preserve">
+    <value>Het te kopiëren bestand bestaat niet.</value>
+  </data>
+  <data name="FolderNotPresent" xml:space="preserve">
+    <value>De directory is niet gevonden.</value>
+  </data>
+  <data name="NumberOfColsIs" xml:space="preserve">
+    <value>Aantal kolommen = {0}.</value>
+  </data>
+  <data name="RequestColCount" xml:space="preserve">
+    <value>Opvragen aantal kolommen.</value>
+  </data>
+  <data name="RequestColCountFailed" xml:space="preserve">
+    <value>Het opvragen van aantal kolommen is mislukt. (Versie: {0}).</value>
+  </data>
+  <data name="ResetAppDbSequence" xml:space="preserve">
+    <value>Het resetten van de reeksen in de applicatiedatabase is gereed.</value>
+  </data>
+  <data name="ResetAppDbSequenceFailed" xml:space="preserve">
+    <value>Het resetten van de reeksen in de applicatiedatabase is mislukt.</value>
   </data>
 </root>

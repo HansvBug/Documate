@@ -2,6 +2,7 @@
 using Documate.Presenters;
 using Documate.Views;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Globalization;
 
 namespace Documate.Library
@@ -31,19 +32,25 @@ namespace Documate.Library
             .AddSingleton<INewDbView, NewDbForm>()
             .AddSingleton<NewDbPresenter>()
             .AddSingleton<IAppDbCreateModel, AppDbCreateModel>()  // Registreer de interface.
-            .AddSingleton<AppDbCreateModel>()                // Registratie voor concrete klasse
+            .AddSingleton<AppDbCreateModel>()                     // Registratie voor concrete klasse
+            .AddSingleton<IAppDbMaintainModel, AppDbMaintainModel>()
+            .AddSingleton<AppDbMaintainModel>()
+            .AddSingleton<ICreateControls, CreateControls>()
             .BuildServiceProvider();
         }
 
         public static void Run(ServiceProvider serviceProvider)
         {
-            // Get the presenter from the service provider
+            // Get the presenter from the service provider.
             var presenter = serviceProvider.GetService<MainPresenter>();
 
             // Get the MainForm from the service provider and link the presenter with the view.
             if (serviceProvider.GetService<IMainView>() is MainForm form && presenter != null)
             {
                 form.SetPresenter(presenter);
+
+                // Initialize the StatusbarHelper = static class
+                StatusStripHelper.Initialize(form);
 
                 // Start the application
                 presenter?.Run();
@@ -65,7 +72,7 @@ namespace Documate.Library
             Thread.CurrentThread.CurrentUICulture = culture;
 
             // Optioneel: Log de gekozen cultuur voor debugging
-            Console.WriteLine($"Taal ingesteld op: {culture.Name}");
+            Console.WriteLine($"Language set to: {culture.Name}");
 
             LocalizationHelper.SetCulture(language);
         }

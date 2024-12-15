@@ -79,6 +79,15 @@ namespace Documate.Resources.Presenters {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File has been closed..
+        /// </summary>
+        internal static string FileIsClosed {
+            get {
+                return ResourceManager.GetString("FileIsClosed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File has been created..
         /// </summary>
         internal static string FileIsCreated {
@@ -93,6 +102,24 @@ namespace Documate.Resources.Presenters {
         internal static string NLIsActivated {
             get {
                 return ResourceManager.GetString("NLIsActivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open a Documentation database file....
+        /// </summary>
+        internal static string OpenDocumateFile {
+            get {
+                return ResourceManager.GetString("OpenDocumateFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open file.
+        /// </summary>
+        internal static string OpenFile {
+            get {
+                return ResourceManager.GetString("OpenFile", resourceCulture);
             }
         }
         

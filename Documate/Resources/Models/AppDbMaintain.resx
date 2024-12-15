@@ -117,22 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Welcome" xml:space="preserve">
-    <value>Welcome</value>
+  <data name="CompressAppDb" xml:space="preserve">
+    <value>The application database is compressed.</value>
   </data>
-  <data name="MVPAtWork" xml:space="preserve">
-    <value>MVP at work</value>
+  <data name="CompressAppDbFailed" xml:space="preserve">
+    <value>Compressing the application database failed.</value>
   </data>
-  <data name="Error" xml:space="preserve">
-    <value>Error</value>
+  <data name="CopyFile" xml:space="preserve">
+    <value>Copy file</value>
   </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Warning</value>
+  <data name="CopyFileAborted" xml:space="preserve">
+    <value>The copying of the file '{0}' has been aborted.</value>
   </data>
-  <data name="Notification" xml:space="preserve">
-    <value>Notification: </value>
+  <data name="CopyFileReady" xml:space="preserve">
+    <value>Copying of the file {0} is complete.</value>
   </data>
-  <data name="Information" xml:space="preserve">
-    <value>Information</value>
+  <data name="FileExistOverwrite" xml:space="preserve">
+    <value>The file already exists. Do you want to overwrite it?</value>
+  </data>
+  <data name="FileNotPresent" xml:space="preserve">
+    <value>The file to copy does not exist.</value>
+  </data>
+  <data name="FolderNotPresent" xml:space="preserve">
+    <value>The directory was not found.</value>
+  </data>
+  <data name="NumberOfColsIs" xml:space="preserve">
+    <value>Number of columns = {0}.</value>
+  </data>
+  <data name="RequestColCount" xml:space="preserve">
+    <value>Request number of columns.</value>
+  </data>
+  <data name="RequestColCountFailed" xml:space="preserve">
+    <value>Failed to query column count. (Version: {0}).</value>
+  </data>
+  <data name="ResetAppDbSequence" xml:space="preserve">
+    <value>Resetting the ranges in the application database is complete.</value>
+  </data>
+  <data name="ResetAppDbSequenceFailed" xml:space="preserve">
+    <value>Resetting the sequences in the application database failed.</value>
   </data>
 </root>

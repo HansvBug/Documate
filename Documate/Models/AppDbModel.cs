@@ -2,8 +2,6 @@
 using System.Data;
 using Documate.Library;
 
-
-
 namespace Documate.Models
 {
     public class AppDbModel: AppMessage

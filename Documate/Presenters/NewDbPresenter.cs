@@ -2,7 +2,8 @@
 using Documate.Models;
 using Documate.Resources.Models;
 using Documate.Views;
-using System.Windows.Forms;
+using System.Data.SQLite;
+using static Documate.Library.StatusStripHelper;
 
 namespace Documate.Presenters
 {
@@ -11,6 +12,7 @@ namespace Documate.Presenters
         private readonly INewDbView _view;
         private readonly LoggingModel _loggingModel;
         private readonly AppDbCreateModel _appDbCreate;
+        private readonly ICreateControls _createControls;
 
         public bool FileIsCreated
         {  get; private set; }
@@ -18,12 +20,14 @@ namespace Documate.Presenters
         public NewDbPresenter(
             INewDbView view,
             LoggingModel loggingModel,
-            AppDbCreateModel appDbCreateModel
+            AppDbCreateModel appDbCreateModel,
+            ICreateControls createControls
             )
         {
             _view = view;
             _loggingModel = loggingModel;
             _appDbCreate = appDbCreateModel;
+            _createControls = createControls;
 
             // Set eventhandlers.
             _view.DoFormShown += (s, e) => OnFormShown();
@@ -72,16 +76,19 @@ namespace Documate.Presenters
                 {
                     _view.ClearWarning();
                     _view.ColCount = int.Parse(textBox.Text);
+                    SetStatusbarStaticText(TsStatusLblName.tsOne, string.Empty);
                     _view.CanContinue = true;
                 }
                 else if (string.IsNullOrEmpty(textBox.Text))
                 {
                     _view.ClearWarning();
+                    SetStatusbarStaticText(TsStatusLblName.tsOne, string.Empty);
                     _view.CanContinue = false;
                 }
                 else
                 {
                     _view.ShowWarning(LocalizationHelper.GetString("ColCountBetween2and21", LocalizationPaths.NewDbPresenter));
+                    SetStatusbarStaticText(TsStatusLblName.tsOne, LocalizationHelper.GetString("ColCountBetween2and21", LocalizationPaths.NewDbPresenter));
                     _view.CanContinue = false;
                 }
             }
@@ -96,10 +103,12 @@ namespace Documate.Presenters
                 {
                     _view.ClearWarning();
                     _view.ShortDescription = textBox.Text;
+                    SetStatusbarStaticText(TsStatusLblName.tsOne, string.Empty);
                 }
                 else
                 {
                     _view.ShowWarning(LocalizationHelper.GetString("MaxTextSize255", LocalizationPaths.NewDbPresenter));
+                    SetStatusbarStaticText(TsStatusLblName.tsOne, LocalizationHelper.GetString("MaxTextSize255", LocalizationPaths.NewDbPresenter));
                 }
             }
         }
@@ -109,7 +118,10 @@ namespace Documate.Presenters
             if (_appDbCreate.CreateAppDbFile(_view.NewFileName))
             {
                 Cursor.Current = Cursors.WaitCursor;
-                _view.CanContinue = true;
+                DocumateUtils.FileLocationAndName = _view.NewFileName;  // Store the file name and location for later use.
+                DocumateUtils.ColCount = _view.ColCount;
+
+                _createControls.RemoveComponents(_view.ATabPage);  // First Remove the components if needed.
                 _appDbCreate.InsertMeta("Column count", _view.ColCount.ToString());
 
                 // Prepare column header texts.
@@ -119,11 +131,15 @@ namespace Documate.Presenters
                 }
 
                 _loggingModel.WriteToLog(Common.LogAction.INFORMATION, string.Format(LocalizationHelper.GetString("FileIsCreated", LocalizationPaths.NewDbPresenter), _view.NewFileName));
+                SetStatusbarStaticText(TsStatusLblName.tsOne, string.Format(LocalizationHelper.GetString("FileIsCreated", LocalizationPaths.NewDbPresenter), _view.NewFileName));
+
+                _view.CanContinue = true;
                 Cursor.Current = Cursors.Default;
             }
             else 
             {
                 _view.CanContinue = false;
+                DocumateUtils.FileLocationAndName = string.Empty;
             }
 
             _view.CloseView();
@@ -131,6 +147,7 @@ namespace Documate.Presenters
 
         private void OnBtCancelClicked(object sender, EventArgs e)
         {
+            DocumateUtils.FileLocationAndName = string.Empty;
             _view.CanContinue = false;
             FileIsCreated = false;
             _view.CloseView();

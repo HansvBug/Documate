@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Documate.Resources.Models {
+namespace Documate.Resources.Presenters {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Documate.Resources.Models {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class DirectoryModel {
+    internal class ConfigurePresenter {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal DirectoryModel() {
+        internal ConfigurePresenter() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Documate.Resources.Models {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Documate.Resources.Models.DirectoryModel", typeof(DirectoryModel).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Documate.Resources.Presenters.ConfigurePresenter", typeof(ConfigurePresenter).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,38 @@ namespace Documate.Resources.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Directory created: .
+        ///   Looks up a localized string similar to The application database has been successfully compressed..
         /// </summary>
-        internal static string DirectoryCreated {
+        internal static string AppDatabaseCompressed {
             get {
-                return ResourceManager.GetString("DirectoryCreated", resourceCulture);
+                return ResourceManager.GetString("AppDatabaseCompressed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database compaction has been aborted..
+        /// </summary>
+        internal static string CompressAppDbIsAborted {
+            get {
+                return ResourceManager.GetString("CompressAppDbIsAborted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file {0} is being compressed....
+        /// </summary>
+        internal static string FileBeingCompressed {
+            get {
+                return ResourceManager.GetString("FileBeingCompressed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file {0} has been successfully compressed..
+        /// </summary>
+        internal static string FileSuccessfullyCompressed {
+            get {
+                return ResourceManager.GetString("FileSuccessfullyCompressed", resourceCulture);
             }
         }
     }

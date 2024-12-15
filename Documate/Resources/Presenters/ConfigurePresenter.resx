@@ -117,22 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Welcome" xml:space="preserve">
-    <value>Welcome</value>
+  <data name="AppDatabaseCompressed" xml:space="preserve">
+    <value>The application database has been successfully compressed.</value>
   </data>
-  <data name="MVPAtWork" xml:space="preserve">
-    <value>MVP at work</value>
+  <data name="CompressAppDbIsAborted" xml:space="preserve">
+    <value>Database compaction has been aborted.</value>
   </data>
-  <data name="Error" xml:space="preserve">
-    <value>Error</value>
+  <data name="FileBeingCompressed" xml:space="preserve">
+    <value>The file {0} is being compressed...</value>
   </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Warning</value>
-  </data>
-  <data name="Notification" xml:space="preserve">
-    <value>Notification: </value>
-  </data>
-  <data name="Information" xml:space="preserve">
-    <value>Information</value>
+  <data name="FileSuccessfullyCompressed" xml:space="preserve">
+    <value>The file {0} has been successfully compressed.</value>
   </data>
 </root>

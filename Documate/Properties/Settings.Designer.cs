@@ -187,5 +187,14 @@ namespace Documate.Properties {
                 return ((int)(this["DataBaseVersion"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Backup")]
+        public string BackUpFolder {
+            get {
+                return ((string)(this["BackUpFolder"]));
+            }
+        }
     }
 }
