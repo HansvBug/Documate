@@ -24,7 +24,7 @@ namespace Documate.Views
         string ShortDescription {  get; set; }
         
         bool CanContinue { get; set; }
-        TabPage ATabPage { get; set; }
+        Panel APanel { get; set; }
 
         void SetPresenter(NewDbPresenter presenter);
         void CloseView();

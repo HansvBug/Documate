@@ -46,6 +46,7 @@ namespace Documate.Library
         public const string AppDb               = "Documate.Resources.Models.AppDb";
         public const string AppDbCreate         = "Documate.Resources.Models.AppDbCreate";
         public const string AppDbMaintain       = "Documate.Resources.Models.AppDbMaintain";
+        public const string AppDbMaintainItems  = "Documate.Resources.Models.AppDbMaintainItems";
         public const string CreateControls      = "Documate.Resources.Models.CreateControls";
 
         public const string Logging             = "Documate.Resources.Logging.Logging";

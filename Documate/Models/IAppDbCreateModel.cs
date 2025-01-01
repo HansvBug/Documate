@@ -11,5 +11,6 @@ namespace Documate.Models
         bool CreateAppDbFile(string databaseLocationName);
         int SelectMeta();
         void InsertMeta(string key, string value);
+        void CloseDatabaseConnection();
     }
 }

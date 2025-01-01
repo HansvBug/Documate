@@ -56,6 +56,13 @@ namespace Documate.Models
             base.DatabaseName = databaseName;  // TODO not used. Remove.
         }
 
+        public void CloseDatabaseConnection()
+        {
+            if (this.DbConnection != null && this.DbConnection.State != ConnectionState.Closed)
+            {
+                this.DbConnection.Close();
+            }
+        }
         public bool CreateAppDbFile(string databaseLocationName)
         {
             if (!string.IsNullOrEmpty(databaseLocationName))

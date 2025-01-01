@@ -41,18 +41,31 @@
             MenuItemLanguage = new ToolStripMenuItem();
             MenuItemLanguageEN = new ToolStripMenuItem();
             MenuItemLanguageNL = new ToolStripMenuItem();
-            statusStrip1 = new StatusStrip();
-            ToolStripStatusLabel1 = new ToolStripStatusLabel();
-            ToolStripStatusLabel2 = new ToolStripStatusLabel();
             TabControlMain = new TabControl();
             TabPageReadItems = new TabPage();
-            TabPageEditItems = new TabPage();
             dataGridView1 = new DataGridView();
+            TabPageEditItems = new TabPage();
+            PanelMain = new Panel();
+            panel1 = new Panel();
+            TextBoxCtrlObject = new TextBox();
+            ButtonSave = new Button();
+            GroupBoxRbEditItems = new GroupBox();
+            RbSetRelations = new RadioButton();
+            RbModify = new RadioButton();
+            RbRead = new RadioButton();
+            StatusStrip1 = new StatusStrip();
+            ToolStripStatusLabel1 = new ToolStripStatusLabel();
+            ToolStripStatusLabel2 = new ToolStripStatusLabel();
+            ToolStripStatusLabel3 = new ToolStripStatusLabel();
+            ToolStripStatusLabel4 = new ToolStripStatusLabel();
             MenuStripMain.SuspendLayout();
-            statusStrip1.SuspendLayout();
             TabControlMain.SuspendLayout();
             TabPageReadItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            TabPageEditItems.SuspendLayout();
+            panel1.SuspendLayout();
+            GroupBoxRbEditItems.SuspendLayout();
+            StatusStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // MenuStripMain
@@ -124,23 +137,6 @@
             MenuItemLanguageNL.Name = "MenuItemLanguageNL";
             resources.ApplyResources(MenuItemLanguageNL, "MenuItemLanguageNL");
             // 
-            // statusStrip1
-            // 
-            statusStrip1.ImageScalingSize = new Size(24, 24);
-            statusStrip1.Items.AddRange(new ToolStripItem[] { ToolStripStatusLabel1, ToolStripStatusLabel2 });
-            resources.ApplyResources(statusStrip1, "statusStrip1");
-            statusStrip1.Name = "statusStrip1";
-            // 
-            // ToolStripStatusLabel1
-            // 
-            ToolStripStatusLabel1.Name = "ToolStripStatusLabel1";
-            resources.ApplyResources(ToolStripStatusLabel1, "ToolStripStatusLabel1");
-            // 
-            // ToolStripStatusLabel2
-            // 
-            ToolStripStatusLabel2.Name = "ToolStripStatusLabel2";
-            resources.ApplyResources(ToolStripStatusLabel2, "ToolStripStatusLabel2");
-            // 
             // TabControlMain
             // 
             TabControlMain.Controls.Add(TabPageReadItems);
@@ -156,34 +152,124 @@
             TabPageReadItems.Name = "TabPageReadItems";
             TabPageReadItems.UseVisualStyleBackColor = true;
             // 
-            // TabPageEditItems
-            // 
-            resources.ApplyResources(TabPageEditItems, "TabPageEditItems");
-            TabPageEditItems.Name = "TabPageEditItems";
-            TabPageEditItems.UseVisualStyleBackColor = true;
-            // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             resources.ApplyResources(dataGridView1, "dataGridView1");
             dataGridView1.Name = "dataGridView1";
             // 
+            // TabPageEditItems
+            // 
+            TabPageEditItems.Controls.Add(PanelMain);
+            TabPageEditItems.Controls.Add(panel1);
+            resources.ApplyResources(TabPageEditItems, "TabPageEditItems");
+            TabPageEditItems.Name = "TabPageEditItems";
+            TabPageEditItems.UseVisualStyleBackColor = true;
+            // 
+            // PanelMain
+            // 
+            resources.ApplyResources(PanelMain, "PanelMain");
+            PanelMain.Name = "PanelMain";
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(TextBoxCtrlObject);
+            panel1.Controls.Add(ButtonSave);
+            panel1.Controls.Add(GroupBoxRbEditItems);
+            resources.ApplyResources(panel1, "panel1");
+            panel1.Name = "panel1";
+            // 
+            // TextBoxCtrlObject
+            // 
+            resources.ApplyResources(TextBoxCtrlObject, "TextBoxCtrlObject");
+            TextBoxCtrlObject.Name = "TextBoxCtrlObject";
+            // 
+            // ButtonSave
+            // 
+            resources.ApplyResources(ButtonSave, "ButtonSave");
+            ButtonSave.Name = "ButtonSave";
+            ButtonSave.UseVisualStyleBackColor = true;
+            ButtonSave.Click += ButtonSave_Click;
+            // 
+            // GroupBoxRbEditItems
+            // 
+            GroupBoxRbEditItems.Controls.Add(RbSetRelations);
+            GroupBoxRbEditItems.Controls.Add(RbModify);
+            GroupBoxRbEditItems.Controls.Add(RbRead);
+            resources.ApplyResources(GroupBoxRbEditItems, "GroupBoxRbEditItems");
+            GroupBoxRbEditItems.Name = "GroupBoxRbEditItems";
+            GroupBoxRbEditItems.TabStop = false;
+            // 
+            // RbSetRelations
+            // 
+            resources.ApplyResources(RbSetRelations, "RbSetRelations");
+            RbSetRelations.Name = "RbSetRelations";
+            RbSetRelations.TabStop = true;
+            RbSetRelations.UseVisualStyleBackColor = true;
+            // 
+            // RbModify
+            // 
+            resources.ApplyResources(RbModify, "RbModify");
+            RbModify.Name = "RbModify";
+            RbModify.TabStop = true;
+            RbModify.UseVisualStyleBackColor = true;
+            // 
+            // RbRead
+            // 
+            resources.ApplyResources(RbRead, "RbRead");
+            RbRead.Name = "RbRead";
+            RbRead.TabStop = true;
+            RbRead.UseVisualStyleBackColor = true;
+            // 
+            // StatusStrip1
+            // 
+            StatusStrip1.ImageScalingSize = new Size(24, 24);
+            StatusStrip1.Items.AddRange(new ToolStripItem[] { ToolStripStatusLabel1, ToolStripStatusLabel2, ToolStripStatusLabel3, ToolStripStatusLabel4 });
+            resources.ApplyResources(StatusStrip1, "StatusStrip1");
+            StatusStrip1.Name = "StatusStrip1";
+            // 
+            // ToolStripStatusLabel1
+            // 
+            ToolStripStatusLabel1.Name = "ToolStripStatusLabel1";
+            resources.ApplyResources(ToolStripStatusLabel1, "ToolStripStatusLabel1");
+            // 
+            // ToolStripStatusLabel2
+            // 
+            ToolStripStatusLabel2.Name = "ToolStripStatusLabel2";
+            resources.ApplyResources(ToolStripStatusLabel2, "ToolStripStatusLabel2");
+            // 
+            // ToolStripStatusLabel3
+            // 
+            ToolStripStatusLabel3.Name = "ToolStripStatusLabel3";
+            resources.ApplyResources(ToolStripStatusLabel3, "ToolStripStatusLabel3");
+            ToolStripStatusLabel3.Spring = true;
+            // 
+            // ToolStripStatusLabel4
+            // 
+            ToolStripStatusLabel4.Name = "ToolStripStatusLabel4";
+            resources.ApplyResources(ToolStripStatusLabel4, "ToolStripStatusLabel4");
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(StatusStrip1);
             Controls.Add(TabControlMain);
-            Controls.Add(statusStrip1);
             Controls.Add(MenuStripMain);
             MainMenuStrip = MenuStripMain;
             Name = "MainForm";
             MenuStripMain.ResumeLayout(false);
             MenuStripMain.PerformLayout();
-            statusStrip1.ResumeLayout(false);
-            statusStrip1.PerformLayout();
             TabControlMain.ResumeLayout(false);
             TabPageReadItems.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            TabPageEditItems.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            GroupBoxRbEditItems.ResumeLayout(false);
+            GroupBoxRbEditItems.PerformLayout();
+            StatusStrip1.ResumeLayout(false);
+            StatusStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -202,12 +288,22 @@
         private ToolStripMenuItem MenuItemLanguage;
         private ToolStripMenuItem MenuItemLanguageEN;
         private ToolStripMenuItem MenuItemLanguageNL;
-        private StatusStrip statusStrip1;
-        private ToolStripStatusLabel ToolStripStatusLabel1;
-        private ToolStripStatusLabel ToolStripStatusLabel2;
         private TabControl TabControlMain;
         private TabPage TabPageReadItems;
         private TabPage TabPageEditItems;
         private DataGridView dataGridView1;
+        private Panel panel1;
+        private GroupBox GroupBoxRbEditItems;
+        private RadioButton RbSetRelations;
+        private RadioButton RbModify;
+        private RadioButton RbRead;
+        private Button ButtonSave;
+        private Panel PanelMain;
+        private TextBox TextBoxCtrlObject;
+        private StatusStrip StatusStrip1;
+        public ToolStripStatusLabel ToolStripStatusLabel1;
+        public ToolStripStatusLabel ToolStripStatusLabel2;
+        private ToolStripStatusLabel ToolStripStatusLabel3;
+        private ToolStripStatusLabel ToolStripStatusLabel4;
     }
 }

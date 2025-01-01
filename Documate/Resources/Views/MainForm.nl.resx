@@ -156,4 +156,13 @@
   <data name="TabPageReadItems" xml:space="preserve">
     <value>Items</value>
   </data>
+  <data name="RbRead" xml:space="preserve">
+    <value>Raadplegen</value>
+  </data>
+  <data name="RbModify" xml:space="preserve">
+    <value>Muteren</value>
+  </data>
+  <data name="RbSetRelations" xml:space="preserve">
+    <value>Muteer relaties</value>
+  </data>
 </root>

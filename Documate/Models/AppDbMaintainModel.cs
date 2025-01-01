@@ -165,7 +165,7 @@ namespace Documate.Models
 
             int ColNumber = -1;
             string selectSql = string.Format("SELECT VALUE FROM {0} WHERE KEY = 'Column count'", SettingsMeta);
-            _loggingModel.WriteToLog(Common.LogAction.INFORMATION, LocalizationHelper.GetString("RequestColCount", LocalizationPaths.AppDbMaintain));
+            //_loggingModel.WriteToLog(Common.LogAction.INFORMATION, LocalizationHelper.GetString("RequestColCount", LocalizationPaths.AppDbMaintain));
 
             if (this.DbConnection != null && this.DbConnection.State == ConnectionState.Closed)
             {

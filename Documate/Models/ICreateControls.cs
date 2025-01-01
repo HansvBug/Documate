@@ -9,7 +9,7 @@ namespace Documate.Models
     public interface ICreateControls
     {
         bool ComponentsCreated { get; set; }
-        void CreateComponents(string DatabaseFileName, TabPage ATabPage);
-        void RemoveComponents(TabPage ATabPage);
+        void CreateComponents(string DatabaseFileName, Panel APanel);
+        void RemoveComponents(Panel APanel);
     }
 }

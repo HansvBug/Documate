@@ -117,52 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MenuProgram" xml:space="preserve">
-    <value>Program</value>
+  <data name="NoOptionSelected" xml:space="preserve">
+    <value>Geen optie geselecteerd.</value>
   </data>
-  <data name="MenuItemProgramOpenFile" xml:space="preserve">
-    <value>Open file</value>
-  </data>
-  <data name="MenuItemProgramCloseFile" xml:space="preserve">
-    <value>Close file</value>
-  </data>
-  <data name="MenuItemProgramNewFile" xml:space="preserve">
-    <value>New file</value>
-  </data>
-  <data name="MenuItemProgramExit" xml:space="preserve">
-    <value>Exit</value>
-  </data>
-  <data name="MenuItemOptions" xml:space="preserve">
-    <value>Options</value>
-  </data>
-  <data name="MenuItemOptionsOptions" xml:space="preserve">
-    <value>Options</value>
-  </data>
-  <data name="MenuItemLanguage" xml:space="preserve">
-    <value>Language</value>
-  </data>
-  <data name="MenuItemLanguageEN" xml:space="preserve">
-    <value>English</value>
-  </data>
-  <data name="MenuItemLanguageNL" xml:space="preserve">
-    <value>Dutch</value>
-  </data>
-  <data name="FormMain" xml:space="preserve">
-    <value>Documate</value>
-  </data>
-  <data name="TabPageEditItems" xml:space="preserve">
-    <value>Edit items</value>
-  </data>
-  <data name="TabPageReadItems" xml:space="preserve">
-    <value>Items</value>
-  </data>
-  <data name="RbRead" xml:space="preserve">
-    <value>Read</value>
-  </data>
-  <data name="RbModify" xml:space="preserve">
-    <value>Modify</value>
-  </data>
-  <data name="RbSetRelations" xml:space="preserve">
-    <value>Set relations</value>
+  <data name="ReadDataError" xml:space="preserve">
+    <value>Fout bij het inlezen van de data.</value>
   </data>
 </root>

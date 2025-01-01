@@ -160,6 +160,33 @@ namespace Documate.Resources.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modify.
+        /// </summary>
+        internal static string RbModify {
+            get {
+                return ResourceManager.GetString("RbModify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read.
+        /// </summary>
+        internal static string RbRead {
+            get {
+                return ResourceManager.GetString("RbRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set relations.
+        /// </summary>
+        internal static string RbSetRelations {
+            get {
+                return ResourceManager.GetString("RbSetRelations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit items.
         /// </summary>
         internal static string TabPageEditItems {

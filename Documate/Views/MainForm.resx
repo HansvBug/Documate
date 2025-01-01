@@ -222,45 +222,6 @@
   <data name="&gt;&gt;MenuStripMain.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>204, 17</value>
-  </metadata>
-  <data name="ToolStripStatusLabel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 25</value>
-  </data>
-  <data name="ToolStripStatusLabel1.Text" xml:space="preserve">
-    <value>ToolStripStatusLabel1</value>
-  </data>
-  <data name="ToolStripStatusLabel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 25</value>
-  </data>
-  <data name="ToolStripStatusLabel2.Text" xml:space="preserve">
-    <value>ToolStripStatusLabel2</value>
-  </data>
-  <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 537</value>
-  </data>
-  <data name="statusStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1010, 32</value>
-  </data>
-  <data name="statusStrip1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="statusStrip1.Text" xml:space="preserve">
-    <value>statusStrip1</value>
-  </data>
-  <data name="&gt;&gt;statusStrip1.Name" xml:space="preserve">
-    <value>statusStrip1</value>
-  </data>
-  <data name="&gt;&gt;statusStrip1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;statusStrip1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="dataGridView1.Location" type="System.Drawing.Point, System.Drawing">
     <value>112, 60</value>
   </data>
@@ -293,7 +254,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="TabPageReadItems.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1002, 466</value>
+    <value>1002, 498</value>
   </data>
   <data name="TabPageReadItems.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -313,6 +274,204 @@
   <data name="&gt;&gt;TabPageReadItems.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="PanelMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="PanelMain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 82</value>
+  </data>
+  <data name="PanelMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>996, 145</value>
+  </data>
+  <data name="PanelMain.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;PanelMain.Name" xml:space="preserve">
+    <value>PanelMain</value>
+  </data>
+  <data name="&gt;&gt;PanelMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PanelMain.Parent" xml:space="preserve">
+    <value>TabPageEditItems</value>
+  </data>
+  <data name="&gt;&gt;PanelMain.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="TextBoxCtrlObject.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="TextBoxCtrlObject.Location" type="System.Drawing.Point, System.Drawing">
+    <value>642, 32</value>
+  </data>
+  <data name="TextBoxCtrlObject.Size" type="System.Drawing.Size, System.Drawing">
+    <value>349, 31</value>
+  </data>
+  <data name="TextBoxCtrlObject.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;TextBoxCtrlObject.Name" xml:space="preserve">
+    <value>TextBoxCtrlObject</value>
+  </data>
+  <data name="&gt;&gt;TextBoxCtrlObject.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TextBoxCtrlObject.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;TextBoxCtrlObject.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="ButtonSave.Location" type="System.Drawing.Point, System.Drawing">
+    <value>524, 29</value>
+  </data>
+  <data name="ButtonSave.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 34</value>
+  </data>
+  <data name="ButtonSave.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="ButtonSave.Text" xml:space="preserve">
+    <value>ButtonSave</value>
+  </data>
+  <data name="&gt;&gt;ButtonSave.Name" xml:space="preserve">
+    <value>ButtonSave</value>
+  </data>
+  <data name="&gt;&gt;ButtonSave.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ButtonSave.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;ButtonSave.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="RbSetRelations.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="RbSetRelations.Location" type="System.Drawing.Point, System.Drawing">
+    <value>300, 17</value>
+  </data>
+  <data name="RbSetRelations.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 29</value>
+  </data>
+  <data name="RbSetRelations.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="RbSetRelations.Text" xml:space="preserve">
+    <value>RbSetRelations</value>
+  </data>
+  <data name="&gt;&gt;RbSetRelations.Name" xml:space="preserve">
+    <value>RbSetRelations</value>
+  </data>
+  <data name="&gt;&gt;RbSetRelations.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RbSetRelations.Parent" xml:space="preserve">
+    <value>GroupBoxRbEditItems</value>
+  </data>
+  <data name="&gt;&gt;RbSetRelations.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="RbModify.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="RbModify.Location" type="System.Drawing.Point, System.Drawing">
+    <value>153, 17</value>
+  </data>
+  <data name="RbModify.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 29</value>
+  </data>
+  <data name="RbModify.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="RbModify.Text" xml:space="preserve">
+    <value>RbModify</value>
+  </data>
+  <data name="&gt;&gt;RbModify.Name" xml:space="preserve">
+    <value>RbModify</value>
+  </data>
+  <data name="&gt;&gt;RbModify.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RbModify.Parent" xml:space="preserve">
+    <value>GroupBoxRbEditItems</value>
+  </data>
+  <data name="&gt;&gt;RbModify.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="RbRead.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="RbRead.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 17</value>
+  </data>
+  <data name="RbRead.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 29</value>
+  </data>
+  <data name="RbRead.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="RbRead.Text" xml:space="preserve">
+    <value>RbRead</value>
+  </data>
+  <data name="&gt;&gt;RbRead.Name" xml:space="preserve">
+    <value>RbRead</value>
+  </data>
+  <data name="&gt;&gt;RbRead.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RbRead.Parent" xml:space="preserve">
+    <value>GroupBoxRbEditItems</value>
+  </data>
+  <data name="&gt;&gt;RbRead.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="GroupBoxRbEditItems.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 3</value>
+  </data>
+  <data name="GroupBoxRbEditItems.Size" type="System.Drawing.Size, System.Drawing">
+    <value>494, 60</value>
+  </data>
+  <data name="GroupBoxRbEditItems.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;GroupBoxRbEditItems.Name" xml:space="preserve">
+    <value>GroupBoxRbEditItems</value>
+  </data>
+  <data name="&gt;&gt;GroupBoxRbEditItems.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBoxRbEditItems.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;GroupBoxRbEditItems.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>996, 79</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>TabPageEditItems</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="TabPageEditItems.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 34</value>
   </data>
@@ -320,7 +479,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="TabPageEditItems.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1002, 466</value>
+    <value>1002, 230</value>
   </data>
   <data name="TabPageEditItems.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -347,7 +506,7 @@
     <value>0, 33</value>
   </data>
   <data name="TabControlMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1010, 504</value>
+    <value>1010, 536</value>
   </data>
   <data name="TabControlMain.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -362,6 +521,57 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;TabControlMain.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="StatusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>181, 17</value>
+  </metadata>
+  <data name="ToolStripStatusLabel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 15</value>
+  </data>
+  <data name="ToolStripStatusLabel1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="ToolStripStatusLabel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 15</value>
+  </data>
+  <data name="ToolStripStatusLabel3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>989, 15</value>
+  </data>
+  <data name="ToolStripStatusLabel3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="ToolStripStatusLabel4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 15</value>
+  </data>
+  <data name="ToolStripStatusLabel4.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="StatusStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 547</value>
+  </data>
+  <data name="StatusStrip1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>1, 0, 20, 0</value>
+  </data>
+  <data name="StatusStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1010, 22</value>
+  </data>
+  <data name="StatusStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="StatusStrip1.Text" xml:space="preserve">
+    <value>statusStrip1</value>
+  </data>
+  <data name="&gt;&gt;StatusStrip1.Name" xml:space="preserve">
+    <value>StatusStrip1</value>
+  </data>
+  <data name="&gt;&gt;StatusStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatusStrip1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;StatusStrip1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -452,6 +662,18 @@
     <value>ToolStripStatusLabel2</value>
   </data>
   <data name="&gt;&gt;ToolStripStatusLabel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ToolStripStatusLabel3.Name" xml:space="preserve">
+    <value>ToolStripStatusLabel3</value>
+  </data>
+  <data name="&gt;&gt;ToolStripStatusLabel3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ToolStripStatusLabel4.Name" xml:space="preserve">
+    <value>ToolStripStatusLabel4</value>
+  </data>
+  <data name="&gt;&gt;ToolStripStatusLabel4.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

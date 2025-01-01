@@ -75,6 +75,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppDbMaintain.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Models\AppDbMaintainItems.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppDbMaintainItems.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Models\CreateControls.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -146,6 +151,10 @@
     <EmbeddedResource Update="Resources\Models\AppDbMaintain.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AppDbMaintain.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\AppDbMaintainItems.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppDbMaintainItems.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Models\CreateControls.resx">
       <Generator>ResXFileCodeGenerator</Generator>

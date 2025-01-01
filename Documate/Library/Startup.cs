@@ -23,19 +23,21 @@ namespace Documate.Library
             return new ServiceCollection()
             .AddSingleton<IMainView, MainForm>()           // Registers MainForm as the implementation for the IMainView interface. This means that whenever IMainView is requested, the application will provide a single, shared instance of MainForm
             .AddSingleton<MainPresenter>()                 // Registers MainPresenter so that a new instance is created every time it’s requested. No specific interface is associated, so it’s registered by its concrete type.
-            .AddSingleton<IAppSettings, AppSettings>()
+            .AddSingleton<IAppSettings, AppSettings>()     // Register only the interface. If you also register the class, you will still get multiple instances of the object.
             .AddSingleton<DirectoryModel>()
             .AddSingleton<LoggingModel>()
             .AddSingleton<IConfigureView, ConfigureForm>() // Register as Singleton                
             .AddSingleton<ConfigurePresenter>()  
-            .AddTransient<FormPositionModel>()                  // Register as Transient (Singletons would be ok too)
+            .AddTransient<FormPositionModel>()             // Register as Transient (Singletons would be ok too)
             .AddSingleton<INewDbView, NewDbForm>()
             .AddSingleton<NewDbPresenter>()
-            .AddSingleton<IAppDbCreateModel, AppDbCreateModel>()  // Registreer de interface.
-            .AddSingleton<AppDbCreateModel>()                     // Registratie voor concrete klasse
+            .AddSingleton<IAppDbCreateModel, AppDbCreateModel>()  
             .AddSingleton<IAppDbMaintainModel, AppDbMaintainModel>()
-            .AddSingleton<AppDbMaintainModel>()
             .AddSingleton<ICreateControls, CreateControls>()
+            .AddSingleton<IAppDbMaintainItemsModel, AppDbMaintainItemsModel>()
+            .AddSingleton<IDataGridViewModel, DataGridViewModel>()
+            .AddSingleton<IDmItems, DmItems>()
+
             .BuildServiceProvider();
         }
 

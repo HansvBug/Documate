@@ -1,8 +1,9 @@
 using Documate.Library;
-using Documate.Models;
 using Documate.Presenters;
 using Documate.Views;
+using System.DirectoryServices.ActiveDirectory;
 using System.Windows.Forms;
+using static Documate.Library.Common;
 
 namespace Documate
 {
@@ -10,7 +11,7 @@ namespace Documate
     {
         private MainPresenter? _presenter;
         private readonly IAppSettings _appSettings;
-        private TabPage _tabPage;
+
 
         public MainForm(IAppSettings appSettings)
         {
@@ -28,6 +29,11 @@ namespace Documate
         public event EventHandler? DoFormShown;
         public event FormClosingEventHandler? DoFormClosing;
 
+        public event EventHandler? RbReadCheckedChanged;
+        public event EventHandler? RbModifyCheckedChanged;
+        public event EventHandler? RbSetRelationsCheckedChanged;
+
+        public event EventHandler? SaveItemDataClicked;
 
         #region Properties Set Texts
 
@@ -84,7 +90,7 @@ namespace Documate
         }
         public string TabPageEditItemsText
         {
-            set=> TabPageEditItems.Text = value;
+            set => TabPageEditItems.Text = value;
         }
 
         public string ToolStripStatusLabel1Text
@@ -92,7 +98,7 @@ namespace Documate
             set
             {
                 ToolStripStatusLabel1.Text = value;
-                statusStrip1.Refresh();
+                StatusStrip1.Refresh();
             }
         }
 
@@ -101,8 +107,30 @@ namespace Documate
             set
             {
                 ToolStripStatusLabel2.Text = value;
-                statusStrip1.Refresh();
+                StatusStrip1.Refresh();
             }
+        }
+
+        public string ToolStripStatusLabel3Text
+        {
+            set
+            {
+                ToolStripStatusLabel3.Text = value;
+                StatusStrip1.Refresh();
+            }
+        }
+
+        public string RbReadText
+        {
+            set => RbRead.Text = value;
+        }
+        public  string RbModifyText
+        {
+            set => RbModify.Text = value;
+        }
+        public string RbSetRelationsText
+        {
+            set => RbSetRelations.Text = value;
         }
 
         #endregion Properties Set Texts
@@ -119,11 +147,32 @@ namespace Documate
             get => MenuItemLanguageNL.Checked;
             set => MenuItemLanguageNL.Checked = value;
         }
+        public Panel? APanel { get; set; }  // Holds the panel on which the splitcontainer is placed.
 
-        public TabPage ATabPage
+        public RadioButtonOption SelectedRadioButton
         {
-            get => _tabPage;
-            set => _tabPage = value;
+            get
+            {
+                if (RbRead.Checked) return RadioButtonOption.RbRead;
+                if (RbModify.Checked) return RadioButtonOption.RbModify;
+                if (RbSetRelations.Checked) return RadioButtonOption.RbSetRelations;
+                throw new InvalidOperationException(LocalizationHelper.GetString("NoOptionSelected", LocalizationPaths.MainForm));
+            }
+        }
+
+        public bool ButtonSaveEnabled
+        {
+            set => ButtonSave.Enabled = value;
+        }
+
+        public bool RbReadChecked
+        {
+            set => RbRead.Checked = value;
+        }
+
+        public bool ViewKeyPreview
+        {
+            set => this.KeyPreview = value;  // TODO: wordt niet gebruikt.
         }
 
         #endregion Properties
@@ -137,7 +186,7 @@ namespace Documate
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e); // First: calls Form's native OnLoad method.
-            
+
 
             // Connect eventhandlers
             MenuItemProgramOpenFile.Click += (sender, args) => MenuItemOpenFileClicked?.Invoke(this, EventArgs.Empty);  // inline event handler to subscribe to the Click event of MenuItemProgramOpenFile
@@ -146,11 +195,16 @@ namespace Documate
             MenuItemProgramExit.Click += (sender, args) => MenuItemExitClicked?.Invoke(this, EventArgs.Empty);  // Send the event to the presenter. The presenter takes care of the handling.
             MenuItemLanguageEN.Click += (sender, args) => MenuItemLanguageENClicked?.Invoke(this, EventArgs.Empty);
             MenuItemLanguageNL.Click += (sender, args) => MenuItemLanguageNLClicked?.Invoke(this, EventArgs.Empty);
-            MenuItemOptionsOptions.Click += (sender, args) =>  MenuItemOptionsOptionsClicked?.Invoke(this, EventArgs.Empty);
+            MenuItemOptionsOptions.Click += (sender, args) => MenuItemOptionsOptionsClicked?.Invoke(this, EventArgs.Empty);
+
+            ButtonSave.Click += (sender, args) => SaveItemDataClicked?.Invoke(this, EventArgs.Empty);  // Save Item data.
 
             this.Shown += MainForm_Shown!;  // Bind the Shown event to the internal handler; suppress the warning by using the null-forgiving operator "!"
-            
+
             this.FormClosing += MainForm_FormClosing!;
+            RbRead.CheckedChanged += (s, e) => RbReadCheckedChanged?.Invoke(this, EventArgs.Empty);
+            RbModify.CheckedChanged += (s, e) => RbModifyCheckedChanged?.Invoke(this, EventArgs.Empty);
+            RbSetRelations.CheckedChanged += (s, e) => RbSetRelationsCheckedChanged?.Invoke(this, EventArgs.Empty);
 
             //
             this.BackColor = SystemColors.Window;
@@ -159,7 +213,7 @@ namespace Documate
             _presenter?.CreateDirectory(Models.DirectoryModel.DirectoryOption.ApplicatieDir, _appSettings.DatabaseDirectory + "\\" + _appSettings.BackUpFolder);
 
             LoadFormPosition();
-            ATabPage = this.TabPageEditItems;  // Used in CreateControls
+            APanel = this.PanelMain;
         }
 
 
@@ -197,6 +251,65 @@ namespace Documate
         private void LoadFormPosition()
         {
             _presenter?.LoadFormPosition();
+        }
+
+        private void ButtonSave_Click(object sender, EventArgs e)
+        {
+            /*foreach (Control c in this.TabPageEditItems.Controls)
+            {
+                if (c.GetType() == typeof(SplitContainer))
+                {
+                    SplitContainer spc = (SplitContainer)c;
+
+                    foreach (Control splitpan in spc.Controls)
+                    {
+                        if (splitpan.GetType() == typeof(SplitterPanel))
+                        {
+                            SplitterPanel asplitpanel = (SplitterPanel)splitpan;
+
+                            foreach (Control pnl in asplitpanel.Controls)
+                            {
+                                if (pnl.GetType() == typeof(Panel))
+                                {
+                                    Panel panelbody = (Panel)pnl;
+                                    if (panelbody.Name.Contains("PanelBody"))
+                                    {
+                                        foreach (Control pnlMid in panelbody.Controls)
+                                        {
+                                            if (pnlMid.GetType() == typeof(Panel))
+                                            {
+                                                Panel panMid = (Panel)pnlMid;
+                                                foreach (Control dgv in panMid.Controls)
+                                                {
+                                                    if (dgv.GetType() == typeof(DataGridView))
+                                                    {
+                                                        DataGridView adgv = (DataGridView)dgv;
+                                                        int i = adgv.RowCount;
+                                                        string tmp = "";
+                                                        // WERKT
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }*/
+        }
+
+        public void ShowItemDataInTextBox(string data)
+        {
+            // Toon de data in een TextBox (bijvoorbeeld TextBox1)
+            TextBoxCtrlObject.Text = data;
+        }
+
+        public void CanSaveChanged(bool canSave)
+        {
+           this.ButtonSaveEnabled = canSave;
         }
     }
 }

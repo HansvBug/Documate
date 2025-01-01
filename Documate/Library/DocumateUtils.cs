@@ -11,7 +11,7 @@ namespace Documate.Library
         private static string? _fileLocationAndName;
         private static string? _fileName;
         private static bool _loggingIsStarted;
-        private static int _colCount;
+        private static int _levelCount;
         public static string FileLocationAndName
         {
             get => _fileLocationAndName;
@@ -33,27 +33,21 @@ namespace Documate.Library
             set => _loggingIsStarted = value;
         }
 
-        public static int ColCount
+        public static int LevelCount
         {
-            get => _colCount;
-            set => _colCount = value;
+            get => _levelCount;
+            set => _levelCount = value;
         }
 
-        private static List<Control> _allDgvs = new();
-        public static IReadOnlyList<Control> AllDgvs => _allDgvs;
-
-        public static void AddDgv(Control dgv)
+        public static int ExtractDigets(string input)
         {
-            if (dgv != null)
+            string output = string.Empty;
+            for (int i = 0; i < input.Length; i++)
             {
-                _allDgvs.Add(dgv);
+                if (Char.IsDigit(input[i]))
+                    output += input[i];
             }
+            return int.Parse(output);
         }
-
-        public static void ClearDgv()
-        {
-            _allDgvs.Clear();
-        }
-
     }
 }

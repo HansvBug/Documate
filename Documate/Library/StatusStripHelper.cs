@@ -15,7 +15,8 @@ namespace Documate.Library
         public enum TsStatusLblName
         {
             tsOne,
-            tsTwo
+            tsTwo,
+            tsThree,
         }
 
         public static void Initialize(IMainView view)
@@ -37,6 +38,9 @@ namespace Documate.Library
                     break;
                 case TsStatusLblName.tsTwo:
                     _view.ToolStripStatusLabel2Text = text;
+                    break;
+                case TsStatusLblName.tsThree:
+                    _view.ToolStripStatusLabel3Text = text;
                     break;
             }
         }

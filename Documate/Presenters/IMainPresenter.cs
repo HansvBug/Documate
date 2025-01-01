@@ -17,5 +17,6 @@ namespace Documate.Presenters
         void SaveFormPosition();
 
         void OpenConfigureForm();
+
     }
 }

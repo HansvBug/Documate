@@ -1,15 +1,6 @@
 ﻿using Documate.Library;
 using static Documate.Library.StatusStripHelper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Documate.Resources.Logging;
-using System.Windows.Forms;
 using System.Data;
-using System.Reflection.PortableExecutable;
-using System.Collections;
 
 namespace Documate.Models
 {
@@ -17,8 +8,12 @@ namespace Documate.Models
     {
         private readonly IAppDbMaintainModel _appDbMaintainModel;
         private readonly LoggingModel _loggingModel;
+        private readonly IDataGridViewModel _dataGridViewModel;
+        private readonly IAppDbCreateModel _appDbCreateModel;
+
         private bool _componentsCreated = false;
-        private TabPage? _tabPage;
+        //private TabPage? _tabPage;
+        private Panel? _panel;
         private int _numberOfPanels = -1;
 
         private readonly List<Control> _controls = [];
@@ -38,53 +33,58 @@ namespace Documate.Models
         }
 
 
-        public CreateControls(IAppDbMaintainModel appDbMaintainModel, LoggingModel loggingModel)
+        public CreateControls(IAppDbMaintainModel appDbMaintainModel, LoggingModel loggingModel, IDataGridViewModel dataGridViewModel, IAppDbCreateModel appDbCreateModel)
         {
             _appDbMaintainModel = appDbMaintainModel;
             _loggingModel = loggingModel;
+            _dataGridViewModel = dataGridViewModel;
+            _appDbCreateModel = appDbCreateModel;
+
+            //Console.WriteLine($"Nieuwe instantie van DataGridViewModel: {this.GetHashCode()}");
+
         }
-        public void CreateComponents(string DatabaseFileName, TabPage ATabPage)
+        public void CreateComponents(string DatabaseFileName, Panel APanel)
         {
             Cursor.Current = Cursors.WaitCursor;
-            DocumateUtils.ColCount = _appDbMaintainModel.GetColCount();
+            DocumateUtils.LevelCount = _appDbMaintainModel.GetColCount();
 
-            _tabPage = ATabPage ?? throw new InvalidOperationException(LocalizationHelper.GetString("TabPageIsMissing", LocalizationPaths.CreateControls));
+            _panel = APanel ?? throw new InvalidOperationException(LocalizationHelper.GetString("TabPageIsMissing", LocalizationPaths.CreateControls));
 
-            if (DocumateUtils.ColCount > 0)
+            if (DocumateUtils.LevelCount > 0)
             {
                 SetStatusbarStaticText(TsStatusLblName.tsOne, LocalizationHelper.GetString("GettingReady", LocalizationPaths.CreateControls));
-
-                // clear current controls
-                // ... TODO
-                RemoveComponents(ATabPage);
-                CreateComponents(DocumateUtils.ColCount, ATabPage);
+                
+                _appDbCreateModel.CloseDatabaseConnection();
+                RemoveComponents(APanel);
+                CreateAllComponents(DocumateUtils.LevelCount, APanel);
             }
 
             Cursor.Current = Cursors.Default;
         }
 
-        public void RemoveComponents(TabPage ATabPage)
+        public void RemoveComponents(Panel APanel)
         {
-            foreach (Control c in ATabPage.Controls)
+            foreach (Control c in APanel.Controls)
             {
                 if (c is SplitContainer splitContainer)
                 {
                     splitContainer.Panel1.Controls.Clear();
                     splitContainer.Panel2.Controls.Clear();
 
-                    c.Dispose();  // Remove the Splitcontainer
+                    c.Dispose();  // Remove the SplitContainer.
                 }
             }
+
 
             _controls.Clear();
             _controlsHeader.Clear();
             _controlsMiddle.Clear();
             _controlsBottom.Clear();
-            DocumateUtils.ClearDgv();
+            DataGridViewHelper.ClearDgv();
         }
-        private void CreateComponents(int numberOfPanels, TabPage ATabPage)
+        private void CreateAllComponents(int numberOfPanels, Panel APanel)
         {
-            ATabPage.SuspendLayout();
+            APanel.SuspendLayout();
             _numberOfPanels = numberOfPanels;
 
             SplitContainer splitContainer = new()
@@ -95,9 +95,8 @@ namespace Documate.Models
                 SplitterDistance = 50                
             };
             splitContainer.Panel2.AutoScroll = true;
-            
-            ATabPage.Controls.Add(splitContainer);
 
+            APanel.Controls.Add(splitContainer);
 
             CreateBodyPanelsAndSplitters(splitContainer.Panel1);
             AddBodyPanelsToForm(splitContainer.Panel2);
@@ -112,7 +111,7 @@ namespace Documate.Models
             CreatedatagridViews();
             AddNewComponentsToMiddlePanel();
 
-            ATabPage.ResumeLayout();
+            APanel.ResumeLayout();
             ComponentsCreated = true;  // TODO; wordt dit gebruikt?
         }
 
@@ -193,11 +192,11 @@ namespace Documate.Models
 
         private void AddSubPanelsToBodyPanel()
         {
-            if (_tabPage != null)
+            if (_panel != null)
             {
                 int panelNumber;
 
-                foreach (Control c in _tabPage.Controls)
+                foreach (Control c in _panel.Controls)
                 {
                     if (c is SplitContainer splitContainer)
                     {
@@ -288,13 +287,26 @@ namespace Documate.Models
 
         private void CreatedatagridViews()
         {
-            _controls.Clear();  // Used fot placing the compent on the Middle panel.
+            _controls.Clear();  // A list used for placing the component on the Middle panel.
+            DataGridViewHelper.ClearDgv();
 
             for (int i = 1; i <= _numberOfPanels; i++)
             {
                 DataGridView dgv = CreateDataGridView(i);
+                dgv.BackgroundColor = SystemColors.Window;
+
+                // Link the event handlers via the helper class.
+                dgv.CellValueChanged += _dataGridViewModel.HandleCellValueChanged!;
+                dgv.RowsAdded += _dataGridViewModel.HandleRowsAdded!;
+                dgv.RowLeave += _dataGridViewModel.RowLeave!;
+                dgv.CellClick += _dataGridViewModel.CellClicked!;
+                dgv.CurrentCellChanged += _dataGridViewModel.CurrentCellChanged!;
+
+                dgv.RowValidating += _dataGridViewModel.RowValidating!;
+                dgv.KeyDown += _dataGridViewModel.KeyDown!;
+
                 _controls.Add(dgv);
-                DocumateUtils.AddDgv(dgv);  // Store the DataGridViews. They are used a lot later on.
+                DataGridViewHelper.AddDgv(dgv);  // Store the DataGridViews. They are used a lot later on.
             }
         }
 
@@ -315,7 +327,7 @@ namespace Documate.Models
                 AllowUserToAddRows = false,
                 AllowUserToDeleteRows = false,
                 AllowUserToResizeRows = false,
-                AutoGenerateColumns = false,                
+                AutoGenerateColumns = false,
             };
 
             // Create a DataTable for the DataGridView and bind it to the DataGridView.
@@ -323,8 +335,25 @@ namespace Documate.Models
             {
                 DataSource = CreateDataTable(datagridViewNumber)
             };
+
             dgv.DataSource = bs;
 
+            /*
+            dgv.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                Name = "Guid",
+                HeaderText = "Guid",
+                DataPropertyName = "Guid", // Koppel aan de DataTable-kolom
+                Width = 50
+            });
+
+            dgv.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                Name = "Level",
+                HeaderText = "Level",
+                DataPropertyName = "Level", // Koppel aan de DataTable-kolom
+                Width = 5
+            });*/
 
             dgv.Columns.Add(new DataGridViewCheckBoxColumn
             {
@@ -344,11 +373,20 @@ namespace Documate.Models
 
             dgv.Columns.Add(new DataGridViewTextBoxColumn
             {
-                Name = "Item",
+                Name = "Name",
                 HeaderText = "Description",
-                DataPropertyName = "Item", // Koppel aan de DataTable-kolom
+                DataPropertyName = "Name", // Koppel aan de DataTable-kolom
                 Width = 200,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,  // auto fill the last column.
+            });
+
+            // TEST extre kolom om object in op te slaan
+            dgv.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "ItemObject",
+                HeaderText = "ItemObject",
+                DataPropertyName = "ItemObjecct", // Koppel aan de DataTable-kolom
+                Width = 50,
             });
 
             dgv.ColumnHeadersVisible = true;
@@ -362,9 +400,12 @@ namespace Documate.Models
                 TableName = "DATATABLE_" + dataTableNumber.ToString(),
             };
 
+            dt.Columns.Add("Guid", typeof(string));
+            dt.Columns.Add("Level", typeof (int));
             dt.Columns.Add("Parent", typeof(bool));
             dt.Columns.Add("Child", typeof(bool));
-            dt.Columns.Add("Item", typeof(string));
+            dt.Columns.Add("Name", typeof(string));
+            dt.Columns.Add("ItemObject", typeof(object));
 
             //dt.Rows.Add(false, false, "Row 1");  // For test/debug.
             //dt.Rows.Add(true, false, "Row 2");  // For test/debug.
@@ -374,7 +415,7 @@ namespace Documate.Models
 
         private void AddNewComponentsToMiddlePanel()
         {
-            if (_tabPage != null)
+            if (_panel != null)
             {
                 int panelNumber;
 

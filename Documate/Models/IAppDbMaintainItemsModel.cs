@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Documate.Library;
 
 namespace Documate.Models
 {
-    internal interface IAppDbMaintainItemsModel
+    public interface IAppDbMaintainItemsModel
     {
+        List<DmItem> ReadLevel(int level, DataGridView dgv, bool sorted);
+
+        void SaveItems(int level, DataGridView dgv);
+        void RemoveEmptyRows(DataGridView dgv);
     }
 }

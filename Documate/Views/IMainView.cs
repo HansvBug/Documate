@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Documate.Library;
-using Documate.Models;
+﻿using static Documate.Library.Common;
 
 namespace Documate.Views
 {
@@ -19,6 +13,14 @@ namespace Documate.Views
         event EventHandler MenuItemOptionsOptionsClicked;
         event EventHandler DoFormShown;
         event FormClosingEventHandler DoFormClosing;
+
+        event EventHandler RbReadCheckedChanged;
+        event EventHandler RbModifyCheckedChanged;
+        event EventHandler RbSetRelationsCheckedChanged;
+
+        event EventHandler SaveItemDataClicked;  // TODO; ook in het menu zetten.
+
+        
 
         string FormMainText { set; }
         string MenuItemProgramText { set; }
@@ -40,12 +42,26 @@ namespace Documate.Views
 
         string ToolStripStatusLabel1Text { set; }
         string ToolStripStatusLabel2Text { set; }
+        string ToolStripStatusLabel3Text { set; }
 
-        TabPage ATabPage { get; set; }
+        Panel? APanel {  set; get; }
+        RadioButtonOption SelectedRadioButton { get; }  // Property to determine the selected radio button.
+        string RbReadText { set; }
+        string RbModifyText { set; }
+        string RbSetRelationsText { set; }
+
+        bool RbReadChecked { set; }
+
+        bool ButtonSaveEnabled { set; }  // Set the Button state.
+
+        void ShowItemDataInTextBox(string data); // show itemdata in a textbox.
+        void CanSaveChanged(bool canSave);
 
         void OpenFile();
         void CloseFile();
         void NewFile();
         void CloseView();
+
+        bool ViewKeyPreview { set; }
     }
 }

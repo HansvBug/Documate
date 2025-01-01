@@ -22,5 +22,12 @@ namespace Documate.Library
             ToolStripStatusLabel1,
             ToolStripStatusLabel2
         }
+
+        public enum RadioButtonOption
+        {
+            RbRead,
+            RbModify,
+            RbSetRelations
+        }
     }
 }

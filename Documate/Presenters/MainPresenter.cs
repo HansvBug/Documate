@@ -1,10 +1,8 @@
 ﻿using Documate.Library;
 using Documate.Models;
-using Documate.Resources.Models;
 using Documate.Views;
 using Microsoft.Extensions.DependencyInjection;
-using System.Data.Entity.Hierarchy;
-using System.Windows.Forms;
+using System.Data;
 using static Documate.Library.Common;
 using static Documate.Library.StatusStripHelper;  // Allows you to call SetStatusbarStaticText directly.
 
@@ -19,6 +17,8 @@ namespace Documate.Presenters
         private readonly IServiceProvider _serviceProvider;
         private readonly IAppSettings _appSettings;
         private readonly ICreateControls _createControls;
+        private readonly IAppDbMaintainItemsModel _appDbMaintainItemsModel;
+        private readonly IDataGridViewModel _dataGridViewModel;
 
         public MainPresenter(
             IMainView view,
@@ -27,7 +27,9 @@ namespace Documate.Presenters
             LoggingModel loggingModel, 
             IServiceProvider serviceProvider,
             FormPositionModel formPosition,
-            ICreateControls createControls
+            ICreateControls createControls,
+            IAppDbMaintainItemsModel appDbMaintainItemsModel,
+            IDataGridViewModel dataGridViewModel
             )
         {
             _view = view;
@@ -41,8 +43,15 @@ namespace Documate.Presenters
             _view.MenuItemLanguageNLClicked += this.OnMenuItemLanguageNLClicked;
             _view.MenuItemOptionsOptionsClicked += this.OnMenuItemOptionsOptionsClicked;
 
+            _view.SaveItemDataClicked += this.OnSaveItemDataClicked;
+
             _view.DoFormShown += (s, e) => OnFormShown();
             _view.DoFormClosing += (s, e) => OnFormClosing();
+
+            _view.RbReadCheckedChanged += OnRbReadCheckedChanged!;
+            _view.RbModifyCheckedChanged += OnModifyCheckedChanged!;
+            _view.RbSetRelationsCheckedChanged += OnRbSetRelationsCheckedChanged!;
+
 
             _appSettings = appSettings;
             _directoryModel = directoryModel;
@@ -50,7 +59,13 @@ namespace Documate.Presenters
             _serviceProvider = serviceProvider; // Added for the configure form/view
             _formPosition = formPosition;
             _createControls = createControls;
+            _appDbMaintainItemsModel = appDbMaintainItemsModel;
+
+            _dataGridViewModel = dataGridViewModel;
+            _dataGridViewModel.CellClickedEvent += OnCellClicked;  // Koppel het CellClickedEvent aan een handler in de presenter
+            _dataGridViewModel.CanSaveChangedEvent += OnCanSaveChangedEvent;
         }
+
 
         public void Run()
         {
@@ -70,6 +85,11 @@ namespace Documate.Presenters
 
             SetStatusbarStaticText(TsStatusLblName.tsOne, LocalizationHelper.GetString("Welcome", LocalizationPaths.General));
             SetStatusbarStaticText(TsStatusLblName.tsTwo, LocalizationHelper.GetString("MVPAtWork", LocalizationPaths.General));
+            SetStatusbarStaticText(TsStatusLblName.tsThree, string.Empty);
+
+            _view.CanSaveChanged(false);
+            _view.RbReadChecked = true;
+
         }
         public void OnFormClosing()
         {            
@@ -153,7 +173,6 @@ namespace Documate.Presenters
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                //_view.OpenFile();  // TODO; remove method, does nothing.
                 OpenDocumateFile(openFileDialog.FileName);
             }
             else
@@ -169,11 +188,14 @@ namespace Documate.Presenters
         }
         private void OnMenuItemCloseFileClicked(object? sender, EventArgs e)
         {
-            _createControls.RemoveComponents(_view.ATabPage);
+            _createControls.RemoveComponents(_view.APanel!);
             DocumateUtils.FileLocationAndName = string.Empty;
-            DocumateUtils.ColCount = -1;
+            DocumateUtils.LevelCount = -1;
+            _view.CanSaveChanged(false);  // Disable save button.
+            _view.RbReadChecked = true;   // Enable radiobutton RbRead.
 
             SetStatusbarStaticText(TsStatusLblName.tsOne, LocalizationHelper.GetString("FileIsClosed", LocalizationPaths.MainPresenter));
+            SetStatusbarStaticText(TsStatusLblName.tsThree, string.Empty);
             //_view.CloseFile();
         }
         private void OnMenuItemExitClicked(object? sender, EventArgs e)
@@ -189,13 +211,59 @@ namespace Documate.Presenters
         private void OpenDocumateFile(string FileName)
         {
             DocumateUtils.FileLocationAndName = FileName;
-            _createControls.CreateComponents(FileName, _view.ATabPage);
-            //laden van de data. Moet een nieuwe klasse worden ==> AppDbMaintainItemsModel
+            _createControls.CreateComponents(FileName, _view.APanel!);
+            RetrieveData();
+
+            SetStatusbarStaticText(TsStatusLblName.tsThree, Path.GetFileName(FileName));  // TODO; moeten controle voor. 
+
+            // hier moet de bestandsnaam naar de statustrip label
+
         }
+        
+        private void RetrieveData()
+        {
+            for (int i = 1; i <=DocumateUtils.LevelCount; i++)
+            {
+                foreach (DataGridView dgv in DataGridViewHelper.AllDgvs.Cast<DataGridView>())
+                {
+                    if (DocumateUtils.ExtractDigets(dgv.Name) == i)
+                    {
+                        var itemList = new List<DmItem>();
+
+                        itemList = _appDbMaintainItemsModel.ReadLevel(i, dgv, true);  // TODO; make sorted optional.
+
+                        // Hide the parent and child column.
+                        dgv.Columns[0].Visible = false;  // Parent.
+                        dgv.Columns[1].Visible = false;  // Child.
+                        dgv.Columns[3].Visible = false;  // Item object.
+
+                        // disable editing. Open file and show the data as readonly.
+                        dgv.ReadOnly = true;
+                    }
+                }
+            }
+        }
+
+        private void OnSaveItemDataClicked(object? sender, EventArgs e)
+        {
+            for (int i = 1; i <= DocumateUtils.LevelCount; i++)
+            {
+                foreach (DataGridView dgv in DataGridViewHelper.AllDgvs.Cast<DataGridView>())
+                {
+                    if (DocumateUtils.ExtractDigets(dgv.Name) == i)
+                    {                        
+                        _appDbMaintainItemsModel.RemoveEmptyRows(dgv);  // First remove empty rows. No need to save them.
+                        _appDbMaintainItemsModel.SaveItems(i, dgv);     // Save changes.
+                    }
+                }
+            }
+        }
+
         private void OpenNewDbForm()
         {
-            SetStatusbarStaticText(TsStatusLblName.tsOne, LocalizationHelper.GetString("SelectFileLocation", LocalizationPaths.MainPresenter));
+            string CurrentFileName = DocumateUtils.FileLocationAndName;
 
+            SetStatusbarStaticText(TsStatusLblName.tsOne, LocalizationHelper.GetString("SelectFileLocation", LocalizationPaths.MainPresenter));
             // Open file dialog.
             SaveFileDialog saveFileDialog = new()
             {
@@ -223,19 +291,22 @@ namespace Documate.Presenters
 
                 if (_serviceProvider.GetService<INewDbView>() is NewDbForm newDbView && newDbPresenter != null)
                 {
+                    SetStatusbarStaticText(TsStatusLblName.tsThree, string.Empty);
                     newDbView.NewFileName = NewFileName;
                     newDbView.SetPresenter(newDbPresenter);
-                    newDbView.ATabPage = _view.ATabPage;
+                    newDbView.APanel = _view.APanel!;
                     newDbView.ShowDialog(); // Open ConfigureForm as dialog form.
 
                     if (newDbPresenter.FileIsCreated)
                     {
                         OpenDocumateFile(NewFileName);
                         SetStatusbarStaticText(TsStatusLblName.tsOne, LocalizationHelper.GetString("FileIsCreated", LocalizationPaths.MainPresenter));
+                        SetStatusbarStaticText(TsStatusLblName.tsThree, Path.GetFileName(NewFileName));
                     }
                     else
                     {
                         SetStatusbarStaticText(TsStatusLblName.tsOne, string.Empty);
+                        SetStatusbarStaticText(TsStatusLblName.tsThree, Path.GetFileName(CurrentFileName));
                     }
                 }
             }
@@ -262,6 +333,79 @@ namespace Documate.Presenters
 
             _loggingModel.WriteToLog(LogAction.INFORMATION, $"{LocalizationHelper.GetString("ENIsActivated", LocalizationPaths.MainPresenter)}");
         }
+
+        private void OnCellClicked(string message)
+        {
+            _view.ShowItemDataInTextBox(message); // Roep de view aan om de data weer te geven
+        }
+
+        private void OnCanSaveChangedEvent(bool canSave)
+        {
+            _view.CanSaveChanged(canSave);
+        }
+
+        #region Radio buttons
+        private void OnRbReadCheckedChanged(object sender, EventArgs e)
+        {
+            if (DocumateUtils.LevelCount > 0)
+            {
+                foreach (DataGridView dgv in DataGridViewHelper.AllDgvs.Cast<DataGridView>())
+                {
+                    dgv.AllowUserToAddRows = false;  // TODO moet pas na een enter/tab aan het eind.
+                    dgv.AllowUserToDeleteRows = false;
+
+                    dgv.ReadOnly = true;
+                    dgv.Columns[0].Visible = false;
+                    dgv.Columns[1].Visible = false;
+                }
+            }
+
+            _dataGridViewModel.CanProcessKey = false;
+            _view.CanSaveChanged(false); // TODO eerst controleren of er nog opgeslagen moet worden.
+            //_view.ViewKeyPreview = false;
+        }
+        private void OnModifyCheckedChanged(object sender, EventArgs e)
+        {
+            if (DocumateUtils.LevelCount > 0)
+            {
+                foreach (DataGridView dgv in DataGridViewHelper.AllDgvs.Cast<DataGridView>())
+                {
+                    dgv.ReadOnly = false;
+                    //dgv.AllowUserToAddRows = true;  // TODO moet pas na een enter/tab aan het eind.
+                    dgv.AllowUserToDeleteRows = true;                    
+                    dgv.Columns[0].Visible = false;
+                    dgv.Columns[1].Visible = false;
+
+                    if (dgv.DataSource is BindingSource bindingSource)
+                    {
+                        bindingSource.AllowNew = true;
+                    }
+                }
+            }
+
+            _dataGridViewModel.CanProcessKey = true;
+            _view.CanSaveChanged(false);  // TODO eerst controleren of er nog opgeslagen moet worden.
+            //_view.ViewKeyPreview = true;  // Nodig voor de TAB af te vangen in de datagridview en het standaard gedrag te overrulen.
+        }
+        private void OnRbSetRelationsCheckedChanged(object sender, EventArgs e)
+        {
+            if (DocumateUtils.LevelCount > 0)
+            {
+                foreach (DataGridView dgv in DataGridViewHelper.AllDgvs.Cast<DataGridView>())
+                {
+                    dgv.ReadOnly = false;
+                    dgv.Columns[0].Visible = true;
+                    dgv.Columns[1].Visible = true;
+                }
+            }
+
+            _dataGridViewModel.CanProcessKey = false;
+            _view.CanSaveChanged(false); // TODO eerst controleren of er nog opgeslagen moet worden.
+            //_view.ViewKeyPreview = false;
+        }
+        #endregion Radio buttons
+
+
         #region Helper Methods
         private void UpdateUIStrings()
         {
@@ -279,6 +423,9 @@ namespace Documate.Presenters
             _view.MenuItemLanguageNLText = LocalizationHelper.GetString("MenuItemLanguageNL", LocalizationPaths.MainForm);
             _view.TabPageReadItemsText = LocalizationHelper.GetString("TabPageReadItems", LocalizationPaths.MainForm);
             _view.TabPageEditItemsText = LocalizationHelper.GetString("TabPageEditItems", LocalizationPaths.MainForm);
+            _view.RbReadText = LocalizationHelper.GetString("RbRead", LocalizationPaths.MainForm);
+            _view.RbModifyText = LocalizationHelper.GetString("RbModify", LocalizationPaths.MainForm);
+            _view.RbSetRelationsText = LocalizationHelper.GetString("RbSetRelations", LocalizationPaths.MainForm);
 
             // Add updates for other UI components here as needed
         }

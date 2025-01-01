@@ -11,7 +11,7 @@ namespace Documate.Presenters
     {
         private readonly INewDbView _view;
         private readonly LoggingModel _loggingModel;
-        private readonly AppDbCreateModel _appDbCreate;
+        private readonly IAppDbCreateModel _appDbCreate;
         private readonly ICreateControls _createControls;
 
         public bool FileIsCreated
@@ -20,7 +20,7 @@ namespace Documate.Presenters
         public NewDbPresenter(
             INewDbView view,
             LoggingModel loggingModel,
-            AppDbCreateModel appDbCreateModel,
+            IAppDbCreateModel appDbCreateModel,
             ICreateControls createControls
             )
         {
@@ -119,9 +119,9 @@ namespace Documate.Presenters
             {
                 Cursor.Current = Cursors.WaitCursor;
                 DocumateUtils.FileLocationAndName = _view.NewFileName;  // Store the file name and location for later use.
-                DocumateUtils.ColCount = _view.ColCount;
+                DocumateUtils.LevelCount = _view.ColCount;
 
-                _createControls.RemoveComponents(_view.ATabPage);  // First Remove the components if needed.
+                _createControls.RemoveComponents(_view.APanel);  // First Remove the components if needed.
                 _appDbCreate.InsertMeta("Column count", _view.ColCount.ToString());
 
                 // Prepare column header texts.
